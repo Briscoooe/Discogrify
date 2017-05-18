@@ -1,0 +1,12 @@
+Get all albums, singles, appears_on, compilations
+
+user options:
+	Include remixes of artists songs?
+
+within list:
+	If(song title (excluding things like ft., featuring etc.) not already in list)
+		Add to list
+		
+down the road
+	Solo artists that were in a group - PRhyme, Tribe called quest, outkast
+					    maybe scan description?
