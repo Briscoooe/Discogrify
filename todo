@@ -1,11 +1,42 @@
-Get all albums, singles, appears_on, compilations
+Homepage - search bar
+	 - Popular artists/playlists
 
-user options:
-	Include remixes of artists songs?
+Search for artists:
+Populate Autofill search bar maybe?
 
-within list:
-	If(song title (excluding things like ft., featuring etc.) not already in list)
-		Add to list
+# Search artist
+Step 1: 
+	if(artistExists)
+		Increment artist search count
+		GET playlist ID from cache 
+		Suggest playlist to user
+	else
+		Add artist to cache
+	
+# Retrieve all songs
+Step 2: 
+	var json = new JsonObject();
+	var includeRemixes = false;
+	GetAlbumSongs(json, includeRemixes)
+	GetSingleSongs(json, includeRemixes)
+	GetAppearsOnSongs(json, includeRemixes)
+	GetCompilationSongs(json, includeRemixes)
+	
+	// Returns JSON object containing all songs featuring artist
+
+# Check if playlist already exists
+Step 3: 
+	CheckIfPlaylistExists(json) // Check cache
+	if(exists)
+		// Suggest existing playlist by Discogrify (unedited)
+	else
+		// Publish new playlist by Discogrify (unedited)
+
+# Modify playlist
+Step 4: 
+	// Add check box for each song
+	// Publish new playlist by User (edited)
+	// Follow playlist if not already
 		
 down the road
 	Solo artists that were in a group - PRhyme, Tribe called quest, outkast
