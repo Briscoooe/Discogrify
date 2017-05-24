@@ -31,6 +31,7 @@ Step 3:
 		// Suggest existing playlist by Discogrify (unedited)
 	else
 		// Publish new playlist by Discogrify (unedited)
+		// Download artist photo, add filter + logo
 
 # Modify playlist
 Step 4: 
@@ -41,3 +42,10 @@ Step 4:
 down the road
 	Solo artists that were in a group - PRhyme, Tribe called quest, outkast
 					    maybe scan description?
+
+Organisation - Trello
+Back end - Go/JS
+Front end - React (mobile responsiveness important)
+IDE - Atom (setup plugins for JS)
+Promotion - Reddit + Social media
+Logo design - Fiverr (filter + add to album art)
