@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <title>Discogrify App</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!-- Vue.js -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Login</h2>
+                    <div>
+                        <button onclick="location.href='{{ loginUrl }}'" type="button">Login</button>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="playlist in playlists">
+                            {{ playlist.title }}
+                        </li>
+                    </ul>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search artist" v-on:keyup.enter="searchArtist" v-model="artist.name">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" v-on:click="searchArtist">Search</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+            new Vue({
+                el: 'body',
+
+                data: {
+                    playlists:      [],
+                    loginUrl:       "",
+                    artist:         {}
+                },
+
+                created: function() {
+                    this.$http.get('/playlists').then(function(response) {
+                        this.loginUrl = response.data.loginUrl
+                        this.playlists = response.data.playlists ? response.data.playlists : []
+                    })
+                },
+
+                methods: {
+                    searchArtist: function() {
+                        if (!$.trim(this.artist.name)) {
+                            this.artist = {}
+                            return
+                        }
+
+                        this.$http.post('/artist', this.artist).success(function(response) {
+                            this.artist.name = ""
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    }
+                }
+            })
+        </script>
+</html>
