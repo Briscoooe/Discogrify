@@ -1,65 +1,119 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"log"
 	"net/http"
-	"os"
+	"time"
 )
 
-type ReleaseInfoEr interface {
-	GetLatestReleaseTag(string) (string, error)
+type Logger interface {
+	Log(...interface{})
 }
 
-type GitHubReleaseInfoEr struct{}
+type SuspendResumer interface {
+	Suspend() error
+	Resume() error
+}
 
-func (gh GitHubReleaseInfoEr) GetLatestReleaseTag(repo string) (string, error) {
-	apiUrl := fmt.Sprintf("https://api.github.com/repos/%s/releases", repo)
-	response, err := http.Get(apiUrl)
+type Job interface {
+	Logger
+	SuspendResumer
+	Run() error
+}
+
+type ServerPoller interface {
+	PollServer() (string, error)
+}
+
+type PollerLogger struct{}
+
+type URLServerPoller struct {
+	resourceUrl string
+}
+
+type PollSuspendResumer struct {
+	SuspendCh chan bool
+	ResumeCh  chan bool
+}
+
+type PollerJob struct {
+	WaitDuration time.Duration
+	ServerPoller
+	Logger
+	*PollSuspendResumer
+}
+
+func NewPollerJob(resourceUrl string, waitDuration time.Duration) PollerJob {
+	return PollerJob{
+		WaitDuration: waitDuration,
+		Logger:       &PollerLogger{},
+		ServerPoller: &URLServerPoller{
+			resourceUrl: resourceUrl,
+		},
+		PollSuspendResumer: &PollSuspendResumer{
+			SuspendCh: make(chan bool),
+			ResumeCh:  make(chan bool),
+		},
+	}
+}
+
+func (l *PollerLogger) Log(args ...interface{}) {
+	log.Println(args...)
+}
+
+func (usp *URLServerPoller) PollServer() (string, error) {
+	resp, err := http.Get(usp.resourceUrl)
 	if err != nil {
 		return "", err
 	}
 
-	defer response.Body.Close()
-
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		return "", err
-	}
-
-	releases := []ReleaseInfo{}
-
-	if err := json.Unmarshal(body, &releases); err != nil {
-		return "", err
-	}
-
-	tag := releases[0].TagName
-
-	return tag, nil
+	return fmt.Sprint(usp.resourceUrl, " -- ", resp.Status), nil
 }
 
-type ReleaseInfo struct {
-	ID      uint   `json"id"`
-	TagName string `json:"tag_name"`
+func (ssr *PollSuspendResumer) Suspend() error {
+	ssr.SuspendCh <- true
+	return nil
 }
 
-func getReleaseTagMessage(ri ReleaseInfoEr, repo string) (string, error) {
-	tag, err := ri.GetLatestReleaseTag(repo)
-	if err != nil {
-		return "", fmt.Errorf("Error querying GitHub API: %s", err)
+func (ssr *PollSuspendResumer) Resume() error {
+	ssr.ResumeCh <- true
+	return nil
+}
+
+func (p PollerJob) Run() error {
+	for {
+		select {
+		case <-p.PollSuspendResumer.SuspendCh:
+			<-p.PollSuspendResumer.ResumeCh
+		default:
+			state, err := p.PollServer()
+			if err != nil {
+				p.Log("Error trying to get state: ", err)
+			} else {
+				p.Log(state)
+			}
+
+			time.Sleep(p.WaitDuration)
+		}
 	}
 
-	return fmt.Sprintf("The latest release is %s", tag), nil
+	return nil
 }
 
 func main() {
-	gh := GitHubReleaseInfoEr{}
-	msg, err := getReleaseTagMessage(gh, "docker/machine")
-	if err != nil {
-		fmt.Fprint(os.Stderr, msg)
-		os.Exit(1)
-	}
+	var j Job
+	j = NewPollerJob("http://nathanleclaire.com", 1*time.Second)
+	go j.Run()
+	time.Sleep(5 * time.Second)
 
-	fmt.Println(msg)
+	j.Log("Suspending monitoring of server for 5 seconds...")
+	j.Suspend()
+	time.Sleep(5 * time.Second)
+
+	j.Log("Resuming job...")
+	j.Resume()
+
+	// Wait for a bit before exiting
+	time.Sleep(5 * time.Second)
 }
