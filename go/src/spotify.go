@@ -13,48 +13,86 @@ import (
 	"github.com/zmb3/spotify"
 )
 
-const redirectURI = "http://localhost:8080/2callback"
+const redirectURI = "http://localhost:8080/callback"
 
 var (
-	auth       = spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
-	ch         = make(chan *spotify.Client)
-	characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+	client       spotify.Client
+	auth         = spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
+	unauthClient = spotify.DefaultClient
+	characters   = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
-
-var playlists []Playlist
-
-func init() {
-	RepoCreatePlaylist(Playlist{Title: "Write presentation"})
-	RepoCreatePlaylist(Playlist{Title: "Host meetup"})
-}
-
-func RepoCreatePlaylist(p Playlist) Playlist {
-	p.Followers = 10
-	playlists = append(playlists, p)
-	return p
-}
 
 type Artist struct {
 	Name string `json:"name"`
 }
 
-func GetAllSongsFromSpotify(decoder *json.Decoder) Playlist {
-
+func GetAllSongsFromSpotify(decoder *json.Decoder) spotify.FullPlaylist {
 	var artist Artist
 	err := decoder.Decode(&artist)
 	if err != nil {
 		fmt.Println("Error: ", err)
 	}
 
-	fmt.Println(artist.Name)
+	artistID := GetArtistId(artist.Name)
 
-	artistId := GetArtistId(artist.Name)
+	if artistID != "" {
+		var spotifyID = spotify.ID(artistID)
+		user, err := client.CurrentUser()
 
-	fmt.Println("Artist ID")
-	fmt.Println(artistId)
-	playlist := Playlist{ID: ""}
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		playlist, err := client.CreatePlaylistForUser(user.ID, artistID, true)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println(playlist)
+		fmt.Println(user.ID)
+		fmt.Println(artistID)
+		fmt.Println(spotifyID)
+
+		//getSongsFromAlbums(spotifyID, &playlist)
+		//getSongsFromSingles(spotifyID, &playlist)
+		//getSongsFromCompilations(spotifyID, &playlist)
+		//getSongsFromAppearsOn(spotifyID, &playlist)
+
+	}
+
+	var playlist spotify.FullPlaylist
 	return playlist
 }
+
+func getSongsFromAlbums(ID spotify.ID, p **spotify.FullPlaylist) {
+	fmt.Println("Getting album songs")
+	//albums, _ := unauthClient.GetArtistAlbums(ID)
+
+	fmt.Println(p)
+	/*
+		for _, albumReference := range albums.Albums {
+			albumDetails, _ := unauthClient.GetAlbumTracks(albumReference.ID)
+			for _, track := range albumDetails.Tracks {
+				fmt.Println(track)
+			}
+		}*/
+}
+
+/*
+func (c *spotify.Client) GetArtistSingles(artistID spotify.ID) (*SimpleAlbumPage, error) {
+
+}
+func getSongsFromSingles(ID spotify.ID, p **spotify.FullPlaylist) {
+
+}
+
+func getSongsFromCompilations(ID spotify.ID, p **spotify.FullPlaylist) {
+
+}
+
+func getSongsFromAppearsOn(ID spotify.ID, p *spotify.FullPlaylist) {
+
+}*/
 
 type ArtistSearchResponse struct {
 	Artists struct {
@@ -89,7 +127,6 @@ func GenerateStateString() string {
 }
 
 func LoginToSpotify(w http.ResponseWriter, r *http.Request, state string) {
-
 	tok, err := auth.Token(state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
@@ -101,6 +138,7 @@ func LoginToSpotify(w http.ResponseWriter, r *http.Request, state string) {
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)
-	fmt.Fprintf(w, "Login Completed!")
-	ch <- &client
+	fmt.Println(w, "Login Completed!")
+
+	client.CurrentUser()
 }
