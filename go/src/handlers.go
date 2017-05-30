@@ -13,7 +13,26 @@ var stateString string
 
 // Index ...
 func Index(w http.ResponseWriter, r *http.Request) {
+	// wait for auth to complete
+	client := <-ch
 
+	fmt.Println("HERE")
+	// use the client to make calls that require authorization
+	user, err := client.CurrentUser()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	type SpotifyUser struct {
+		ID string `json:"id"`
+	}
+	spotifyUser := SpotifyUser{
+		ID: user.ID,
+	}
+	if err := json.NewEncoder(w).Encode(spotifyUser); err != nil {
+		panic(err)
+	}
+	fmt.Println("You are logged in as:", user.ID)
 }
 
 // GetPlaylists ...
@@ -80,27 +99,31 @@ func PublishPlaylist(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
+	stateString = auth.AuthURL(GenerateStateString())
 
-	LoginToSpotify(w, r, stateString)
-	// wait for auth to complete
-	client := <-ch
+	url := auth.AuthURL(stateString)
 
-	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
-	if err != nil {
-		log.Fatal(err)
-	}
+	x := map[string]string { "url" : url}
 
-	type SpotifyUser struct {
-		ID string `json:"id"`
-	}
-	spotifyUser := SpotifyUser{
-		ID: user.ID,
-	}
-	if err := json.NewEncoder(w).Encode(spotifyUser); err != nil {
+	if err := json.NewEncoder(w).Encode(x); err != nil {
 		panic(err)
 	}
-	fmt.Println("You are logged in as:", user.ID)
+	//http.Redirect(w, r, url, 400)
+	//
+	//tok, err := auth.Token(stateString, r)
+	//if err != nil {
+	//	http.Error(w, "Couldn't get token", http.StatusForbidden)
+	//	log.Fatal(err)
+	//}
+	//if st := r.FormValue("state"); st != stateString {
+	//	http.NotFound(w, r)
+	//	log.Fatalf("State mismatch: %s != %s\n", st, stateString)
+	//}
+	//// use the token to get an authenticated client
+	//client := auth.NewClient(tok)
+	//fmt.Fprintf(w, "Login Completed!")
+	//ch <- &client
+	////LoginToSpotify(w, r, stateString)
 }
 
 func FollowPlaylist(w http.ResponseWriter, r *http.Request) {

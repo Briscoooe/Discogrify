@@ -9,7 +9,7 @@ import (
 func NewRouter() *mux.Router {
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.Path("/").Handler(http.FileServer(http.Dir("../../html")))
+	router.Path("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/html")))
 
 	for _, route := range routes {
 		var handler http.Handler

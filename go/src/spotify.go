@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"net/url"
@@ -13,7 +12,7 @@ import (
 	"github.com/zmb3/spotify"
 )
 
-const redirectURI = "http://localhost:8080/2callback"
+const redirectURI = "http://localhost:8080/callback"
 
 var (
 	auth       = spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
@@ -90,17 +89,5 @@ func GenerateStateString() string {
 
 func LoginToSpotify(w http.ResponseWriter, r *http.Request, state string) {
 
-	tok, err := auth.Token(state, r)
-	if err != nil {
-		http.Error(w, "Couldn't get token", http.StatusForbidden)
-		log.Fatal(err)
-	}
-	if st := r.FormValue("state"); st != state {
-		http.NotFound(w, r)
-		log.Fatalf("State mismatch: %s != %s\n", st, state)
-	}
-	// use the token to get an authenticated client
-	client := auth.NewClient(tok)
-	fmt.Fprintf(w, "Login Completed!")
-	ch <- &client
+
 }

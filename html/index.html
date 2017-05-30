@@ -27,7 +27,7 @@
                 <div class="col-md-4">
                     <h2>Login</h2>
                     <div>
-                        <button onclick="location.href='{{ loginUrl }}'" type="button">Login</button>
+                        <button class="btn btn-primary" type="button" v-on:click="login">Login</button>
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="playlist in playlists">
@@ -63,6 +63,13 @@
                 },
 
                 methods: {
+                    login: function() {
+                        this.$http.get('/login').then(function(response) {
+                            window.location.href = response.url
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
                     searchArtist: function() {
                         if (!$.trim(this.artist.name)) {
                             this.artist = {}
