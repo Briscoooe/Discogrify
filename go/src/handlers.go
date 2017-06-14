@@ -3,14 +3,31 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/zmb3/spotify"
 )
 
 var stateString string
 
+func Callback(w http.ResponseWriter, r *http.Request) {
+	tok, err := auth.Token(stateString, r)
+	if err != nil {
+		http.Error(w, "Couldn't get token", http.StatusForbidden)
+		log.Fatal(err)
+	}
+	if st := r.FormValue("state"); st != stateString {
+		http.NotFound(w, r)
+		log.Fatalf("State mismatch: %s != %s\n", st, stateString)
+	}
+	// use the token to get an authenticated client
+	client := auth.NewClient(tok)
+	fmt.Println(w, "Login Completed!")
+
+	client.CurrentUser()
+
+}
 // Index ...
 func Index(w http.ResponseWriter, r *http.Request) {
 	// wait for auth to complete
@@ -33,6 +50,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	fmt.Println("You are logged in as:", user.ID)
+	user, err = client.CurrentUser()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(user.ID)
 }
 
 // GetPlaylists ...
@@ -42,12 +65,12 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	type LoginInformation struct {
-		LoginURL  string     `json:"loginUrl"`
-		Playlists []Playlist `json:"playlists"`
+		LoginURL  string                   `json:"loginUrl"`
+		Playlists []spotify.SimplePlaylist `json:"playlists"`
 	}
 	loginStuff := LoginInformation{
 		LoginURL:  stateString,
-		Playlists: playlists,
+		Playlists: nil,
 	}
 
 	if err := json.NewEncoder(w).Encode(loginStuff); err != nil {
@@ -77,25 +100,7 @@ func GetPlaylist(w http.ResponseWriter, r *http.Request) {
 }
 
 func PublishPlaylist(w http.ResponseWriter, r *http.Request) {
-	var playlist Playlist
 
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048476))
-
-	if err != nil {
-		panic(err)
-	}
-
-	if err := r.Body.Close(); err != nil {
-		panic(err)
-	}
-
-	if err := json.Unmarshal(body, &playlist); err != nil {
-		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-		w.WriteHeader(422)
-		if err := json.NewEncoder(w).Encode(err); err != nil {
-			panic(err)
-		}
-	}
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
@@ -103,9 +108,9 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	url := auth.AuthURL(stateString)
 
-	x := map[string]string { "url" : url}
+	urlJson := map[string]string{"url": url}
 
-	if err := json.NewEncoder(w).Encode(x); err != nil {
+	if err := json.NewEncoder(w).Encode(urlJson); err != nil {
 		panic(err)
 	}
 	//http.Redirect(w, r, url, 400)
@@ -124,6 +129,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Login Completed!")
 	//ch <- &client
 	////LoginToSpotify(w, r, stateString)
+	//LoginToSpotify(w, r, stateString)
 }
 
 func FollowPlaylist(w http.ResponseWriter, r *http.Request) {

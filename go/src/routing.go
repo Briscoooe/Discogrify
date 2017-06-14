@@ -40,7 +40,7 @@ var routes = Routes{
 		"Callback",
 		"GET",
 		"/callback",
-		Index,
+		Callback,
 	},
 	Route{
 		"Index",
