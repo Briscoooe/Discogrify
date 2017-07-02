@@ -25,7 +25,12 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	client := auth.NewClient(tok)
 	fmt.Println(w, "Login Completed!")
 
-	client.CurrentUser()
+	user, err := client.CurrentUser()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("You are logged in as:", user.ID)
 
 }
 // Index ...
@@ -104,7 +109,7 @@ func PublishPlaylist(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
-	stateString = auth.AuthURL(GenerateStateString())
+	stateString = GenerateStateString()
 
 	url := auth.AuthURL(stateString)
 
