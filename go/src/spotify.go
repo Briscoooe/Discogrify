@@ -7,15 +7,19 @@ import (
 	"math/rand"
 	"net/http"
 	"net/url"
-	"os/exec"
-	"strings"
+	//"os/exec"
+	//"strings"
 
 	"github.com/zmb3/spotify"
+	"golang.org/x/oauth2/clientcredentials"
+	"os"
+	"context"
 )
 
 const redirectURI = "http://localhost:8080/callback"
 
 var (
+	token 	     = ""
 	ch           = make(chan *spotify.Client)
 	client       spotify.Client
 	auth         = spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
@@ -104,21 +108,48 @@ type ArtistSearchResponse struct {
 }
 
 func GetArtistId(artistName string) string {
-	// curl -s 'https://api.spotify.com/v1/search?q=Daft+Punk&type=artist' | jq -r '.artists.items[0].href'
-
 	artistName = url.QueryEscape(artistName)
-	fmt.Println(artistName)
-	curlURL := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist", artistName)
+	//curlURL := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist", artistName)
 
-	out, _ := exec.Command("curl", "-s", curlURL).Output()
 
-	var response ArtistSearchResponse
-	json.Unmarshal(out, &response)
+	//tokenFmt := fmt.Sprintf("\"Authorization: Bearer %s\"", token)
 
-	fmt.Println(curlURL)
-	fmt.Println(response)
-	splitString := strings.Split(response.Artists.Items[0].Href, "/")
-	return splitString[len(splitString)-1]
+	//out, _ := exec.Command("curl", "-X", "GET", "-H", "\"Accept: application/json\"", "-H", tokenFmt,  curlURL).Output()
+
+	//fmt.Println(out)
+	//var response ArtistSearchResponse
+	//json.Unmarshal(out, &response)
+
+	//splitString := strings.Split(response.Artists.Items[0].Href, "/")
+	//return splitString[len(splitString)-1]
+
+
+	config := &clientcredentials.Config{
+		ClientID:     os.Getenv("SPOTIFY_ID"),
+		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
+		TokenURL:     spotify.TokenURL,
+	}
+	token, err := config.Token(context.Background())
+	if err != nil {
+		log.Fatalf("couldn't get token: %v", err)
+	}
+
+	client := spotify.Authenticator{}.NewClient(token)
+
+	result, err := client.Search(artistName, spotify.SearchTypeArtist)
+
+	if (err != nil) {
+		log.Fatal(err)
+	}
+
+	if(result.Artists != nil) {
+		fmt.Println("Artists")
+		for _, item := range result.Artists.Artists{
+			fmt.Println("   ", item.Name)
+		}
+	}
+
+	return ""
 }
 
 func GenerateStateString() string {

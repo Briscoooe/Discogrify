@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/zmb3/spotify"
+	//"os/user"
 )
 
 var stateString string
@@ -23,44 +24,23 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)
-	fmt.Println(w, "Login Completed!")
 
+	token = tok.AccessToken
 	user, err := client.CurrentUser()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("You are logged in as:", user.ID)
+	fmt.Println("Logged in as: ", user.ID)
+
+	http.Redirect(w, r, "/#", http.StatusAccepted)
 
 }
 // Index ...
 func Index(w http.ResponseWriter, r *http.Request) {
-	// wait for auth to complete
-	client := <-ch
 
-	fmt.Println("HERE")
-	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	type SpotifyUser struct {
-		ID string `json:"id"`
-	}
-	spotifyUser := SpotifyUser{
-		ID: user.ID,
-	}
-	if err := json.NewEncoder(w).Encode(spotifyUser); err != nil {
-		panic(err)
-	}
-	fmt.Println("You are logged in as:", user.ID)
-	user, err = client.CurrentUser()
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	fmt.Println(user.ID)
 }
 
 // GetPlaylists ...
