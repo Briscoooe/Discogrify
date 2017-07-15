@@ -8,6 +8,7 @@ import (
 
 	"github.com/zmb3/spotify"
 	//"os/user"
+	"github.com/gorilla/mux"
 )
 
 var stateString string
@@ -64,16 +65,15 @@ func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetSongsByArtist ...
-func GetSongsByArtist(w http.ResponseWriter, r *http.Request) {
+func SearchForArtistHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	decoder := json.NewDecoder(r.Body)
+	vars := mux.Vars(r)
 
-	fmt.Println(r.Body)
-	var playlist = GetAllSongsFromSpotify(decoder)
+	var artists = SearchForArtist(vars["name"])
 
-	if err := json.NewEncoder(w).Encode(playlist); err != nil {
+	if err := json.NewEncoder(w).Encode(artists); err != nil {
 		panic(err)
 	}
 	// Get songs from albums, singles, appears on, compilations
@@ -120,4 +120,17 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 func FollowPlaylist(w http.ResponseWriter, r *http.Request) {
 
 	// Follow playlist on spotify
+}
+
+func GetSongsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	vars := mux.Vars(r)
+
+	var songs = GetAllSongsByArtist(vars["artistId"])
+
+	if err := json.NewEncoder(w).Encode(songs); err != nil {
+		panic(err)
+	}
 }

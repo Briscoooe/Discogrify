@@ -29,17 +29,29 @@
                     <div>
                         <button class="btn btn-primary" type="button" v-on:click="login">Login</button>
                     </div>
-                    <ul class="list-group">
-                        <li class="list-group-item" v-for="playlist in playlists">
-                            {{ playlist.title }}
-                        </li>
-                    </ul>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search artist" v-on:keyup.enter="searchArtist" v-model="artist.name">
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button" v-on:click="searchArtist">Search</button>
                         </span>
                     </div><!-- /input-group -->
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="artist in artistsResults">
+                            {{ artist.name }}<button v-on:click="getSongs(artist.id)">Go</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h2>Songs</h2>
+                    <div class="col-md-4">
+                        <h3>Song</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Album</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Artists</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,9 +62,10 @@
                 el: 'body',
 
                 data: {
-                    playlists:      [],
-                    loginUrl:       "",
-                    artist:         {}
+                    artistsResults:     [],
+                    songResults:        [],
+                    loginUrl:           "",
+                    artist:             {}
                 },
 
                 created: function() {
@@ -76,9 +89,19 @@
                             return
                         }
 
-                        this.$http.post('/artist', this.artist).success(function(response) {
-                            console.log(response)
-                            this.artist.name = ""
+                        this.$http.get('/searchartist/' + encodeURIComponent(this.artist.name)).success(function(response) {
+                            console.log(response[0])
+                            this.artistsResults = response
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
+
+                    getSongs: function(id) {
+                        this.$http.get('/getsongs/' + id).success(function(response) {
+                            console.log("Songs")
+                            console.log(response[0])
+                            this.songResults = response
                         }).error(function(error) {
                             console.log(error)
                         })

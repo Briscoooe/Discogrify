@@ -17,7 +17,7 @@ func NewRouter() *mux.Router {
 		handler = route.HandlerFunc
 		handler = Logger(handler, route.Name)
 		router.
-		Methods(route.Method).
+			Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(route.HandlerFunc)
@@ -49,10 +49,16 @@ var routes = Routes{
 		GetPlaylists,
 	},
 	Route{
-		"GetSongsByArtist",
-		"POST",
-		"/artist",
-		GetSongsByArtist,
+		"SearchForArtist",
+		"GET",
+		"/searchartist/{name}",
+		SearchForArtistHandler,
+	},
+	Route{
+		"GetSongs",
+		"GET",
+		"/getsongs/{artistId}",
+		GetSongsHandler,
 	},
 	Route{
 		"GetPlaylist",

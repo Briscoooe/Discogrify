@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"net/url"
 	//"os/exec"
 	//"strings"
 
@@ -29,6 +28,7 @@ var (
 
 type Artist struct {
 	Name string `json:"name"`
+	Id   string `json:"id"`
 }
 
 func GetAllSongsFromSpotify(decoder *json.Decoder) spotify.FullPlaylist {
@@ -38,9 +38,9 @@ func GetAllSongsFromSpotify(decoder *json.Decoder) spotify.FullPlaylist {
 		fmt.Println("Error: ", err)
 	}
 
-	artistID := GetArtistId(artist.Name)
+	//artistID := GetArtistId(artist.Name)
 
-	if artistID != "" {
+	/*if artistID != "" {
 		var spotifyID = spotify.ID(artistID)
 		user, err := client.CurrentUser()
 
@@ -64,7 +64,7 @@ func GetAllSongsFromSpotify(decoder *json.Decoder) spotify.FullPlaylist {
 		//getSongsFromAppearsOn(spotifyID, &playlist)
 
 	}
-
+*/
 	var playlist spotify.FullPlaylist
 	return playlist
 }
@@ -107,23 +107,32 @@ type ArtistSearchResponse struct {
 	} `json:"artists"`
 }
 
-func GetArtistId(artistName string) string {
-	artistName = url.QueryEscape(artistName)
-	//curlURL := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist", artistName)
+func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
+	config := &clientcredentials.Config{
+		ClientID:     os.Getenv("SPOTIFY_ID"),
+		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
+		TokenURL:     spotify.TokenURL,
+	}
+	token, err := config.Token(context.Background())
+	if err != nil {
+		log.Fatalf("couldn't get token: %v", err)
+	}
 
+	client := spotify.Authenticator{}.NewClient(token)
 
-	//tokenFmt := fmt.Sprintf("\"Authorization: Bearer %s\"", token)
+	result, err := client.GetArtistAlbums(spotify.ID(artistId))
 
-	//out, _ := exec.Command("curl", "-X", "GET", "-H", "\"Accept: application/json\"", "-H", tokenFmt,  curlURL).Output()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	//fmt.Println(out)
-	//var response ArtistSearchResponse
-	//json.Unmarshal(out, &response)
+	for _, item := range result.Albums{
+		fmt.Println("   ", item.Name)
+	}
+	return nil
 
-	//splitString := strings.Split(response.Artists.Items[0].Href, "/")
-	//return splitString[len(splitString)-1]
-
-
+}
+func SearchForArtist(artistName string) []spotify.FullArtist {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
@@ -142,14 +151,16 @@ func GetArtistId(artistName string) string {
 		log.Fatal(err)
 	}
 
+	var artistsArray []spotify.FullArtist
 	if(result.Artists != nil) {
 		fmt.Println("Artists")
 		for _, item := range result.Artists.Artists{
+			artistsArray = append(artistsArray, item)
 			fmt.Println("   ", item.Name)
 		}
 	}
 
-	return ""
+	return artistsArray
 }
 
 func GenerateStateString() string {
