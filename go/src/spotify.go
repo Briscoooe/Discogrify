@@ -13,6 +13,7 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 	"os"
 	"context"
+	"time"
 )
 
 const redirectURI = "http://localhost:8080/callback"
@@ -120,18 +121,50 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 
 	client := spotify.Authenticator{}.NewClient(token)
 
-	result, err := client.GetArtistAlbums(spotify.ID(artistId))
+	// 1 = Album
+	// 2 = Single
+	// 4 = AppearsOn
+	// 5 = Compilations
 
+	done := make(chan bool)
+	var albums []spotify.SimpleAlbum
+	limit := 50
+	albumTypes := []int{1, 2, 4, 5}
+	for _, albumType := range albumTypes {
+		albumType := albumType
+		go func () {
+			offset := 0
+			for {
+				options := &spotify.Options{Limit: &limit, Offset: &offset}
+				albumTypes := spotify.AlbumType(albumType)
+				results, _ := client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
+				for _, album := range results.Albums{
+					albums = append(albums, album)
+				}
+				if len(results.Albums) == 50 {
+					offset += 50
+				} else {
+					break
+				}
+			}
+			done <- true
+		}()
+	}
+	for range albumTypes{
+		<- done
+	}
+	
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for _, item := range result.Albums{
+	for _, item := range albums{
 		fmt.Println("   ", item.Name)
 	}
-	return nil
 
+	return nil
 }
+
 func SearchForArtist(artistName string) []spotify.FullArtist {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
