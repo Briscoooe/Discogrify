@@ -13,7 +13,6 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 	"os"
 	"context"
-	"time"
 )
 
 const redirectURI = "http://localhost:8080/callback"
@@ -127,7 +126,7 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 	// 5 = Compilations
 
 	done := make(chan bool)
-	var albums []spotify.SimpleAlbum
+	albums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
 	albumTypes := []int{1, 2, 4, 5}
 	for _, albumType := range albumTypes {
@@ -139,7 +138,7 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 				albumTypes := spotify.AlbumType(albumType)
 				results, _ := client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
 				for _, album := range results.Albums{
-					albums = append(albums, album)
+					albums[album.ID] = album
 				}
 				if len(results.Albums) == 50 {
 					offset += 50
@@ -153,15 +152,18 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 	for range albumTypes{
 		<- done
 	}
-	
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for _, item := range albums{
-		fmt.Println("   ", item.Name)
+	tempAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
+	for id, album := range albums {
+		if _, ok := tempAlbums[id]; !ok {
+			tempAlbums[id] = album
+			fmt.Println(album.Name)
+		}
 	}
-
 	return nil
 }
 
