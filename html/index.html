@@ -24,7 +24,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h2>Login</h2>
                     <div>
                         <button class="btn btn-primary" type="button" v-on:click="login">Login</button>
@@ -41,17 +41,31 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h2>Songs</h2>
-                    <div class="col-md-4">
-                        <h3>Song</h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Album</h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Artists</h3>
-                    </div>
+                <div class="col-md-3"">
+                    <h3>Song</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="song in songResults">
+                            {{ song.name }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3"">
+                    <h3>Album</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="song in songResults">
+                            <li class="list-group-item" v-for="artist in song.artists">
+                                {{ artist.name }}
+                            </li>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Artists</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="song in songResults">
+                            {{ song.id }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -97,12 +111,13 @@
                         })
                     },
 
-                    getSongs: function(id) {
-                        this.$http.get('/getsongs/' + id).success(function(response) {
-                            console.log("Songs")
-                            console.log(response[0])
+                    getSongs: function(artistId) {
+                        this.$http.get('/getsongs/' + artistId).success(function(response) {
+                            console.log("Songs response")
+                            console.log(response)
                             this.songResults = response
                         }).error(function(error) {
+                            console.log("Error")
                             console.log(error)
                         })
                     }

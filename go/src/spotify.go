@@ -109,7 +109,7 @@ type ArtistSearchResponse struct {
 	} `json:"artists"`
 }
 
-func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
+func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
@@ -130,7 +130,7 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 	done := make(chan bool)
 	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
-	albumTypes := []int{1, 2, 4, 5}
+	albumTypes := []int{2}
 	for _, albumType := range albumTypes {
 		albumType := albumType
 		go func () {
@@ -176,12 +176,16 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 					log.Fatal(err)
 				}
 				for _, track := range results.Tracks{
-					count ++
-					fmt.Println(count)
-					fmt.Println(track.Name)
-					mutex.Lock()
-					allTracks[track.ID] = track
-					mutex.Unlock()
+					for _, artist := range track.Artists {
+						if artist.ID == spotify.ID(artistId) {
+							count ++
+							fmt.Println(count)
+							fmt.Println(track.Name)
+							mutex.Lock()
+							allTracks[track.ID] = track
+							mutex.Unlock()
+						}
+					}
 				}
 			done <- true
 		}()
@@ -190,9 +194,12 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 		<- done
 	}
 
-	fmt.Println("Tracks found:")
-	fmt.Print(len(allTracks))
-	return nil
+	var returnTracks []spotify.SimpleTrack
+
+	for _, track := range allTracks {
+		returnTracks = append(returnTracks, track)
+	}
+	return returnTracks
 }
 
 func SearchForArtist(artistName string) []spotify.FullArtist {
