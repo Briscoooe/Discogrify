@@ -13,6 +13,8 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 	"os"
 	"context"
+	"sync"
+	"time"
 )
 
 const redirectURI = "http://localhost:8080/callback"
@@ -126,7 +128,7 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 	// 5 = Compilations
 
 	done := make(chan bool)
-	albums := make(map[spotify.ID]spotify.SimpleAlbum)
+	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
 	albumTypes := []int{1, 2, 4, 5}
 	for _, albumType := range albumTypes {
@@ -138,7 +140,7 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 				albumTypes := spotify.AlbumType(albumType)
 				results, _ := client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
 				for _, album := range results.Albums{
-					albums[album.ID] = album
+					allAlbums[album.ID] = album
 				}
 				if len(results.Albums) == 50 {
 					offset += 50
@@ -153,17 +155,43 @@ func GetAllSongsByArtist(artistId string) []spotify.FullTrack {
 		<- done
 	}
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	tempAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
-	for id, album := range albums {
-		if _, ok := tempAlbums[id]; !ok {
-			tempAlbums[id] = album
-			fmt.Println(album.Name)
+	uniqueAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
+	for id, album := range allAlbums {
+		if _, ok := uniqueAlbums[id]; !ok {
+			uniqueAlbums[id] = album
 		}
 	}
+
+	count := 0
+	mutex := &sync.Mutex{}
+	rate := time.Millisecond * 100
+	throttle := time.Tick(rate)
+	allTracks := make(map[spotify.ID]spotify.SimpleTrack)
+	for _, album := range uniqueAlbums {
+		<- throttle
+		album := album
+		go func () {
+				results, err := client.GetAlbumTracks(album.ID)
+				if err != nil {
+					log.Fatal(err)
+				}
+				for _, track := range results.Tracks{
+					count ++
+					fmt.Println(count)
+					fmt.Println(track.Name)
+					mutex.Lock()
+					allTracks[track.ID] = track
+					mutex.Unlock()
+				}
+			done <- true
+		}()
+	}
+	for range uniqueAlbums{
+		<- done
+	}
+
+	fmt.Println("Tracks found:")
+	fmt.Print(len(allTracks))
 	return nil
 }
 
@@ -182,16 +210,14 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 
 	result, err := client.Search(artistName, spotify.SearchTypeArtist)
 
-	if (err != nil) {
+	if err != nil {
 		log.Fatal(err)
 	}
 
 	var artistsArray []spotify.FullArtist
-	if(result.Artists != nil) {
-		fmt.Println("Artists")
+	if result.Artists != nil {
 		for _, item := range result.Artists.Artists{
 			artistsArray = append(artistsArray, item)
-			fmt.Println("   ", item.Name)
 		}
 	}
 
