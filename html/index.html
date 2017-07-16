@@ -49,18 +49,20 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3"">
-                    <h3>Album</h3>
+                <div class="col-md-3">
+                    <h3>Artists</h3>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="song in songResults">
-                            <li class="list-group-item" v-for="artist in song.artists">
-                                {{ artist.name }}
-                            </li>
+                            <ul class="list-group">
+                                <li class="list-group-item" v-for="artist in song.artists">
+                                    {{ artist.name }}
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h3>Artists</h3>
+                    <h3>Album</h3>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="song in songResults">
                             {{ song.id }}

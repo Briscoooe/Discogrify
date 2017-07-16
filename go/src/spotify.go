@@ -130,7 +130,7 @@ func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
 	done := make(chan bool)
 	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
-	albumTypes := []int{2}
+	albumTypes := []int{1,2,4,5}
 	for _, albumType := range albumTypes {
 		albumType := albumType
 		go func () {
