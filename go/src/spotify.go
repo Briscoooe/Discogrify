@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"github.com/zmb3/spotify"
@@ -32,7 +31,7 @@ func GetDiscographyFromSpotify(artistId string) []spotify.SimpleTrack {
 	}
 	token, err := config.Token(context.Background())
 	if err != nil {
-		log.Fatalf("couldn't get token: %v", err)
+		rollingLog.Fatalf("couldn't get token: %v", err)
 	}
 
 	client := spotify.Authenticator{}.NewClient(token)
@@ -81,7 +80,7 @@ func GetDiscographyFromSpotify(artistId string) []spotify.SimpleTrack {
 		}
 	}
 
-	log.Printf("%s: Unique albums found: %v\n", artistId, len(uniqueAlbums))
+	rollingLog.Printf("%s: Unique albums found: %v\n", artistId, len(uniqueAlbums))
 
 	var uniqueAlbumsArray []spotify.ID
 
@@ -99,7 +98,7 @@ func GetDiscographyFromSpotify(artistId string) []spotify.SimpleTrack {
 			}
 			results, err := client.GetAlbums(uniqueAlbumsArray[i:limit]...)
 			if err != nil {
-				log.Fatal(err)
+				rollingLog.Fatal(err)
 			}
 			for _, album := range results{
 				for _, track := range album.Tracks.Tracks{
@@ -120,7 +119,7 @@ func GetDiscographyFromSpotify(artistId string) []spotify.SimpleTrack {
 		<- done
 	}
 
-	log.Printf("%s: Tracks found: %v\n", artistId, len(allTracks))
+	rollingLog.Printf("%s: Tracks found: %v\n", artistId, len(allTracks))
 
 	return allTracks
 }
@@ -133,16 +132,16 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 	}
 	token, err := config.Token(context.Background())
 	if err != nil {
-		log.Fatalf("couldn't get token: %v", err)
+		rollingLog.Fatalf("couldn't get token: %v", err)
 	}
 
 	client := spotify.Authenticator{}.NewClient(token)
 
-	log.Printf("Searching for arist: %s\n", artistName)
+	rollingLog.Printf("Searching for arist: %s\n", artistName)
 	result, err := client.Search(artistName, spotify.SearchTypeArtist)
 
 	if err != nil {
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 
 	var artistsArray []spotify.FullArtist
@@ -152,7 +151,7 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 		}
 	}
 
-	log.Printf("Artists found: %v\n", len(artistsArray))
+	rollingLog.Printf("Artists found: %v\n", len(artistsArray))
 	return artistsArray
 }
 
@@ -168,11 +167,11 @@ func LoginToSpotify(w http.ResponseWriter, r *http.Request, state string) {
 	tok, err := auth.Token(state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 	if st := r.FormValue("state"); st != state {
 		http.NotFound(w, r)
-		log.Fatalf("State mismatch: %s != %s\n", st, state)
+		rollingLog.Fatalf("State mismatch: %s != %s\n", st, state)
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)

@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"encoding/json"
-	"log"
 )
 
 type Configuration struct {
@@ -24,10 +23,10 @@ func loadConfiguration(file string) Configuration {
 
 	defer configFile.Close()
 	if err != nil {
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 	jsonParser := json.NewDecoder(configFile)
 	jsonParser.Decode(&config)
-	log.Println("Configurations loaded")
+	rollingLog.Println("Configurations loaded")
 	return config
 }

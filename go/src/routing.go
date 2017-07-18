@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func NewRouter() *mux.Router {
+func setupRouter() *mux.Router {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.Path("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/html")))

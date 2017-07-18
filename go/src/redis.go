@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/go-redis/redis"
-	"log"
 	"github.com/zmb3/spotify"
 	"encoding/json"
 	"fmt"
@@ -11,8 +10,7 @@ import (
 var (
 	redisClient  *redis.Client
 )
-func setupClient() {
-	fmt.Printf("%v:%v", config.Redis.Host, config.Redis.Port)
+func setupRedisClient() {
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:		fmt.Sprintf("%s:%s", config.Redis.Host, config.Redis.Port),
 		Password: 	config.Redis.Password,
@@ -21,9 +19,9 @@ func setupClient() {
 
 	_, err := redisClient.Ping().Result()
 	if err != nil {
-		log.Fatalf("Could not connect to Redis host %s:%s\n%v\n", config.Redis.Host, config.Redis.Port, err)
+		rollingLog.Fatalf("Could not connect to Redis host %s:%s\n%v\n", config.Redis.Host, config.Redis.Port, err)
 	}
-	log.Printf("Successfully connected to Redis host %s:%s\n", config.Redis.Host, config.Redis.Port)
+	rollingLog.Printf("Successfully connected to Redis host %s:%s\n", config.Redis.Host, config.Redis.Port)
 }
 
 func AddDiscographyToCache(artistId, artistTracks string) bool {
@@ -48,7 +46,7 @@ func GetDiscographyFromCache(artistId string) []spotify.SimpleTrack {
 	err := json.Unmarshal(bytes, &tracks)
 
 	if err != nil {
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 
 	return tracks

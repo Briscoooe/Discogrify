@@ -1,3 +1,4 @@
 *.mdj
 *.swp
 *test.go
+*.log

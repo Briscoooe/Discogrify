@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/zmb3/spotify"
@@ -17,11 +16,11 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	tok, err := auth.Token(stateString, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 	if st := r.FormValue("state"); st != stateString {
 		http.NotFound(w, r)
-		log.Fatalf("State mismatch: %s != %s\n", st, stateString)
+		rollingLog.Fatalf("State mismatch: %s != %s\n", st, stateString)
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)
@@ -29,7 +28,7 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	token = tok.AccessToken
 	user, err := client.CurrentUser()
 	if err != nil {
-		log.Fatal(err)
+		rollingLog.Fatal(err)
 	}
 
 	fmt.Println("Logged in as: ", user.ID)
@@ -126,21 +125,21 @@ func GetTracksHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	artistId := vars["artistId"]
 
-	log.Printf("%s: Checking cache for artist ID\n", artistId)
+	rollingLog.Printf("%s: Checking cache for artist ID\n", artistId)
 	artistTracks := GetDiscographyFromCache(artistId)
 
 	if artistTracks == nil {
-		log.Printf("%s: No artist found\n", artistId)
+		rollingLog.Printf("%s: No artist found\n", artistId)
 		artistTracks = GetDiscographyFromSpotify(artistId)
 		tracksJson, _ := json.Marshal(artistTracks)
 		if AddDiscographyToCache(artistId, string(tracksJson)) {
-			log.Printf("%s: Successfully added artist to cache\n", artistId)
+			rollingLog.Printf("%s: Successfully added artist to cache\n", artistId)
 		} else {
-			log.Printf("%s: Could not add artist to cache\n", artistId)
+			rollingLog.Printf("%s: Could not add artist to cache\n", artistId)
 		}
 	}
 
-	log.Printf("%s: Returning tracks\n", artistId)
+	rollingLog.Printf("%s: Returning tracks\n", artistId)
 	if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
 		panic(err)
 	}
