@@ -14,7 +14,7 @@ import (
 	"os"
 	"context"
 	"sync"
-	"time"
+//	"time"
 )
 
 const redirectURI = "http://localhost:8080/callback"
@@ -127,6 +127,8 @@ func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
 	// 4 = AppearsOn
 	// 5 = Compilations
 
+	mutex := &sync.Mutex{}
+
 	done := make(chan bool)
 	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
@@ -140,7 +142,9 @@ func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
 				albumTypes := spotify.AlbumType(albumType)
 				results, _ := client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
 				for _, album := range results.Albums{
+					mutex.Lock()
 					allAlbums[album.ID] = album
+					mutex.Unlock()
 				}
 				if len(results.Albums) == 50 {
 					offset += 50
@@ -162,44 +166,44 @@ func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
 		}
 	}
 
-	count := 0
-	mutex := &sync.Mutex{}
-	rate := time.Millisecond * 100
-	throttle := time.Tick(rate)
-	allTracks := make(map[spotify.ID]spotify.SimpleTrack)
-	for _, album := range uniqueAlbums {
-		<- throttle
-		album := album
+	var uniqueAlbumsArray []spotify.ID
+
+	for _, track := range uniqueAlbums {
+		uniqueAlbumsArray = append(uniqueAlbumsArray, track.ID)
+	}
+
+	var allTracks []spotify.SimpleTrack
+	for i := 0; i < len(uniqueAlbumsArray); i += 20 {
+		i := i
 		go func () {
-				results, err := client.GetAlbumTracks(album.ID)
-				if err != nil {
-					log.Fatal(err)
-				}
-				for _, track := range results.Tracks{
+			limit := i + 20
+			if limit >= len(uniqueAlbumsArray) {
+				limit = i + (i - len(uniqueAlbumsArray)) * -1
+			}
+			results, err := client.GetAlbums(uniqueAlbumsArray[i:limit]...)
+			if err != nil {
+				log.Fatal(err)
+			}
+			for _, album := range results{
+				for _, track := range album.Tracks.Tracks{
 					for _, artist := range track.Artists {
 						if artist.ID == spotify.ID(artistId) {
-							count ++
-							fmt.Println(count)
-							fmt.Println(track.Name)
 							mutex.Lock()
-							allTracks[track.ID] = track
+							allTracks = append(allTracks, track)
 							mutex.Unlock()
 						}
 					}
 				}
+			}
 			done <- true
 		}()
 	}
-	for range uniqueAlbums{
+	// Possibly have to change
+	for i := 0; i < len(uniqueAlbumsArray); i += 20 {
 		<- done
 	}
 
-	var returnTracks []spotify.SimpleTrack
-
-	for _, track := range allTracks {
-		returnTracks = append(returnTracks, track)
-	}
-	return returnTracks
+	return allTracks
 }
 
 func SearchForArtist(artistName string) []spotify.FullArtist {
