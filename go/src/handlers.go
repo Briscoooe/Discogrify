@@ -124,10 +124,24 @@ func GetTracksHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	vars := mux.Vars(r)
+	artistId := vars["artistId"]
 
-	var tracks = GetAllArtistTracks(vars["artistId"])
+	log.Printf("%s: Checking cache for artist ID\n", artistId)
+	artistTracks := GetDiscographyFromCache(artistId)
 
-	if err := json.NewEncoder(w).Encode(tracks); err != nil {
+	if artistTracks == nil {
+		log.Printf("%s: No artist found\n", artistId)
+		artistTracks = GetDiscographyFromSpotify(artistId)
+		tracksJson, _ := json.Marshal(artistTracks)
+		if AddDiscographyToCache(artistId, string(tracksJson)) {
+			log.Printf("%s: Successfully added artist to cache\n", artistId)
+		} else {
+			log.Printf("%s: Could not add artist to cache\n", artistId)
+		}
+	}
+
+	log.Printf("%s: Returning tracks\n", artistId)
+	if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
 		panic(err)
 	}
 }

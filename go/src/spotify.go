@@ -24,7 +24,7 @@ var (
 	characters   = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
 
-func GetAllArtistTracks(artistId string) []spotify.SimpleTrack {
+func GetDiscographyFromSpotify(artistId string) []spotify.SimpleTrack {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
@@ -81,6 +81,8 @@ func GetAllArtistTracks(artistId string) []spotify.SimpleTrack {
 		}
 	}
 
+	log.Printf("%s: Unique albums found: %v\n", artistId, len(uniqueAlbums))
+
 	var uniqueAlbumsArray []spotify.ID
 
 	for _, track := range uniqueAlbums {
@@ -118,6 +120,8 @@ func GetAllArtistTracks(artistId string) []spotify.SimpleTrack {
 		<- done
 	}
 
+	log.Printf("%s: Tracks found: %v\n", artistId, len(allTracks))
+
 	return allTracks
 }
 
@@ -134,6 +138,7 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 
 	client := spotify.Authenticator{}.NewClient(token)
 
+	log.Printf("Searching for arist: %s\n", artistName)
 	result, err := client.Search(artistName, spotify.SearchTypeArtist)
 
 	if err != nil {
@@ -147,6 +152,7 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 		}
 	}
 
+	log.Printf("Artists found: %v\n", len(artistsArray))
 	return artistsArray
 }
 

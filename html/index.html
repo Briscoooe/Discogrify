@@ -36,8 +36,8 @@
                         </span>
                     </div><!-- /input-group -->
                     <ul class="list-group">
-                        <li class="list-group-item" v-for="artist in artistsResults">
-                            {{ artist.name }}<button v-on:click="getSongs(artist.id)">Go</button>
+                        <li class="list-group-item" v-for="artist in artistSearchResults">
+                            {{ artist.name }}<button v-on:click="getTracks(artist.id)">Go</button>
 
                         </li>
                     </ul>
@@ -46,25 +46,25 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Song</th>
+                            <th>Track</th>
                             <th>Artists</th>
                             <th>Album</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="song in songResults">
+                            <tr v-for="track in allTracks">
                                 <td>
-                                    {{ song.name }}
+                                    {{ track.name }}
                                 </td>
                                 <td>
                                     <ul class="list-group">
-                                        <li class="list-group-item" v-for="artist in song.artists">
+                                        <li class="list-group-item" v-for="artist in track.artists">
                                             {{ artist.name }}
                                         </li>
                                     </ul>
                                 </td>
                                 <td>
-                                    {{ song.id }}
+                                    {{ track.id }}
                                 </td>
                             </tr>
                         </tbody>
@@ -79,10 +79,10 @@
                 el: 'body',
 
                 data: {
-                    artistsResults:     [],
-                    songResults:        [],
-                    loginUrl:           "",
-                    artist:             {}
+                    artistSearchResults:        [],
+                    allTracks:                  [],
+                    loginUrl:                   "",
+                    artist:                     {}
                 },
 
                 created: function() {
@@ -106,21 +106,18 @@
                             return
                         }
 
-                        this.$http.get('/searchartist/' + encodeURIComponent(this.artist.name)).success(function(response) {
+                        this.$http.get('/search/' + encodeURIComponent(this.artist.name)).success(function(response) {
                             console.log(response[0])
-                            this.artistsResults = response
+                            this.artistSearchResults = response
                         }).error(function(error) {
                             console.log(error)
                         })
                     },
 
-                    getSongs: function(artistId) {
-                        this.$http.get('/getsongs/' + artistId).success(function(response) {
-                            console.log("Songs response")
-                            console.log(response)
-                            this.songResults = response
+                    getTracks: function(artistId) {
+                        this.$http.get('/tracks/' + artistId).success(function(response) {
+                            this.allTracks = response
                         }).error(function(error) {
-                            console.log("Error")
                             console.log(error)
                         })
                     }
