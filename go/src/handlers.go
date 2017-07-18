@@ -40,10 +40,7 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 // Index ...
 func Index(w http.ResponseWriter, r *http.Request) {
 
-
-
 }
-
 // GetPlaylists ...
 func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 	stateString = auth.AuthURL(GenerateStateString())
@@ -122,15 +119,15 @@ func FollowPlaylist(w http.ResponseWriter, r *http.Request) {
 	// Follow playlist on spotify
 }
 
-func GetSongsHandler(w http.ResponseWriter, r *http.Request) {
+func GetTracksHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
 	vars := mux.Vars(r)
 
-	var songs = GetAllSongsByArtist(vars["artistId"])
+	var tracks = GetAllArtistTracks(vars["artistId"])
 
-	if err := json.NewEncoder(w).Encode(songs); err != nil {
+	if err := json.NewEncoder(w).Encode(tracks); err != nil {
 		panic(err)
 	}
 }

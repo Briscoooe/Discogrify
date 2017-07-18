@@ -51,14 +51,14 @@ var routes = Routes{
 	Route{
 		"SearchForArtist",
 		"GET",
-		"/searchartist/{name}",
+		"/search/{name}",
 		SearchForArtistHandler,
 	},
 	Route{
-		"GetSongs",
+		"GetTracks",
 		"GET",
-		"/getsongs/{artistId}",
-		GetSongsHandler,
+		"/tracks/{artistId}",
+		GetTracksHandler,
 	},
 	Route{
 		"GetPlaylist",

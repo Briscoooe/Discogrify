@@ -1,14 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
-	//"os/exec"
-	//"strings"
-
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2/clientcredentials"
 	"os"
@@ -28,88 +24,7 @@ var (
 	characters   = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
 
-type Artist struct {
-	Name string `json:"name"`
-	Id   string `json:"id"`
-}
-
-func GetAllSongsFromSpotify(decoder *json.Decoder) spotify.FullPlaylist {
-	var artist Artist
-	err := decoder.Decode(&artist)
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
-
-	//artistID := GetArtistId(artist.Name)
-
-	/*if artistID != "" {
-		var spotifyID = spotify.ID(artistID)
-		user, err := client.CurrentUser()
-
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		playlist, err := client.CreatePlaylistForUser(user.ID, artistID, true)
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		fmt.Println(playlist)
-		fmt.Println(user.ID)
-		fmt.Println(artistID)
-		fmt.Println(spotifyID)
-
-		//getSongsFromAlbums(spotifyID, &playlist)
-		//getSongsFromSingles(spotifyID, &playlist)
-		//getSongsFromCompilations(spotifyID, &playlist)
-		//getSongsFromAppearsOn(spotifyID, &playlist)
-
-	}
-*/
-	var playlist spotify.FullPlaylist
-	return playlist
-}
-
-func getSongsFromAlbums(ID spotify.ID, p **spotify.FullPlaylist) {
-	fmt.Println("Getting album songs")
-	//albums, _ := unauthClient.GetArtistAlbums(ID)
-
-	fmt.Println(p)
-	/*
-		for _, albumReference := range albums.Albums {
-			albumDetails, _ := unauthClient.GetAlbumTracks(albumReference.ID)
-			for _, track := range albumDetails.Tracks {
-				fmt.Println(track)
-			}
-		}*/
-}
-
-/*
-func (c *spotify.Client) GetArtistSingles(artistID spotify.ID) (*SimpleAlbumPage, error) {
-
-}
-func getSongsFromSingles(ID spotify.ID, p **spotify.FullPlaylist) {
-
-}
-
-func getSongsFromCompilations(ID spotify.ID, p **spotify.FullPlaylist) {
-
-}
-
-func getSongsFromAppearsOn(ID spotify.ID, p *spotify.FullPlaylist) {
-
-}*/
-
-type ArtistSearchResponse struct {
-	Artists struct {
-		Items []struct {
-			Href string `json:"href"`
-		} `json:"items"`
-	} `json:"artists"`
-}
-
-func GetAllSongsByArtist(artistId string) []spotify.SimpleTrack {
+func GetAllArtistTracks(artistId string) []spotify.SimpleTrack {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),
