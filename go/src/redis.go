@@ -5,6 +5,7 @@ import (
 	"github.com/zmb3/spotify"
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 var (
@@ -26,7 +27,7 @@ func setupRedisClient() {
 
 func AddDiscographyToCache(artistId, artistTracks string) bool {
 
-	result := redisClient.Set(artistId, artistTracks, 0)
+	result := redisClient.Set(artistId, artistTracks, time.Hour * 168)
 
 	if result.Val() == "" {
 		return false
