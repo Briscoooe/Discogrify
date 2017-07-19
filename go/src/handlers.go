@@ -137,6 +137,7 @@ func GetTracksHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			rollingLog.Printf("%s: Could not add artist to cache\n", artistId)
 		}
+		fmt.Println(string(tracksJson))
 	}
 
 	rollingLog.Printf("%s: Returning tracks\n", artistId)

@@ -52,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="track in allTracks">
+                            <tr v-for="track in tracksFromAlbums">
                                 <td>
                                     {{ track.name }}
                                 </td>
@@ -80,9 +80,15 @@
 
                 data: {
                     artistSearchResults:        [],
-                    allTracks:                  [],
+                    allTracks:                  {},
                     loginUrl:                   "",
                     artist:                     {}
+                },
+
+                computed :{
+                    tracksFromAlbums: function () {
+                        return this.allTracks.tracks
+                    }
                 },
 
                 created: function() {
@@ -117,6 +123,8 @@
                     getTracks: function(artistId) {
                         this.$http.get('/tracks/' + artistId).success(function(response) {
                             this.allTracks = response
+                            console.log("RESPONSE: ", response)
+                            console.log("RESPONSE.OBJECT: ", response.object)
                         }).error(function(error) {
                             console.log(error)
                         })

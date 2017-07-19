@@ -35,14 +35,16 @@ func AddDiscographyToCache(artistId, artistTracks string) bool {
 	return true
 }
 
-func GetDiscographyFromCache(artistId string) []spotify.SimpleTrack {
-	result := redisClient.Get(artistId)
+func GetDiscographyFromCache(artistId string) []*spotify.FullAlbum {
+	result := redisClient.Get("ANC")
 
+	//result := nil
 	if result.Val() == "" {
 		return nil
 	}
 
-	var tracks []spotify.SimpleTrack
+	var tracks []*spotify.FullAlbum
+
 	bytes, _ := result.Bytes()
 	err := json.Unmarshal(bytes, &tracks)
 
