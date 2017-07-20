@@ -25,7 +25,7 @@ func (r *RedisClient) SetupClient() {
 }
 
 func (r *RedisClient) Get(artistId string) (artistTracks []byte) {
-	result := r.redisClient.Get(artistId)
+	result := r.redisClient.Get(artistId + ":tracks")
 	returnBytes, _ := result.Bytes()
 
 	return returnBytes
