@@ -10,7 +10,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var stateString string
+var (
+	stateString string
+	cacheClient CacheClient
+)
+
+func registerCacheClient(client CacheClient) {
+	cacheClient = client
+}
 
 func Callback(w http.ResponseWriter, r *http.Request) {
 	tok, err := auth.Token(stateString, r)
@@ -36,10 +43,12 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/#", http.StatusAccepted)
 
 }
+
 // Index ...
 func Index(w http.ResponseWriter, r *http.Request) {
 
 }
+
 // GetPlaylists ...
 func GetPlaylists(w http.ResponseWriter, r *http.Request) {
 	stateString = auth.AuthURL(GenerateStateString())
@@ -125,22 +134,19 @@ func GetTracksHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	artistId := vars["artistId"]
 
-	rollingLog.Printf("%s: Checking cache for artist ID\n", artistId)
-	artistTracks := GetDiscographyFromCache(artistId)
+	artistTracks := GetDiscographyFromCache(artistId, cacheClient)
 
 	if artistTracks == nil {
-		rollingLog.Printf("%s: No artist found\n", artistId)
 		artistTracks = GetDiscographyFromSpotify(artistId)
 		tracksJson, _ := json.Marshal(artistTracks)
-		if AddDiscographyToCache(artistId, string(tracksJson)) {
-			rollingLog.Printf("%s: Successfully added artist to cache\n", artistId)
+		if AddDiscographyToCache(artistId, string(tracksJson), cacheClient) {
+			rollingLog.Printf("%s: Successfully added artist to cache", artistId)
 		} else {
-			rollingLog.Printf("%s: Could not add artist to cache\n", artistId)
+			rollingLog.Printf("%s: Could not add artist to cache", artistId)
 		}
-		fmt.Println(string(tracksJson))
 	}
 
-	rollingLog.Printf("%s: Returning tracks\n", artistId)
+	rollingLog.Printf("%s: Returning tracks", artistId)
 	if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
 		panic(err)
 	}

@@ -1,17 +1,16 @@
 package main
 
 import (
-	"os"
 	"encoding/json"
+	"os"
 )
 
 type Configuration struct {
 	Redis struct {
-		Host		string	`json:"host"`
-		Port		string	`json:"port"`
-		Password	string	`json:"password"`
-		Db			int	`json:"db"`
-
+		Host     string `json:"host"`
+		Port     string `json:"port"`
+		Password string `json:"password"`
+		Db       int    `json:"db"`
 	} `json:"redis"`
 	RequestDelay int `json:"requestDelay"`
 }

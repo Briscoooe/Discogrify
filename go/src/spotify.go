@@ -1,23 +1,23 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"math/rand"
-	"net/http"
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2/clientcredentials"
+	"math/rand"
+	"net/http"
 	"os"
-	"context"
 	"sync"
-//	"time"
+	//	"time"
 )
 
 const redirectURI = "http://localhost:8080/callback"
 
 var (
-	done		 = make(chan bool)
-	mutex 		 = &sync.Mutex{}
-	token 	     = ""
+	done         = make(chan bool)
+	mutex        = &sync.Mutex{}
+	token        = ""
 	ch           = make(chan *spotify.Client)
 	client       spotify.Client
 	auth         = spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
@@ -49,16 +49,16 @@ func GetDiscographyFromSpotify(artistId string) []*spotify.FullAlbum {
 func getUniqueAlbums(artistId string) []spotify.ID {
 	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
-	albumTypes := []int{1,2,3,4,5}
+	albumTypes := []int{1, 2, 3, 4, 5}
 	for _, albumType := range albumTypes {
 		albumType := albumType
-		go func () {
+		go func() {
 			offset := 0
 			for {
 				options := &spotify.Options{Limit: &limit, Offset: &offset}
 				albumTypes := spotify.AlbumType(albumType)
 				results, _ := client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
-				for _, album := range results.Albums{
+				for _, album := range results.Albums {
 					mutex.Lock()
 					allAlbums[album.ID] = album
 					mutex.Unlock()
@@ -72,8 +72,8 @@ func getUniqueAlbums(artistId string) []spotify.ID {
 			done <- true
 		}()
 	}
-	for range albumTypes{
-		<- done
+	for range albumTypes {
+		<-done
 	}
 
 	uniqueAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
@@ -98,24 +98,24 @@ func getAllTracksFromAlbums(artistId string, uniqueAlbums []spotify.ID) []*spoti
 	var allTracks []*spotify.FullAlbum
 	for i := 0; i < len(uniqueAlbums); i += 20 {
 		i := i
-		go func () {
+		go func() {
 			limit := i + 20
 			if limit >= len(uniqueAlbums) {
-				limit = i + (i - len(uniqueAlbums)) * -1
+				limit = i + (i-len(uniqueAlbums))*-1
 			}
 			results, err := client.GetAlbums(uniqueAlbums[i:limit]...)
 			if err != nil {
 				rollingLog.Fatal(err)
 			}
-			for _, album := range results{
+			for _, album := range results {
 				var tempTrackList []spotify.SimpleTrack
-				for _, track := range album.Tracks.Tracks{
+				for _, track := range album.Tracks.Tracks {
 					track := track
 					for _, artist := range track.Artists {
 						if artist.ID == spotify.ID(artistId) {
 							mutex.Lock()
 							tempTrackList = append(tempTrackList, track)
-							count ++
+							count++
 							mutex.Unlock()
 						}
 					}
@@ -129,23 +129,12 @@ func getAllTracksFromAlbums(artistId string, uniqueAlbums []spotify.ID) []*spoti
 		}()
 	}
 	for i := 0; i < len(uniqueAlbums); i += 20 {
-		<- done
+		<-done
 	}
 	rollingLog.Printf("%s: Tracks found: %v\n", artistId, count)
 
 	return allTracks
 }
-
-type CustomAlbum struct {
-	AlbumName	string `json:"name"`
-	AlbumId		string `json:"id"`
-	Tracks 		[]spotify.SimpleTrack `json:"tracks"`
-}
-
-type CustomAlbum1 struct {
-	Tracks map[string][]spotify.SimpleTrack
-}
-
 func SearchForArtist(artistName string) []spotify.FullArtist {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
@@ -168,7 +157,7 @@ func SearchForArtist(artistName string) []spotify.FullArtist {
 
 	var artistsArray []spotify.FullArtist
 	if result.Artists != nil {
-		for _, item := range result.Artists.Artists{
+		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
 	}
