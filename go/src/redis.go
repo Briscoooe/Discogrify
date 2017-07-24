@@ -24,15 +24,20 @@ func (r *RedisClient) SetupClient() {
 	rollingLog.Printf("Successfully connected to Redis host %s:%s\n", config.Redis.Host, config.Redis.Port)
 }
 
-func (r *RedisClient) Get(artistId string) (artistTracks []byte) {
-	result := r.redisClient.Get(artistId + ":tracks")
-	returnBytes, _ := result.Bytes()
+func (r *RedisClient) Get(key string) []byte {
+	result := r.redisClient.Get(key)
+	artistTracks, _ := result.Bytes()
 
-	return returnBytes
+	return artistTracks
 }
 
-func (r *RedisClient) Set(artistId string, artistTracks string, expireIn time.Duration) (setOrNot bool) {
-	r.redisClient.Incr(artistId + ":searched")
-	result := r.redisClient.Set(artistId+":tracks", artistTracks, time.Hour*168)
+func (r *RedisClient) Set(key string,  value string, expireIn time.Duration) bool {
+	result := r.redisClient.Set(key, value, expireIn)
 	return result.Val() != ""
 }
+
+func (r *RedisClient) Increment(key string) bool {
+	result := r.redisClient.Incr(key)
+	return result.Val() != 0
+}
+

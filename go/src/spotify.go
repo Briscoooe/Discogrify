@@ -135,7 +135,7 @@ func getAllTracksFromAlbums(artistId string, uniqueAlbums []spotify.ID) []*spoti
 
 	return allTracks
 }
-func SearchForArtist(artistName string) []spotify.FullArtist {
+func SearchForArtist(artistName string, cacheClient CacheClient) []spotify.FullArtist {
 	config := &clientcredentials.Config{
 		ClientID:     os.Getenv("SPOTIFY_ID"),
 		ClientSecret: os.Getenv("SPOTIFY_SECRET"),

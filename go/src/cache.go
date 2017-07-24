@@ -4,14 +4,18 @@ import (
 	"encoding/json"
 	"github.com/zmb3/spotify"
 	"time"
+	"strings"
+	"regexp"
+	"fmt"
 )
 
 type CacheClient interface {
-	Get(artistId string) []byte
-	Set(artistId string, artistTracks string, expireIn time.Duration) bool
+	Get(cacheKey string) []byte
+	Set(key string, value string, expiration time.Duration) bool
+	Increment(key string) bool
 }
 
-func GetDiscographyFromCache(artistId string, client CacheClient) []*spotify.FullAlbum {
+func GetTracksFromCache(artistId string, client CacheClient) []*spotify.FullAlbum {
 	rollingLog.Printf("%s: Checking cache for artist ID", artistId)
 	result := client.Get(artistId)
 
@@ -31,6 +35,36 @@ func GetDiscographyFromCache(artistId string, client CacheClient) []*spotify.Ful
 	return tracks
 }
 
-func AddDiscographyToCache(artistId, artistTracks string, client CacheClient) bool {
-	return client.Set(artistId, artistTracks, time.Hour*168)
+func IncrementKeyInCache(key string, client CacheClient) bool {
+	result := false
+	if validateKey(key) {
+		result = client.Increment(key)
+	}
+	return result
+}
+
+func validateKey(key string) bool {
+	stringSlice := strings.Split(key, ":")
+	fmt.Println("KEY = ", key)
+	fmt.Println("Slice length = ", len(stringSlice))
+	if len(stringSlice) < 2 {
+		return false
+	}
+
+	for _, str := range stringSlice {
+		fmt.Println("Sting = ", str)
+		result, _ := regexp.MatchString("[^A-Za-z0-9]+$", str)
+		if !result {
+			return false
+		}35
+	}
+	return true
+}
+
+func AddToCache(key string, value string, expiration time.Duration, client CacheClient) bool {
+	result := false
+	if validateKey(key) {
+		result = client.Set(key, value, expiration)
+	}
+	return result
 }

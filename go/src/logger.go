@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"github.com/natefinch/lumberjack"
 	"log"
-	"net/http"
 	"os"
-	"time"
 )
 
 var (
@@ -26,20 +24,5 @@ func setupLogger() {
 		MaxSize:    1,   // megabytes after which new file is created
 		MaxBackups: 100, // number of backups
 		MaxAge:     28,  //days
-	})
-}
-func logRouter(inner http.Handler, name string) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-
-		inner.ServeHTTP(w, r)
-
-		rollingLog.Printf(
-			r.Method,
-			r.RequestURI,
-			r.Host,
-			name,
-			time.Since(start),
-		)
 	})
 }

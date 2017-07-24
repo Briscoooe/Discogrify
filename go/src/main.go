@@ -12,9 +12,8 @@ func main() {
 	setupLogger()
 	rollingLog.Println("Starting application...")
 	config = loadConfiguration("/home/r00t/go/src/github.com/Briscooe/Discogrify/go/src/config.json")
-	client := &RedisClient{}
-	client.SetupClient()
-	registerCacheClient(client)
-	router := setupRouter()
+	cacheClient := &RedisClient{}
+	cacheClient.SetupClient()
+	router := setupRouter(cacheClient)
 	rollingLog.Fatal(http.ListenAndServe(":8081", router))
 }
