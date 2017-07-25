@@ -16,18 +16,16 @@ type CacheClient interface {
 }
 
 func GetTracksFromCache(artistId string, client CacheClient) []*spotify.FullAlbum {
-	rollingLog.Printf("%s: Checking cache for artist ID", artistId)
 	result := client.Get(artistId)
 
 	if len(result) == 0 {
-		rollingLog.Printf("%s: Artist ID not found", artistId)
 		return nil
 	}
 
-	rollingLog.Printf("%s: Artist ID found in cache", artistId)
 	var tracks []*spotify.FullAlbum
 	err := json.Unmarshal(result, &tracks)
 
+	fmt.Println(tracks)
 	if err != nil {
 		rollingLog.Fatal(err)
 	}
@@ -40,31 +38,43 @@ func IncrementKeyInCache(key string, client CacheClient) bool {
 	if validateKey(key) {
 		result = client.Increment(key)
 	}
+
 	return result
-}
-
-func validateKey(key string) bool {
-	stringSlice := strings.Split(key, ":")
-	fmt.Println("KEY = ", key)
-	fmt.Println("Slice length = ", len(stringSlice))
-	if len(stringSlice) < 2 {
-		return false
-	}
-
-	for _, str := range stringSlice {
-		fmt.Println("Sting = ", str)
-		result, _ := regexp.MatchString("[^A-Za-z0-9]+$", str)
-		if !result {
-			return false
-		}35
-	}
-	return true
 }
 
 func AddToCache(key string, value string, expiration time.Duration, client CacheClient) bool {
 	result := false
 	if validateKey(key) {
-		result = client.Set(key, value, expiration)
+		if validateValue(value) {
+			if validateExpiration(expiration) {
+				result = client.Set(key, value, expiration)
+			}
+		}
 	}
 	return result
+}
+
+func validateKey(key string) bool {
+	stringSlice := strings.Split(key, ":")
+	if len(stringSlice) < 3 {
+		return false
+	}
+	for _, str := range stringSlice {
+		if !validateValue(str){
+			return false
+		}
+	}
+	return true
+}
+
+func validateValue(value string) bool {
+	result, _ := regexp.MatchString("^[A-Za-z0-9\\S]+$", value)
+	return result
+}
+
+func validateExpiration(expiration time.Duration) bool {
+	if expiration < time.Hour * 24 {
+		return false
+	}
+	return true
 }

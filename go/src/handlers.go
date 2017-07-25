@@ -43,9 +43,11 @@ func getTracksHandler(cacheClient CacheClient) http.Handler {
 		vars := mux.Vars(r)
 		artistId := vars["artistId"]
 
+		rollingLog.Printf("%s: Checking cache for artist ID", artistId)
 		artistTracks := GetTracksFromCache("artist:" + artistId + ":tracks", cacheClient)
 
 		if artistTracks == nil {
+			rollingLog.Printf("%s: Artist ID not found", artistId)
 			artistTracks = GetDiscographyFromSpotify(artistId)
 			tracksJson, _ := json.Marshal(artistTracks)
 			if AddToCache("artist:" + artistId + ":tracks", string(tracksJson), time.Hour * 168, cacheClient) {
@@ -55,6 +57,8 @@ func getTracksHandler(cacheClient CacheClient) http.Handler {
 				rollingLog.Printf("%s: Could not add artist to cache", artistId)
 			}
 			fmt.Println(string(tracksJson))
+		} else {
+			rollingLog.Printf("%s: Artist ID found in cache", artistId)
 		}
 
 		rollingLog.Printf("%s: Returning tracks", artistId)
