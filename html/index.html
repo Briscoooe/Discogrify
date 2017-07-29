@@ -52,20 +52,32 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="track in tracksFromAlbums">
-                                <td>
-                                    {{ track.name }}
-                                </td>
-                                <td>
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="artist in track.artists">
-                                            {{ artist.name }}
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    {{ track.id }}
-                                </td>
+                        <h1> Total artist tracks: {{ totalTracks }}</h1>
+                        <h1> Tracks selected: {{ checkedTracks.length }}</h1>
+                        <button v-on:click="publishPlaylist">Create playlist</button>
+                            <tr v-for="album in allTracks">
+                                <div>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="track in album.tracks.items">
+                                                <input type="checkbox" checked="true" v-bind:id="track.id" v-bind:value="track.id" v-model="checkedTracks">
+                                                {{ track.name }}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="track in album.tracks.items">
+                                                <div v-for="artist in track.artists">
+                                                    {{ artist.name }}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{ album.name }}
+                                    </td>
+                                </div>
                             </tr>
                         </tbody>
                     </table>
@@ -79,15 +91,24 @@
                 el: 'body',
 
                 data: {
+                    checkedTracks:              [],
+                    markets:                    [],
                     artistSearchResults:        [],
-                    allTracks:                  {},
+                    allTracks:                  [],
                     loginUrl:                   "",
                     artist:                     {}
                 },
 
                 computed :{
                     tracksFromAlbums: function () {
-                        return this.allTracks.tracks
+                        return this.allTracks.tracks.items
+                    },
+                    totalTracks: function () {
+                        var count = 0
+                        this.allTracks.forEach(function(album){
+                            count = count + album.tracks.items.length
+                        })
+                        return count
                     }
                 },
 
@@ -102,6 +123,13 @@
                     login: function() {
                         this.$http.get('/login').then(function(response) {
                             window.location.href = response.data.url
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
+                    publishPlaylist: function() {
+                        this.$http.post('/publish', JSON.stringify(this.checkedTracks)).then(function(response) {
+                            alert(response)
                         }).error(function(error) {
                             console.log(error)
                         })
@@ -123,8 +151,7 @@
                     getTracks: function(artistId) {
                         this.$http.get('/tracks/' + artistId).success(function(response) {
                             this.allTracks = response
-                            console.log("RESPONSE: ", response)
-                            console.log("RESPONSE.OBJECT: ", response.object)
+                            //this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
                         }).error(function(error) {
                             console.log(error)
                         })
