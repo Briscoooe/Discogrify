@@ -1,0 +1,162 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <title>Discogrify App</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!-- Vue.js -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>Login</h2>
+                    <div>
+                        <button class="btn btn-primary" type="button" v-on:click="login">Login</button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search artist" v-on:keyup.enter="searchArtist" v-model="artist.name">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" v-on:click="searchArtist">Search</button>
+                        </span>
+                    </div><!-- /input-group -->
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="artist in artistSearchResults">
+                            {{ artist.name }}<button v-on:click="getTracks(artist.id)">Go</button>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Track</th>
+                            <th>Artists</th>
+                            <th>Album</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <h1> Total artist tracks: {{ totalTracks }}</h1>
+                        <h1> Tracks selected: {{ checkedTracks.length }}</h1>
+                        <button v-on:click="publishPlaylist">Create playlist</button>
+                            <tr v-for="album in allTracks">
+                                <div>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="track in album.tracks.items">
+                                                <input type="checkbox" checked="true" v-bind:id="track.id" v-bind:value="track.id" v-model="checkedTracks">
+                                                {{ track.name }}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="track in album.tracks.items">
+                                                <div v-for="artist in track.artists">
+                                                    {{ artist.name }}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{ album.name }}
+                                    </td>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+            new Vue({
+                el: 'body',
+
+                data: {
+                    checkedTracks:              [],
+                    markets:                    [],
+                    artistSearchResults:        [],
+                    allTracks:                  [],
+                    loginUrl:                   "",
+                    artist:                     {}
+                },
+
+                computed :{
+                    tracksFromAlbums: function () {
+                        return this.allTracks.tracks.items
+                    },
+                    totalTracks: function () {
+                        var count = 0
+                        this.allTracks.forEach(function(album){
+                            count = count + album.tracks.items.length
+                        })
+                        return count
+                    }
+                },
+
+                created: function() {
+                    this.$http.get('/playlists').then(function(response) {
+                        this.loginUrl = response.data.loginUrl
+                        this.playlists = response.data.playlists ? response.data.playlists : []
+                    })
+                },
+
+                methods: {
+                    login: function() {
+                        this.$http.get('/login').then(function(response) {
+                            window.location.href = response.data.url
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
+                    publishPlaylist: function() {
+                        this.$http.post('/publish', JSON.stringify(this.checkedTracks)).then(function(response) {
+                            alert(response)
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
+                    searchArtist: function() {
+                        if (!$.trim(this.artist.name)) {
+                            this.artist = {}
+                            return
+                        }
+
+                        this.$http.get('/search/' + encodeURIComponent(this.artist.name)).success(function(response) {
+                            console.log(response[0])
+                            this.artistSearchResults = response
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    },
+
+                    getTracks: function(artistId) {
+                        this.$http.get('/tracks/' + artistId).success(function(response) {
+                            this.allTracks = response
+                            //this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
+                        }).error(function(error) {
+                            console.log(error)
+                        })
+                    }
+                }
+            })
+        </script>
+</html>
