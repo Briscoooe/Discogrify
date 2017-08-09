@@ -11,5 +11,6 @@
     "password" : "",
     "db" : 0
   },
-  "requestDelay" : 100
+  "requestDelay" : 100,
+  "devMode": true
 }

@@ -2,9 +2,13 @@ package main
 
 import (
 	"net/http"
+	"context"
 	"sync"
 	"github.com/Briscooe/Discogrify/go/caching"
 	"github.com/Briscooe/Discogrify/go/logging"
+	"golang.org/x/oauth2/clientcredentials"
+	"os"
+	"github.com/zmb3/spotify"
 )
 
 const redirectURI = "http://localhost:8080/callback"
@@ -33,6 +37,18 @@ func main() {
 		config.Redis.Db)
 
 	spotifyClient := NewSpotifyClient(*logger)
+
+	if config.DevMode {
+		conf := &clientcredentials.Config{
+			ClientID:     os.Getenv("SPOTIFY_ID"),
+			ClientSecret: os.Getenv("SPOTIFY_SECRET"),
+			TokenURL:     spotify.TokenURL,
+		}
+		token,_ := conf.Token(context.Background())
+		spotifyClient.Client = spotify.Authenticator{}.NewClient(token)
+		_,_ = spotifyClient.Client.CurrentUser()
+	}
+
 	router := setupRouter(cacheClient, logger, spotifyClient)
 
 	logger.Fatal(http.ListenAndServe(":8080", router))

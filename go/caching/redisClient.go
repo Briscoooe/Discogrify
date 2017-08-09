@@ -25,6 +25,7 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int) 
 		logger.Fatalf("Could not connect to Redis host %s:%s\n%v\n", host, port, err)
 	}
 
+	logger.Printf("Successfully connected to Redis host %s:%s", host, port)
 	return &RedisClient{
 		RedisClient: redisClient,
 		Logger: logger,
@@ -33,8 +34,8 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int) 
 
 func (r *RedisClient) Get(key string) []byte {
 	result := r.RedisClient.Get(key)
-	artistTracks, _ := result.Bytes()
-	return artistTracks
+	bytes, _ := result.Bytes()
+	return bytes
 }
 
 func (r *RedisClient) Set(key string,  value string, expireIn time.Duration) bool {

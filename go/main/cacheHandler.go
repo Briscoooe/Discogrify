@@ -10,6 +10,22 @@ import (
 )
 
 
+func GetSearchResultsFromCache(searchKey string, client caching.Client) []spotify.FullArtist {
+	result := client.Get(searchKey)
+
+	if len(result) == 0 {
+		return nil
+	}
+
+	var artists []spotify.FullArtist
+	err := json.Unmarshal(result, &artists)
+
+	if err != nil {
+		//rollingLog.Fatal(err)
+	}
+
+	return artists
+}
 func GetTracksFromCache(artistId string, client caching.Client) []*spotify.FullAlbum {
 	result := client.Get(artistId)
 
@@ -38,12 +54,8 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 
 func AddToCache(key string, value string, expiration time.Duration, client caching.Client) bool {
 	result := false
-	if validateKey(key) {
-		if validateValue(value) {
-			if validateExpiration(expiration) {
-				result = client.Set(key, value, expiration)
-			}
-		}
+	if validateKey(key) && validateValue(value) && validateExpiration(expiration) {
+		result = client.Set(key, value, expiration)
 	}
 	return result
 }
@@ -62,7 +74,12 @@ func validateKey(key string) bool {
 }
 
 func validateValue(value string) bool {
-	result, _ := regexp.MatchString("^[A-Za-z0-9\\S]+$", value)
+	var js map[string]interface{}
+	result := json.Unmarshal([]byte(value), &js) != nil
+
+	if !result {
+		result, _ = regexp.MatchString("^[A-Za-z0-9\\S]+$", value)
+	}
 	return result
 }
 

@@ -20,6 +20,7 @@ type Configuration struct {
 		Db       int    `json:"db"`
 	} `json:"redis"`
 	RequestDelay int `json:"requestDelay"`
+	DevMode bool `json:"devMode"`
 }
 
 func loadConfiguration(file string) Configuration {

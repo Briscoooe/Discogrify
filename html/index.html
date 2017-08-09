@@ -91,6 +91,7 @@
                 el: 'body',
 
                 data: {
+                    loginToken:                 "",
                     checkedTracks:              [],
                     markets:                    [],
                     artistSearchResults:        [],
@@ -104,31 +105,25 @@
                         return this.allTracks.tracks.items
                     },
                     totalTracks: function () {
-                        var count = 0
+                        var count = 0;
                         this.allTracks.forEach(function(album){
                             count = count + album.tracks.items.length
-                        })
+                        });
                         return count
                     }
-                },
-
-                created: function() {
-                    this.$http.get('/playlists').then(function(response) {
-                        this.loginUrl = response.data.loginUrl
-                        this.playlists = response.data.playlists ? response.data.playlists : []
-                    })
                 },
 
                 methods: {
                     login: function() {
                         this.$http.get('/login').then(function(response) {
-                            window.location.href = response.data.url
+                            window.location.href = response.data.url;
+                            console.log("Response: " + response.data.url)
                         }).error(function(error) {
                             console.log(error)
                         })
                     },
                     publishPlaylist: function() {
-                        this.$http.post('/publish', JSON.stringify(this.checkedTracks)).then(function(response) {
+                        this.$http.post('/publish', this.checkedTracks).then(function(response) {
                             alert(response)
                         }).error(function(error) {
                             console.log(error)
@@ -136,12 +131,12 @@
                     },
                     searchArtist: function() {
                         if (!$.trim(this.artist.name)) {
-                            this.artist = {}
+                            this.artist = {};
                             return
                         }
 
                         this.$http.get('/search/' + encodeURIComponent(this.artist.name)).success(function(response) {
-                            console.log(response[0])
+                            console.log(response[0]);
                             this.artistSearchResults = response
                         }).error(function(error) {
                             console.log(error)
@@ -150,6 +145,7 @@
 
                     getTracks: function(artistId) {
                         this.$http.get('/tracks/' + artistId).success(function(response) {
+                            this.checkedTracks = [];
                             this.allTracks = response
                             //this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
                         }).error(function(error) {

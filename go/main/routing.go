@@ -16,8 +16,8 @@ func setupRouter(cacheClient caching.Client, logger logging.Logger, spotify Spot
 	router.Handle("/index", indexHandlerFunc(logger)).Methods("GET")
 	router.Handle("/callback", callbackHandler(cacheClient, logger, spotify)).Methods("GET")
 	router.Handle("/tracks/{artistId}", getTracksHandler(cacheClient, logger, spotify)).Methods("GET")
-	router.Handle("/search/{name}", searchArtistHandler(cacheClient, spotify)).Methods("GET")
-	router.Handle("/publish", publishPlaylistHandle(cacheClient)).Methods("POST")
+	router.Handle("/search/{name}", searchArtistHandler(cacheClient, logger, spotify)).Methods("GET")
+	router.Handle("/publish", publishPlaylistHandler(cacheClient, spotify)).Methods("POST")
 
 	return router
 }
