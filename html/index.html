@@ -124,7 +124,7 @@
                     },
                     publishPlaylist: function() {
                         this.$http.post('/publish', this.checkedTracks).then(function(response) {
-                            alert(response)
+                            alert("Created")
                         }).error(function(error) {
                             console.log(error)
                         })

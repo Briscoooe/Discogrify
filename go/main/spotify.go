@@ -108,50 +108,72 @@ func (s *SpotifyClient) SearchForArtist(artistName string, cacheClient caching.C
 }
 
 func (s *SpotifyClient) PublishPlaylist(tracks []string) bool {
-
 	user, _ := s.Client.CurrentUser()
 	playlist, err := s.Client.CreatePlaylistForUser(user.ID, "My Playlist", true)
 
 	if err != nil {
 		s.Logger.Fatal("Could not create playlist", err)
+		return false
 	}
+
+	s.Logger.Println("Playlist created: " + playlist.ID)
 
 	uris := make([]string, len(tracks))
 	for i, id := range tracks {
 		uris[i] = fmt.Sprintf("spotify:track:%s", id)
 	}
 
-	var body = struct {
-		Uris []string `json:uris`
+	var bodyStruct = struct {
+		Uris []string `json:"uris"`
 	} {
 		Uris:uris,
 	}
 
-	bodyJSON, err := json.Marshal(body)
-	if err != nil {
-		s.Logger.Fatal(err)
-	}
-
-	spotifyUrl := fmt.Sprintf("https://api.spotify.com/v1/users/%s/playlists/%s/tracks", user.ID, string(playlist.ID))
-	req, err := http.NewRequest("POST", spotifyUrl, bytes.NewReader(bodyJSON))
-
-	req.Header.Set("Content-Type", "application/json")
 	tok, err := s.Client.Token()
-	req.Header.Set("Authorization", "Bearer " + string(tok.AccessToken))
 	client := &http.Client{}
-	resp, err := client.Do(req)
-
-	if err != nil {
-		s.Logger.Fatal("Could not send re	quest", err)
+	spotifyUrl := fmt.Sprintf("https://api.spotify.com/v1/users/%s/playlists/%s/tracks", user.ID, string(playlist.ID))
+	startIndex := 0
+	endIndex := 99
+	tracksAdded := 0
+	if endIndex > len(tracks) {
+		endIndex = len(tracks)
 	}
+	result := true
+	for tracksAdded != len(tracks) {
+		bodyJSON, err := json.Marshal(bodyStruct.Uris[startIndex:endIndex+1])
+		if err != nil {
+			s.Logger.Fatal(err)
+		}
+		tracksAdded += endIndex - startIndex + 1
+		// If less than 100 tracks left
+		if len(tracks) - tracksAdded < 100 {
+			startIndex += 100
+			endIndex = len(tracks) - 1
+		} else {
+			startIndex += 100
+			endIndex += 100
+		}
+		req, err := http.NewRequest("POST", spotifyUrl, bytes.NewReader(bodyJSON))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer " + string(tok.AccessToken))
 
-	defer resp.Body.Close()
+		resp, err := client.Do(req)
 
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
-	bodyy, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(bodyy))
-	return true
+		if err != nil {
+			s.Logger.Fatal("Request failed", err)
+		}
+		defer resp.Body.Close()
+
+		if resp.Status != "201 Created" {
+			s.Logger.Println("Response Status:", resp.Status)
+			s.Logger.Println("Response Headers:", resp.Header)
+			body, _ := ioutil.ReadAll(resp.Body)
+			s.Logger.Println("Response Body:", string(body))
+			result = false
+		}
+	}
+	s.Logger.Printf("Added %s tracks to playlist ID: %s", tracksAdded, playlist.ID)
+	return result
 }
 
 func (s *SpotifyClient) getUniqueAlbums(artistId string) []spotify.ID {
