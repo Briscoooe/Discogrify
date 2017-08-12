@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"github.com/Briscooe/Discogrify/go/logging"
 	"github.com/gorilla/mux"
@@ -25,7 +24,6 @@ func loginToSpotifyHandlerFunc(logger logging.Logger, spotify Spotify) http.Hand
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := spotify.GenerateLoginUrl()
 
-		fmt.Println(url)
 		if err := json.NewEncoder(w).Encode(url); err != nil {
 			panic(err)
 		}
@@ -115,8 +113,8 @@ func publishPlaylistHandler(cacheClient caching.Client, s Spotify) http.Handler 
 
 		result := s.PublishPlaylist(tracks)
 
-		if !result {
-
+		if err := json.NewEncoder(w).Encode(result); err != nil {
+			panic(err)
 		}
 
 	})

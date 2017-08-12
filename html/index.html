@@ -1,14 +1,16 @@
-<html>
+<html style="height:100%">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-        <title>Discogrify App</title>
+        <title>Discogrify</title>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
         <!-- JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -20,9 +22,11 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
     </head>
-    <body>
-        <div class="container">
-
+    <body style="height:100%;display:flex;flex-direction: column">
+        <div class="container" style="flex:1 0 auto;font-family: 'Roboto', sans-serif;">
+            <div id="header" class="row col-md-12">
+                <v-header></v-header>
+            </div>
             <div class="row">
                 <div class="col-md-3">
                     <h2>Login</h2>
@@ -52,11 +56,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <h1> Total artist tracks: {{ totalTracks }}</h1>
                         <h1> Tracks selected: {{ checkedTracks.length }}</h1>
                         <button v-on:click="publishPlaylist">Create playlist</button>
-                            <tr v-for="album in allTracks">
-                                <div>
+                            <tr v-for="album in allTracks" @click="toggle">
+                                <div><!--
                                     <td>
                                         <ul class="list-group">
                                             <li class="list-group-item" v-for="track in album.tracks.items">
@@ -73,9 +76,29 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </td>
+                                    </td>-->
+
                                     <td>
+                                        <i aria-hidden="true" class="fa fa-plus-square"  v-on:click="show = !show"></i>
                                         {{ album.name }}
+                                        <input type="checkbox"
+                                               v-bind:id="album.id"
+                                               v-bind:value="album.id"
+                                               v-on:change="checkTracks(album, checkedTracks)"
+                                        :checked="show">
+                                        <div v-if="show">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" v-for="track in album.tracks.items">
+                                                    <input type="checkbox"
+                                                           v-bind:value="track.id"
+                                                           v-model="checkedTracks">
+                                                    {{ track.name }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div v-else>
+                                            {{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }}
+                                        </div>
                                     </td>
                                 </div>
                             </tr>
@@ -84,13 +107,39 @@
                 </div>
             </div>
         </div>
+        <v-footer></v-footer>
     </body>
-
     <script>
+        Vue.component('album', {
+            template: '<i aria-hidden="true" class="fa fa-plus-square"  v-on:click="show = !show"></i>',
+            props: {
+                album: {},
+            },
+            data() {
+                return {
+                    show: false,
+                }
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show
+                }
+            }
+        });
+        Vue.component('custom-td', {
+            template: '<h2>{{ album.na</h2>'
+        });
+        Vue.component('v-header', {
+            template: '<div><h1>Discogrify</h1></div>'
+        });
+        Vue.component('v-footer', {
+            template: '<div style="height:10%; background-color: #95d6ff">Brian Briscoe 2016</div>'
+        });
             new Vue({
                 el: 'body',
 
                 data: {
+                    show:                       true,
                     loginToken:                 "",
                     checkedTracks:              [],
                     markets:                    [],
@@ -101,7 +150,7 @@
                 },
 
                 computed :{
-                    tracksFromAlbums: function () {
+                    tracksToAdd: function () {
                         return this.allTracks.tracks.items
                     },
                     totalTracks: function () {
@@ -114,6 +163,29 @@
                 },
 
                 methods: {
+                    checkTracks: function (album, checkedTracks) {
+                         album.tracks.items.forEach(function (track) {
+                             this.checkedTracks = checkedTracks;
+                             var index = this.checkedTracks.indexOf(track.id);
+                             if(index > -1) {
+                                 this.checkedTracks.splice(index, 1)
+                             }
+                             else {
+                                 this.checkedTracks.push(track.id)
+                             }
+                         });
+                    },
+                    areAllSelected: function (album, checkedTracks) {
+                        album.tracks.items.forEach(function (track) {
+                            this.checkedTracks = checkedTracks;
+                            var index = this.checkedTracks.indexOf(track.id);
+                            console.log(index);
+                            if (index > -1) {
+                                return false
+                            }
+                        });
+                        return true;
+                    },
                     login: function() {
                         this.$http.get('/login').then(function(response) {
                             window.location.href = response.data.url;
@@ -146,13 +218,14 @@
                     getTracks: function(artistId) {
                         this.$http.get('/tracks/' + artistId).success(function(response) {
                             this.checkedTracks = [];
-                            this.allTracks = response
-                            //this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
+                            this.allTracks = response;
+                            this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
                         }).error(function(error) {
                             console.log(error)
                         })
                     }
                 }
-            })
+            });
+
         </script>
 </html>
