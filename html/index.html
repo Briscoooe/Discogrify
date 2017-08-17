@@ -50,54 +50,64 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Track</th>
-                            <th>Artists</th>
                             <th>Album</th>
+                            <th>Album artist(s)</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <select v-model="sortOption"
+                                v-on:change="sortAlbums">
+                            <option disabled value="">Sort by...</option>
+                            <option>Alphabetical (A-Z)</option>
+                            <option>Alphabetical (Z-A)</option>
+                            <option>Popularity (most first)</option>
+                            <option>Popularity (least first)</option>
+                            <option>Release date (oldest first)</option>
+                            <option>Release date (recent first)</option>
+                            <option>Number of tracks (most first)</option>
+                            <option>Number of tracks (least first)</option>
+                        </select>
+                        <span>Selected: {{ selected }}</span>
                         <h1> Tracks selected: {{ checkedTracks.length }}</h1>
                         <button v-on:click="publishPlaylist">Create playlist</button>
                             <tr v-for="album in allTracks" @click="toggle">
-                                <div><!--
-                                    <td>
-                                        <ul class="list-group">
-                                            <li class="list-group-item" v-for="track in album.tracks.items">
-                                                <input type="checkbox" checked="true" v-bind:id="track.id" v-bind:value="track.id" v-model="checkedTracks">
-                                                {{ track.name }}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul class="list-group">
-                                            <li class="list-group-item" v-for="track in album.tracks.items">
-                                                <div v-for="artist in track.artists">
-                                                    {{ artist.name }}
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>-->
-
-                                    <td>
-                                        <i aria-hidden="true" class="fa fa-plus-square"  v-on:click="show = !show"></i>
-                                        {{ album.name }}
-                                        <input type="checkbox"
-                                               v-bind:id="album.id"
-                                               v-bind:value="album.id"
-                                               v-on:change="checkTracks(album, checkedTracks)"
-                                        :checked="show">
+                                <div>
+                                    <td style="">
+                                        <i aria-hidden="false" class="fa fa-plus-square"  v-on:click="show = !show"></i>
+                                        <div style="float:left">{{ album.name }}</div>
                                         <div v-if="show">
                                             <ul class="list-group">
                                                 <li class="list-group-item" v-for="track in album.tracks.items">
                                                     <input type="checkbox"
+                                                           checked="true"
                                                            v-bind:value="track.id"
                                                            v-model="checkedTracks">
                                                     {{ track.name }}
                                                 </li>
                                             </ul>
                                         </div>
+                                        <div style="float:left" v-else>
+                                            <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
+                                        </div>
+                                        <input  style="float:right"
+                                                type="checkbox"
+                                                checked="true"
+                                                v-bind:id="album.id"
+                                                v-bind:value="album.id"
+                                                v-on:change="checkTracks(album, checkedTracks)"
+                                                :checked="show">
+
+                                    </td>
+                                    <td>
+                                        <div v-if="show">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" v-for="artist in album.artists">
+                                                    {{ artist.name }}
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <div v-else>
-                                            {{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }}
+                                            {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
                                         </div>
                                     </td>
                                 </div>
@@ -146,7 +156,8 @@
                     artistSearchResults:        [],
                     allTracks:                  [],
                     loginUrl:                   "",
-                    artist:                     {}
+                    artistId:                   {},
+                    sortOption:                 ""
                 },
 
                 computed :{
@@ -163,6 +174,34 @@
                 },
 
                 methods: {
+                    sortAlbums: function() {
+                        switch(this.sortOption) {
+                            case "Alphabetical (A-Z)":
+                                this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
+                                break;
+                            case "Alphabetical (Z-A)":
+                                this.allTracks.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
+                                break;
+                            case "Popularity (most first)":
+                                this.allTracks.sort((albumA, albumB) => albumA.popularity.localeCompare(albumB.popularity))
+                                break;
+                            case "Popularity (least first)":
+                                this.allTracks.sort((albumA, albumB) => albumB.popularity.localeCompare(albumA.popularity))
+                                break;
+                            case "Release date (oldest first)":
+                                this.allTracks.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
+                                break;
+                            case "Release date (recent first)":
+                                this.allTracks.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
+                                break;
+                            case "Number of tracks (most first)":
+                                this.allTracks.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)
+                                break;
+                            case "Number of tracks (least first)":
+                                this.allTracks.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
+                                break;
+                        }
+                    },
                     checkTracks: function (album, checkedTracks) {
                          album.tracks.items.forEach(function (track) {
                              this.checkedTracks = checkedTracks;
@@ -195,7 +234,7 @@
                         })
                     },
                     publishPlaylist: function() {
-                        this.$http.post('/publish', this.checkedTracks).then(function(response) {
+                        this.$http.post('/publish', this.checkedTracks, "teststring").then(function(response) {
                             alert("Created")
                         }).error(function(error) {
                             console.log(error)
@@ -208,7 +247,6 @@
                         }
 
                         this.$http.get('/search/' + encodeURIComponent(this.artist.name)).success(function(response) {
-                            console.log(response[0]);
                             this.artistSearchResults = response
                         }).error(function(error) {
                             console.log(error)
@@ -219,7 +257,6 @@
                         this.$http.get('/tracks/' + artistId).success(function(response) {
                             this.checkedTracks = [];
                             this.allTracks = response;
-                            this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
                         }).error(function(error) {
                             console.log(error)
                         })
