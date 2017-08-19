@@ -1,3 +1,37 @@
+Vue.component('album', {
+    template: '#album-col',
+    props : {
+        album: Object
+    },
+    data: function () {
+        return {
+            checkedTracks: [],
+            show: false
+        }
+    },
+    methods: {
+        checkAlbum: function (album, checkedTracks) {
+            album.isChecked = !album.isChecked;
+            album.tracks.items.forEach(function (track) {
+                this.checkedTracks = checkedTracks;
+                var index = this.checkedTracks.indexOf(track.id);
+                if(album.isChecked) {
+                    if(index < 0) {
+                        this.checkedTracks.push(track.id)
+                    }
+                }
+                else {
+                    if(index > -1) {
+                        this.checkedTracks.splice(index, 1)
+                    }
+                }
+            });
+        },
+        addTrack : function (trackId) {
+            this.$emit('add', trackId)
+        }
+    }
+});
 new Vue({
     el: '#app',
 
@@ -61,23 +95,8 @@ new Vue({
                     break;
             }
         },
-        checkAlbum: function (album, checkedTracks) {
-            album.isChecked = !album.isChecked;
-            album.tracks.items.forEach(function (track) {
-                this.checkedTracks = checkedTracks;
-                var index = this.checkedTracks.indexOf(track.id);
-                console.log(album.isChecked)
-                if(album.isChecked) {
-                    if(index < 0) {
-                        this.checkedTracks.push(track.id)
-                    }
-                }
-                else {
-                    if(index > -1) {
-                        this.checkedTracks.splice(index, 1)
-                    }
-                }
-            });
+        addTrack : function (trackId) {
+            this.checkedTracks.push(trackId)
         },
         login: function() {
             this.$http.get('/login').then(function(response) {
@@ -112,7 +131,6 @@ new Vue({
                 this.checkedTracks = [];
                 this.allAlbums = response;
                 this.allAlbums.forEach(function(album){
-                    album.isVisible = true;
                     album.isChecked = true;
                 });
             }).error(function(error) {
