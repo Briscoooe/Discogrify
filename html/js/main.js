@@ -1,18 +1,22 @@
-Vue.component('v-header', {
-    template: '<div><h1>Discogrify</h1></div>'
-});
-Vue.component('v-footer', {
-    template: '<div style="height:10%; background-color: #95d6ff">Brian Briscoe 2016</div>'
-});
 new Vue({
-    el: 'body',
+    el: '#app',
 
     data: {
+        sortOptions:                [
+            { text: 'Alphabetical (A-Z)', id: 'alphaAToZ'},
+            { text: 'Alphabetical (Z-A)', id: 'alphaZToA'},
+            { text: 'Popularity (most first)', id: 'popularMost'},
+            { text: 'Popularity (least first)', id: 'popularLeast'} ,
+            { text: 'Release date (oldest first)', id: 'dateOldest'} ,
+            { text: 'Release date (recent first)', id: 'dateRecent'}  ,
+            { text: 'Number of tracks (most first)', id: 'tracksMost'}  ,
+            { text: 'Number of tracks (least first)', id: 'tracksLeast'}
+        ],
         loginToken:                 "",
         checkedTracks:              [],
         markets:                    [],
         artistSearchResults:        [],
-        allTracks:                  [],
+        allAlbums:                  [],
         loginUrl:                   "",
         artistId:                   {},
         sortOption:                 ""
@@ -21,7 +25,7 @@ new Vue({
     computed :{
         totalTracks: function () {
             var count = 0;
-            this.allTracks.forEach(function(album){
+            this.allAlbums.forEach(function(album){
                 count = count + album.tracks.items.length
             });
             return count
@@ -31,29 +35,29 @@ new Vue({
     methods: {
         sortAlbums: function() {
             switch(this.sortOption) {
-                case "Alphabetical (A-Z)":
-                    this.allTracks.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
+                case "alphaAToZ":
+                    this.allAlbums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
                     break;
-                case "Alphabetical (Z-A)":
-                    this.allTracks.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
+                case "alphaZToA":
+                    this.allAlbums.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
                     break;
-                case "Popularity (most first)":
-                    this.allTracks.sort((albumA, albumB) => albumA.popularity.localeCompare(albumB.popularity))
+                case "popularMost":
+                    this.allAlbums.sort((albumA, albumB) => albumA.popularity.localeCompare(albumB.popularity))
                     break;
-                case "Popularity (least first)":
-                    this.allTracks.sort((albumA, albumB) => albumB.popularity.localeCompare(albumA.popularity))
+                case "popularLeast":
+                    this.allAlbums.sort((albumA, albumB) => albumB.popularity.localeCompare(albumA.popularity))
                     break;
-                case "Release date (oldest first)":
-                    this.allTracks.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
+                case "dateOldest":
+                    this.allAlbums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
                     break;
-                case "Release date (recent first)":
-                    this.allTracks.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
+                case "dateRecent":
+                    this.allAlbums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
                     break;
-                case "Number of tracks (most first)":
-                    this.allTracks.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)
+                case "tracksMost":
+                    this.allAlbums.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)
                     break;
-                case "Number of tracks (least first)":
-                    this.allTracks.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
+                case "tracksLeast":
+                    this.allAlbums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
                     break;
             }
         },
@@ -106,9 +110,9 @@ new Vue({
         getTracks: function(artistId) {
             this.$http.get('/tracks/' + artistId).success(function(response) {
                 this.checkedTracks = [];
-                this.allTracks = response;
-                this.allTracks.forEach(function(album){
-                    album.isVisible = false;
+                this.allAlbums = response;
+                this.allAlbums.forEach(function(album){
+                    album.isVisible = true;
                     album.isChecked = true;
                 });
             }).error(function(error) {
