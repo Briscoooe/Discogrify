@@ -50,7 +50,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Album</th>
+                            <th>Album
+                                <input  style="float:right"
+                                        type="checkbox"
+                                        checked="true">
+                            </th>
                             <th>Album artist(s)</th>
                         </tr>
                         </thead>
@@ -70,36 +74,38 @@
                         <span>Selected: {{ selected }}</span>
                         <h1> Tracks selected: {{ checkedTracks.length }}</h1>
                         <button v-on:click="publishPlaylist">Create playlist</button>
-                            <tr v-for="album in allTracks" @click="toggle">
+                            <tr v-for="album in allTracks" :key="album.id">
                                 <div>
                                     <td style="">
-                                        <i aria-hidden="false" class="fa fa-plus-square"  v-on:click="show = !show"></i>
+                                        <i aria-hidden="false" class="fa fa-plus-square" v-on:click="album.isVisible = !album.isVisible"></i>
                                         <div style="float:left">{{ album.name }}</div>
-                                        <div v-if="show">
+                                        <div v-show="album.isVisible">
+                                            {{ album.isVisible }}
                                             <ul class="list-group">
                                                 <li class="list-group-item" v-for="track in album.tracks.items">
                                                     <input type="checkbox"
                                                            checked="true"
                                                            v-bind:value="track.id"
-                                                           v-model="checkedTracks">
+                                                           v-model="checkedTracks"
+                                                           v-on:change="">
                                                     {{ track.name }}
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div style="float:left" v-else>
+                                        <div style="float:left" v-show="!album.isVisible">
+                                            <p{{ album.isVisible }}</h4>
                                             <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
                                         </div>
                                         <input  style="float:right"
                                                 type="checkbox"
-                                                checked="true"
+                                                checked="album.isChecked"
                                                 v-bind:id="album.id"
                                                 v-bind:value="album.id"
-                                                v-on:change="checkTracks(album, checkedTracks)"
-                                                :checked="show">
+                                                v-on:change="checkAlbum(album, checkedTracks)">
 
                                     </td>
                                     <td>
-                                        <div v-if="show">
+                                        <div v-if="album.isVisible">
                                             <ul class="list-group">
                                                 <li class="list-group-item" v-for="artist in album.artists">
                                                     {{ artist.name }}
@@ -120,22 +126,6 @@
         <v-footer></v-footer>
     </body>
     <script>
-        Vue.component('album', {
-            template: '<i aria-hidden="true" class="fa fa-plus-square"  v-on:click="show = !show"></i>',
-            props: {
-                album: {},
-            },
-            data() {
-                return {
-                    show: false,
-                }
-            },
-            methods: {
-                toggleShow() {
-                    this.show = !this.show
-                }
-            }
-        });
         Vue.component('custom-td', {
             template: '<h2>{{ album.na</h2>'
         });
@@ -149,7 +139,6 @@
                 el: 'body',
 
                 data: {
-                    show:                       true,
                     loginToken:                 "",
                     checkedTracks:              [],
                     markets:                    [],
@@ -161,9 +150,6 @@
                 },
 
                 computed :{
-                    tracksToAdd: function () {
-                        return this.allTracks.tracks.items
-                    },
                     totalTracks: function () {
                         var count = 0;
                         this.allTracks.forEach(function(album){
@@ -202,28 +188,23 @@
                                 break;
                         }
                     },
-                    checkTracks: function (album, checkedTracks) {
-                         album.tracks.items.forEach(function (track) {
+                    checkAlbum: function (album, checkedTracks) {
+                        album.isChecked = !album.isChecked;
+                        album.tracks.items.forEach(function (track) {
                              this.checkedTracks = checkedTracks;
                              var index = this.checkedTracks.indexOf(track.id);
-                             if(index > -1) {
-                                 this.checkedTracks.splice(index, 1)
+                             console.log(album.isChecked)
+                             if(album.isChecked) {
+                                if(index < 0) {
+                                    this.checkedTracks.push(track.id)
+                                }
                              }
                              else {
-                                 this.checkedTracks.push(track.id)
+                                 if(index > -1) {
+                                     this.checkedTracks.splice(index, 1)
+                                 }
                              }
                          });
-                    },
-                    areAllSelected: function (album, checkedTracks) {
-                        album.tracks.items.forEach(function (track) {
-                            this.checkedTracks = checkedTracks;
-                            var index = this.checkedTracks.indexOf(track.id);
-                            console.log(index);
-                            if (index > -1) {
-                                return false
-                            }
-                        });
-                        return true;
                     },
                     login: function() {
                         this.$http.get('/login').then(function(response) {
@@ -257,6 +238,10 @@
                         this.$http.get('/tracks/' + artistId).success(function(response) {
                             this.checkedTracks = [];
                             this.allTracks = response;
+                            this.allTracks.forEach(function(album){
+                                album.isVisible = false;
+                                album.isChecked = true;
+                            });
                         }).error(function(error) {
                             console.log(error)
                         })
