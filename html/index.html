@@ -59,7 +59,7 @@
                         <!-- Table header -->
                         <thead>
                             <tr>
-                                <th>Album <input style="float:right" type="checkbox" v-on:change="toggleAllAlbums" checked="true"></th>
+                                <th>Album <input style="float:right" type="checkbox" checked="true"></th>
                                 <th>Album artist(s)</th>
                             </tr>
                         </thead>
@@ -97,7 +97,11 @@
                 <div v-show="show">
                     <ul class="list-group">
                         <li class="list-group-item" v-for="track in album.tracks.items">
-                            <input type="checkbox" checked="true" :value="track.id" v-model="checkedTracks" v-on:change="updateTrack($event.target.value)">
+                            <input type="checkbox"
+                                   checked="checkedTracks.contains(track.id)"
+                                   :value="track.id"
+                                   v-model="checkedTracks"
+                                   v-on:change="updateTrack($event.target.value)">
                             {{ track.name }}
                         </li>
                     </ul>

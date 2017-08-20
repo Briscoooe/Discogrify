@@ -1,5 +1,3 @@
-var eventHub = new Vue();
-
 Vue.component('album', {
     template: '#album-col',
     props : {
@@ -12,8 +10,11 @@ Vue.component('album', {
             checked: true
         }
     },
-    created: function () {
-
+    created: function() {
+        var self = this;
+        self.album.tracks.items.forEach(function (track) {
+            self.checkedTracks.push(track.id)
+        })
     },
     methods: {
         updateAlbum: function () {
@@ -93,9 +94,6 @@ var app = new Vue({
                     this.allAlbums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
                     break;
             }
-        },
-        toggleAllAlbums: function () {
-            //eventHub.$emit('toggle-album')
         },
         updateTrack : function (trackId) {
             var index = this.checkedTracks.indexOf(trackId);
