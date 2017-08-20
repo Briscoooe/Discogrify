@@ -67,6 +67,7 @@ var app = new Vue({
         instrumentalKeys:           [
             "Instrumentals"
         ],
+        originalAlbumList:          [],
         loginToken:                 "",
         checkedTracks:              [],
         markets:                    [],
@@ -111,29 +112,51 @@ var app = new Vue({
         },
         removeInstrumentals: function () {
             var self = this;
-            var updatedList = this.allAlbums.filter(function (album) {
-                if (album.name.indexOf("Instrumentals") !== -1) {
-                    album.tracks.items.forEach(function (track) {
-                        self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
-                    });
-                    return false
-                }
-                else {
-                    album.tracks.items.forEach(function (track) {
-                        if(track.name.indexOf("Instrumental") !== -1) {
+            if(self.instrumentals) {
+                var updatedList = this.allAlbums.filter(function (album) {
+                    if (album.name.indexOf("Instrumentals") !== -1) {
+                        album.tracks.items.forEach(function (track) {
                             self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
-                            return false
-                        }
-                    });
-                }
-                return true
-            });
-            this.allAlbums = updatedList
+                        });
+                        return false
+                    }
+                    else {
+                        album.tracks.items.forEach(function (track) {
+                            if(track.name.indexOf("Instrumental") !== -1) {
+                                var index = self.checkedTracks.indexOf(track.id);
+                                if (index !== -1) {
+                                    self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1);
+                                    return false
+                                }
+                            }
+                        });
+                    }
+                    return true
+                });
+                this.allAlbums = updatedList
+            } else {
+                this.originalAlbumList.forEach(function (album) {
+                    if (self.allAlbums.indexOf(album) === -1) {
+                        album.tracks.items.forEach(function (track) {
+                            self.checkedTracks.push(track.id)
+                        })
+                    }
+                    else {
+                        album.tracks.items.forEach(function (track) {
+                            if(self.checkedTracks.indexOf(track.id) === -1) {
+                                self.checkedTracks.push(track.id)
+                            }
+                        });
+                    }
+                });
+                this.allAlbums = this.originalAlbumList
+            }
+
         },
         removeDuplicates: function () {
             var updatedList = this.allAlbums.filter(function (albumA) {
                 return albumA.name.indexOf("Instrumentals")
-            })
+            });
             this.allAlbums = updatedList
         },
         updateTrack : function (trackId) {
@@ -191,6 +214,7 @@ var app = new Vue({
                     });
                     this.checkedTracks = checkedTracks;
                     this.allAlbums = albums;
+                    this.originalAlbumList = albums;
                     this.sortAlbums()
                 }
             }).catch(function(error) {
