@@ -53,6 +53,11 @@
                             {{ option.text }}
                         </option>
                     </select>
+                    <div>
+                        <h2>Options</h2>
+                        <input type="checkbox" v-model="duplicates" v-on:change="removeDuplicates">Remove duplicates
+                        <input type="checkbox" v-model="instrumentals" v-on:change="removeInstrumentals">Remove instrumentals
+                    </div>
                     <h1> Tracks selected: {{ checkedTracks.length }}</h1>
                     <button v-on:click="publishPlaylist">Create playlist</button>
                     <table class="table table-striped">
@@ -111,7 +116,7 @@
                 </div>
                 <input  style="float:right"
                         type="checkbox"
-                        checked="checked"
+                        :checked="allTracksChecked"
                         :id="album.id"
                         :value="album.id"
                         v-on:change="updateAlbum">

@@ -10,6 +10,11 @@ Vue.component('album', {
             checked: true
         }
     },
+    computed:  {
+        allTracksChecked: function () {
+            return this.checkedTracks.length === this.album.tracks.items.length
+        }
+    },
     created: function() {
         var self = this;
         self.album.tracks.items.forEach(function (track) {
@@ -19,20 +24,23 @@ Vue.component('album', {
     methods: {
         updateAlbum: function () {
             var self = this;
-            self.checked = !self.checked;
+            if(self.allTracksChecked) {
+                self.checked = !self.checked;
+            }
             self.album.tracks.items.forEach(function (track) {
                 var index = self.checkedTracks.indexOf(track.id);
                 if(self.checked) {
                     if(index < 0) {
-                        self.checkedTracks.push(track.id)
+                        self.checkedTracks.push(track.id);
+                        self.updateTrack(track.id)
                     }
                 }
                 else {
                     if(index > -1) {
-                        self.checkedTracks.splice(index, 1)
+                        self.checkedTracks.splice(index, 1);
+                        self.updateTrack(track.id)
                     }
                 }
-                self.updateTrack(track.id)
             });
         },
         updateTrack: function(trackId) {
@@ -56,6 +64,9 @@ var app = new Vue({
             { text: 'Number of tracks (most first)', id: 'tracksMost'}  ,
             { text: 'Number of tracks (least first)', id: 'tracksLeast'}
         ],
+        instrumentalKeys:           [
+            "Instrumentals"
+        ],
         loginToken:                 "",
         checkedTracks:              [],
         markets:                    [],
@@ -63,7 +74,10 @@ var app = new Vue({
         allAlbums:                  [],
         loginUrl:                   "",
         artist:                     {},
-        sortOption:                 ""
+        sortOption:                 "",
+        duplicates:                 false,
+        instrumentals:              false
+
     },
 
     methods: {
@@ -94,6 +108,33 @@ var app = new Vue({
                     this.allAlbums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
                     break;
             }
+        },
+        removeInstrumentals: function () {
+            var self = this;
+            var updatedList = this.allAlbums.filter(function (album) {
+                if (album.name.indexOf("Instrumentals") !== -1) {
+                    album.tracks.items.forEach(function (track) {
+                        self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
+                    });
+                    return false
+                }
+                else {
+                    album.tracks.items.forEach(function (track) {
+                        if(track.name.indexOf("Instrumental") !== -1) {
+                            self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
+                            return false
+                        }
+                    });
+                }
+                return true
+            });
+            this.allAlbums = updatedList
+        },
+        removeDuplicates: function () {
+            var updatedList = this.allAlbums.filter(function (albumA) {
+                return albumA.name.indexOf("Instrumentals")
+            })
+            this.allAlbums = updatedList
         },
         updateTrack : function (trackId) {
             var index = this.checkedTracks.indexOf(trackId);
