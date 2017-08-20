@@ -248,10 +248,12 @@ func (s *SpotifyClient) getAllTracksFromAlbums(artistId string, uniqueAlbums []s
 						}
 					}
 				}
-				album.Tracks = spotify.SimpleTrackPage{
-					Tracks: tempTrackList,
+				if len(tempTrackList) > 0 {
+					album.Tracks = spotify.SimpleTrackPage{
+						Tracks: tempTrackList,
+					}
+					allTracks = append(allTracks, album)
 				}
-				allTracks = append(allTracks, album)
 			}
 			done <- true
 		}()

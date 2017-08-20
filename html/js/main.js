@@ -6,7 +6,8 @@ Vue.component('album', {
     data: function () {
         return {
             checkedTracks: [],
-            show: false
+            show: false,
+            checked: true
         }
     },
     methods: {
@@ -27,11 +28,13 @@ Vue.component('album', {
                 }
             });
         },
-        addTrack : function (trackId) {
-            this.$emit('add', trackId)
+        returnTrack: function(trackId) {
+            this.$emit('update', trackId);
         }
     }
+
 });
+
 new Vue({
     el: '#app',
 
@@ -56,18 +59,10 @@ new Vue({
         sortOption:                 ""
     },
 
-    computed :{
-        totalTracks: function () {
-            var count = 0;
-            this.allAlbums.forEach(function(album){
-                count = count + album.tracks.items.length
-            });
-            return count
-        }
-    },
-
     methods: {
         sortAlbums: function() {
+            console.log(this.allAlbums)
+
             switch(this.sortOption) {
                 case "alphaAToZ":
                     this.allAlbums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
@@ -76,10 +71,10 @@ new Vue({
                     this.allAlbums.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
                     break;
                 case "popularMost":
-                    this.allAlbums.sort((albumA, albumB) => albumA.popularity.localeCompare(albumB.popularity))
+                    this.allAlbums.sort((albumA, albumB) => albumB.popularity - albumA.popularity)
                     break;
                 case "popularLeast":
-                    this.allAlbums.sort((albumA, albumB) => albumB.popularity.localeCompare(albumA.popularity))
+                    this.allAlbums.sort((albumA, albumB) => albumA.popularity - albumB.popularity)
                     break;
                 case "dateOldest":
                     this.allAlbums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
@@ -96,7 +91,19 @@ new Vue({
             }
         },
         addTrack : function (trackId) {
-            this.checkedTracks.push(trackId)
+            var index = this.checkedTracks.indexOf(trackId);
+            if(index < 0) {
+                this.checkedTracks.push(trackId)
+            }
+            else  {
+                this.checkedTracks.splice(index, 1)
+            }
+        },
+        addTracks : function (tracks) {
+            console.log("here")
+            tracks.items.forEach(function (track) {
+                this.addTrack(track.id)
+            })
         },
         login: function() {
             this.$http.get('/login').then(function(response) {
@@ -128,11 +135,21 @@ new Vue({
 
         getTracks: function(artistId) {
             this.$http.get('/tracks/' + artistId).success(function(response) {
-                this.checkedTracks = [];
-                this.allAlbums = response;
-                this.allAlbums.forEach(function(album){
-                    album.isChecked = true;
+                var checkedTracks = [];
+                var albums = [];
+                response.forEach(function(album){
+                    if(album.tracks.items !== null) {
+                        albums.push(album);
+                        if (album.tracks.items.length > 0) {
+                            album.tracks.items.forEach(function (track) {
+                                checkedTracks.push(track.id)
+                            });
+                        }
+                    }
                 });
+                this.checkedTracks = checkedTracks;
+                this.allAlbums = albums;
+                this.sortAlbums()
             }).error(function(error) {
                 console.log(error)
             })
