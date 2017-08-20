@@ -17,11 +17,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
         <!-- Vue.js -->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
     </head>
-    <body id="app">
-        <div class="container">
+    <body>
+        <div class="container" id="app">
             <div id="header" class="row col-md-12">
                 <h1>Discogrify</h1>
             </div>
@@ -59,7 +59,7 @@
                         <!-- Table header -->
                         <thead>
                             <tr>
-                                <th>Album <input style="float:right" type="checkbox" checked="true"></th>
+                                <th>Album <input style="float:right" type="checkbox" v-on:change="toggleAllAlbums" checked="true"></th>
                                 <th>Album artist(s)</th>
                             </tr>
                         </thead>
@@ -67,7 +67,7 @@
                             <tr v-for="album in allAlbums" :key="album.id">
                                 <!-- Album column -->
                                 <td v-if="album.tracks.items.length > 0">
-                                    <album v-model="checkedTracks" v-on:update="addTrack" :album="album"></album>
+                                    <album v-model="checkedTracks" v-on:update="updateTrack" :album="album"></album>
                                 </td>
                                 <!-- Artists column -->
                                 <td>
@@ -91,25 +91,27 @@
 
         <!-- Album result template -->
         <template id="album-col">
-            <i aria-hidden="false" class="fa fa-plus-square" v-on:click="show = !show"></i>
-            <div style="float:left">{{ album.name }}</div>
-            <div v-show="show">
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="track in album.tracks.items">
-                        <input type="checkbox" checked="true" :value="track.id" v-model="checkedTracks" v-on:change="returnTrack($event.target.value)">
-                        {{ track.name }}
-                    </li>
-                </ul>
+            <div>
+                <i aria-hidden="false" class="fa fa-plus-square" v-on:click="show = !show"></i>
+                <div style="float:left">{{ album.name }}</div>
+                <div v-show="show">
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="track in album.tracks.items">
+                            <input type="checkbox" checked="true" :value="track.id" v-model="checkedTracks" v-on:change="updateTrack($event.target.value)">
+                            {{ track.name }}
+                        </li>
+                    </ul>
+                </div>
+                <div style="float:left" v-show="!show">
+                    <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
+                </div>
+                <input  style="float:right"
+                        type="checkbox"
+                        checked="checked"
+                        :id="album.id"
+                        :value="album.id"
+                        v-on:change="updateAlbum">
             </div>
-            <div style="float:left" v-show="!show">
-                <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
-            </div>
-            <input  style="float:right"
-                    type="checkbox"
-                    checked="checked"
-                    :id="album.id"
-                    :value="album.id"
-                    v-on:change="checkAlbum()">
         </template>
 
         <div class="footer">Brian Briscoe 2016</div>

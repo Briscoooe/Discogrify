@@ -1,3 +1,5 @@
+var eventHub = new Vue();
+
 Vue.component('album', {
     template: '#album-col',
     props : {
@@ -10,8 +12,11 @@ Vue.component('album', {
             checked: true
         }
     },
+    created: function () {
+
+    },
     methods: {
-        checkAlbum: function () {
+        updateAlbum: function () {
             var self = this;
             self.checked = !self.checked;
             self.album.tracks.items.forEach(function (track) {
@@ -26,17 +31,17 @@ Vue.component('album', {
                         self.checkedTracks.splice(index, 1)
                     }
                 }
-                self.returnTrack(track.id)
+                self.updateTrack(track.id)
             });
         },
-        returnTrack: function(trackId) {
+        updateTrack: function(trackId) {
             this.$emit('update', trackId);
         }
     }
 
 });
 
-new Vue({
+var app = new Vue({
     el: '#app',
 
     data: {
@@ -56,7 +61,7 @@ new Vue({
         artistSearchResults:        [],
         allAlbums:                  [],
         loginUrl:                   "",
-        artistId:                   {},
+        artist:                     {},
         sortOption:                 ""
     },
 
@@ -89,7 +94,10 @@ new Vue({
                     break;
             }
         },
-        addTrack : function (trackId) {
+        toggleAllAlbums: function () {
+            //eventHub.$emit('toggle-album')
+        },
+        updateTrack : function (trackId) {
             var index = this.checkedTracks.indexOf(trackId);
             if(index < 0) {
                 this.checkedTracks.push(trackId)
@@ -102,14 +110,14 @@ new Vue({
             this.$http.get('/login').then(function(response) {
                 window.location.href = response.data.url;
                 console.log("Response: " + response.data.url)
-            }).error(function(error) {
+            }).catch(function(error) {
                 console.log(error)
             })
         },
         publishPlaylist: function() {
             this.$http.post('/publish', this.checkedTracks, "teststring").then(function(response) {
                 alert("Created")
-            }).error(function(error) {
+            }).catch(function(error) {
                 console.log(error)
             })
         },
@@ -119,29 +127,34 @@ new Vue({
                 return
             }
 
-            this.$http.get('/search/' + encodeURIComponent(this.artist.name)).success(function(response) {
-                this.artistSearchResults = response
-            }).error(function(error) {
+            this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function(response) {
+                this.artistSearchResults = response.data;
+            }).catch(function(error) {
                 console.log(error)
             })
         },
 
         getTracks: function(artistId) {
-            this.$http.get('/tracks/' + artistId).success(function(response) {
-                var checkedTracks = [];
-                var albums = [];
-                response.forEach(function(album){
-                    if(album.tracks.items !== null) {
-                        albums.push(album);
-                        album.tracks.items.forEach(function (track) {
-                            checkedTracks.push(track.id)
-                        });
-                    }
-                });
-                this.checkedTracks = checkedTracks;
-                this.allAlbums = albums;
-                this.sortAlbums()
-            }).error(function(error) {
+            console.log(artistId)
+            this.$http.get('/tracks/' + artistId).then(function(response) {
+                console.log(response)
+                if(response.data !== ""){
+                    console.log(response)
+                    var checkedTracks = [];
+                    var albums = [];
+                    response.data.forEach(function(album){
+                        if(album.tracks.items !== null) {
+                            albums.push(album);
+                            album.tracks.items.forEach(function (track) {
+                                checkedTracks.push(track.id)
+                            });
+                        }
+                    });
+                    this.checkedTracks = checkedTracks;
+                    this.allAlbums = albums;
+                    this.sortAlbums()
+                }
+            }).catch(function(error) {
                 console.log(error)
             })
         }

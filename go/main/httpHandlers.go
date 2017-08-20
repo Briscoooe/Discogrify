@@ -9,6 +9,7 @@ import (
 	"github.com/Briscooe/Discogrify/go/caching"
 	"io/ioutil"
 	"strings"
+	"regexp"
 )
 
 var (
@@ -38,27 +39,34 @@ func getTracksHandler(cacheClient caching.Client, logger logging.Logger, spotify
 		vars := mux.Vars(r)
 		artistId := vars["artistId"]
 
-		logger.Printf("%s: Checking cache for artist ID", artistId)
-		artistTracks := GetTracksFromCache("artist:" + artistId + ":tracks", cacheClient)
-
-		if artistTracks == nil {
-			logger.Printf("%s: Artist ID not found", artistId)
-			artistTracks = spotify.GetDiscography(artistId)
-			tracksJson, _ := json.Marshal(artistTracks)
-			if AddToCache("artist:" + artistId + ":tracks", string(tracksJson), time.Hour * 168, cacheClient) {
-				IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
-				logger.Printf("%s: Successfully added artist to cache", artistId)
-			} else {
-				logger.Printf("%s: Could not add artist to cache", artistId)
+		match, _ := regexp.MatchString("^[a-zA-Z0-9]{22,}$", artistId)
+		if !match {
+			if err := json.NewEncoder(w).Encode(""); err != nil {
+				panic(err)
 			}
 		} else {
-			IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
-			logger.Printf("%s: Artist ID found in cache", artistId)
-		}
+			logger.Printf("%s: Checking cache for artist ID", artistId)
+			artistTracks := GetTracksFromCache("artist:" + artistId + ":tracks", cacheClient)
 
-		logger.Printf("%s: Returning tracks", artistId)
-		if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
-			panic(err)
+			if artistTracks == nil {
+				logger.Printf("%s: Artist ID not found", artistId)
+				artistTracks = spotify.GetDiscography(artistId)
+				tracksJson, _ := json.Marshal(artistTracks)
+				if AddToCache("artist:" + artistId + ":tracks", string(tracksJson), time.Hour * 168, cacheClient) {
+					IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
+					logger.Printf("%s: Successfully added artist to cache", artistId)
+				} else {
+					logger.Printf("%s: Could not add artist to cache", artistId)
+				}
+			} else {
+				IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
+				logger.Printf("%s: Artist ID found in cache", artistId)
+			}
+
+			logger.Printf("%s: Returning tracks", artistId)
+			if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
+				panic(err)
+			}
 		}
 	})
 }
@@ -68,7 +76,8 @@ func callbackHandler(cacheClient caching.Client, logger logging.Logger, spotify 
 		user, err, msg := spotify.ValidateCallback(r)
 
 		if err != nil {
-			logger.Fatal(err, msg)
+			logger.Println(msg)
+			logger.Println(err)
 		}
 
 		http.Redirect(w, r, "/", 302)
