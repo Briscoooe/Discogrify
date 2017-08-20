@@ -15,6 +15,7 @@ var app = new Vue({
         instrumentalKeys:           [
             "Instrumentals"
         ],
+        loggedIn:                   false,
         originalAlbumList:          [],
         loginToken:                 "",
         checkedTracks:              [],
