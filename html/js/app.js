@@ -1,55 +1,3 @@
-Vue.component('album', {
-    template: '#album-col',
-    props : {
-        album: Object
-    },
-    data: function () {
-        return {
-            checkedTracks: [],
-            show: false,
-            checked: true
-        }
-    },
-    computed:  {
-        allTracksChecked: function () {
-            return this.checkedTracks.length === this.album.tracks.items.length
-        }
-    },
-    created: function() {
-        var self = this;
-        self.album.tracks.items.forEach(function (track) {
-            self.checkedTracks.push(track.id)
-        })
-    },
-    methods: {
-        updateAlbum: function () {
-            var self = this;
-            if(self.allTracksChecked) {
-                self.checked = !self.checked;
-            }
-            self.album.tracks.items.forEach(function (track) {
-                var index = self.checkedTracks.indexOf(track.id);
-                if(self.checked) {
-                    if(index < 0) {
-                        self.checkedTracks.push(track.id);
-                        self.updateTrack(track.id)
-                    }
-                }
-                else {
-                    if(index > -1) {
-                        self.checkedTracks.splice(index, 1);
-                        self.updateTrack(track.id)
-                    }
-                }
-            });
-        },
-        updateTrack: function(trackId) {
-            this.$emit('update', trackId);
-        }
-    }
-
-});
-
 var app = new Vue({
     el: '#app',
 
@@ -111,16 +59,17 @@ var app = new Vue({
             }
         },
         removeInstrumentals: function () {
+            /*
             var self = this;
             if(self.instrumentals) {
+                this.originalAlbumList = this.allAlbums;
                 var updatedList = this.allAlbums.filter(function (album) {
                     if (album.name.indexOf("Instrumentals") !== -1) {
                         album.tracks.items.forEach(function (track) {
                             self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
                         });
                         return false
-                    }
-                    else {
+                    } else {
                         album.tracks.items.forEach(function (track) {
                             if(track.name.indexOf("Instrumental") !== -1) {
                                 var index = self.checkedTracks.indexOf(track.id);
@@ -140,8 +89,7 @@ var app = new Vue({
                         album.tracks.items.forEach(function (track) {
                             self.checkedTracks.push(track.id)
                         })
-                    }
-                    else {
+                    } else {
                         album.tracks.items.forEach(function (track) {
                             if(self.checkedTracks.indexOf(track.id) === -1) {
                                 self.checkedTracks.push(track.id)
@@ -150,7 +98,7 @@ var app = new Vue({
                     }
                 });
                 this.allAlbums = this.originalAlbumList
-            }
+            }*/
 
         },
         removeDuplicates: function () {
@@ -197,11 +145,8 @@ var app = new Vue({
         },
 
         getTracks: function(artistId) {
-            console.log(artistId)
             this.$http.get('/tracks/' + artistId).then(function(response) {
-                console.log(response)
                 if(response.data !== ""){
-                    console.log(response)
                     var checkedTracks = [];
                     var albums = [];
                     response.data.forEach(function(album){

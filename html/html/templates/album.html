@@ -1,0 +1,27 @@
+<template id="album-col">
+    <div>
+        <i aria-hidden="false" class="fa fa-plus-square" v-on:click="show = !show"></i>
+        <div style="float:left">{{ album.name }}</div>
+        <div v-show="show">
+            <ul class="list-group">
+                <li class="list-group-item" v-for="track in album.tracks.items">
+                    <input type="checkbox"
+                           checked="checkedTracks.contains(track.id)"
+                           :value="track.id"
+                           v-model="checkedTracks"
+                           v-on:change="updateTrack($event.target.value)">
+                    {{ track.name }}
+                </li>
+            </ul>
+        </div>
+        <div style="float:left" v-show="!show">
+            <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
+        </div>
+        <input  style="float:right"
+                type="checkbox"
+                :checked="allTracksChecked"
+                :id="album.id"
+                :value="album.id"
+                v-on:change="updateAlbum">
+    </div>
+</template>
