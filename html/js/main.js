@@ -11,21 +11,22 @@ Vue.component('album', {
         }
     },
     methods: {
-        checkAlbum: function (album, checkedTracks) {
-            album.isChecked = !album.isChecked;
-            album.tracks.items.forEach(function (track) {
-                this.checkedTracks = checkedTracks;
-                var index = this.checkedTracks.indexOf(track.id);
-                if(album.isChecked) {
+        checkAlbum: function () {
+            var self = this;
+            self.checked = !self.checked;
+            self.album.tracks.items.forEach(function (track) {
+                var index = self.checkedTracks.indexOf(track.id);
+                if(self.checked) {
                     if(index < 0) {
-                        this.checkedTracks.push(track.id)
+                        self.checkedTracks.push(track.id)
                     }
                 }
                 else {
                     if(index > -1) {
-                        this.checkedTracks.splice(index, 1)
+                        self.checkedTracks.splice(index, 1)
                     }
                 }
+                self.returnTrack(track.id)
             });
         },
         returnTrack: function(trackId) {
@@ -61,8 +62,6 @@ new Vue({
 
     methods: {
         sortAlbums: function() {
-            console.log(this.allAlbums)
-
             switch(this.sortOption) {
                 case "alphaAToZ":
                     this.allAlbums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
@@ -99,12 +98,6 @@ new Vue({
                 this.checkedTracks.splice(index, 1)
             }
         },
-        addTracks : function (tracks) {
-            console.log("here")
-            tracks.items.forEach(function (track) {
-                this.addTrack(track.id)
-            })
-        },
         login: function() {
             this.$http.get('/login').then(function(response) {
                 window.location.href = response.data.url;
@@ -140,11 +133,9 @@ new Vue({
                 response.forEach(function(album){
                     if(album.tracks.items !== null) {
                         albums.push(album);
-                        if (album.tracks.items.length > 0) {
-                            album.tracks.items.forEach(function (track) {
-                                checkedTracks.push(track.id)
-                            });
-                        }
+                        album.tracks.items.forEach(function (track) {
+                            checkedTracks.push(track.id)
+                        });
                     }
                 });
                 this.checkedTracks = checkedTracks;
