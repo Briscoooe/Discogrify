@@ -24,7 +24,7 @@
             <div class="row align-center" v-else style="background-color: #ecebe8">
                 <!-- Left column -->
                 <transition name="">
-                    <div v-if="searchVisible" class="col col-2" >
+                    <div id="test" v-if="searchVisible" class="col col-2" >
                         <div>
                             <div id="search-box" class="append">
                                 <input class="search" type="text" class="form-control" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
@@ -40,6 +40,9 @@
                         </div>
                     </div>
                 </transition>
+                <div class="col" style="background-color: #ecebe8">
+                    <button id="hide-button" @click="searchVisible = !searchVisible">{{ searchVisible ? 'Hide' : 'Show' }}</button>
+                </div>
                 <!-- Right column -->
                 <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
                     <select v-model="sortOption" v-on:change="sortAlbums">

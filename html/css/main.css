@@ -33,8 +33,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     list-style-type: none;
     background-color: #828282;
-
 }
+
 #search-line-content {
     cursor: pointer;
     cursor: hand;
@@ -44,7 +44,7 @@ body {
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .2s
+    transition: opacity 2s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0
@@ -59,6 +59,9 @@ body {
 
 #search-box {
     padding: 2%
+}
+#hide-button {
+    padding: 10%;
 }
 #login-button {
     font-family: 'Montserrat', sans-serif;
