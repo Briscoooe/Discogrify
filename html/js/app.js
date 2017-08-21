@@ -1,3 +1,7 @@
+Vue.component('modal', {
+    template: '#modal-template'
+});
+
 var app = new Vue({
     el: '#app',
 
@@ -15,6 +19,10 @@ var app = new Vue({
         instrumentalKeys:           [
             "Instrumentals"
         ],
+        searchVisible:              true,
+        searchResults:              false,
+        trackResults:               true,
+        showModal:                  false,
         loggedIn:                   false,
         originalAlbumList:          [],
         loginToken:                 "",
@@ -163,6 +171,7 @@ var app = new Vue({
                     this.originalAlbumList = albums;
                     this.sortAlbums()
                 }
+                this.searchVisible = false;
             }).catch(function(error) {
                 console.log(error)
             })

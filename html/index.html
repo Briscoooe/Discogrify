@@ -1,48 +1,47 @@
 <html style="height:100%">
     <head>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>Discogrify</title>
         <link rel="import" href="html/imports.html">
-
     </head>
-    <header id="header" class="row" style="background-color: #025162;">
-        <div class="col col-2"></div>
-        <div class="col col-10">
-            <h1 style="color: #fefcff">Discogrify</h1>
-        </div>
+    <header id="header" class="row align-center" >
+        <p id="header-text" class="col col-6 push-middle">Discogrify</p>
     </header>
     <body>
         <div class="content" id="app" >
-            <div class="row align-center">
-                <div class="col col-6" v-if="!loggedIn"  style="background-color: #8a888b">
-                    <h1>Please log in through spotify</h1>
+            <div class="row" style="width: 100%;height: 5%"></div>
+            <div class="row align-center" v-if="loggedIn">
+                <div id="login-box" class="col col-6">
+                    <div class="col col-8 push-middle push-center">
+                        <button class="button green large round" id="login-button" @click="login">
+                            <i aria-hidden="false" class="fa fa-spotify"></i>
+                            Please log in to Spotify</button>
+                    </div>
                 </div>
             </div>
 
-            <div v-else>
+            <div class="row align-center" v-else style="background-color: #ecebe8">
                 <!-- Left column -->
-                <div class="row" style="background-color: #daffe3;">
-                    <div class="col col-3">
-                        <h2>Login</h2>
+                <transition name="">
+                    <div v-if="searchVisible" class="col col-2" >
                         <div>
-                            <button type="button" v-on:click="login">Login</button>
+                            <div id="search-box" class="append">
+                                <input class="search" type="text" class="form-control" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
+                                <button class="button outline" type="button" v-on:click="searchArtist">Search</button>
+                            </div>
+                            <ul>
+                                <li id="search-line" v-for="artist in artistSearchResults">
+                                    <div id="search-line-content" v-on:click="getTracks(artist.id)">
+                                        {{ artist.name }}<i class="fa fa-arrow-circle-right" id="go-icon"></i>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col col-9" style="background-color: #a75dff;">
-                        <div class="append">
-                            <input class="search" type="text" class="form-control" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
-                            <button class="button outline" type="button" v-on:click="searchArtist">Search</button>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item" v-for="artist in artistSearchResults">
-                                {{ artist.name }}<button style="float:right" v-on:click="getTracks(artist.id)">Go</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
+                </transition>
                 <!-- Right column -->
-                <div class="col col-10" style="background-color: #fff7bf;">
+                <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
                     <select v-model="sortOption" v-on:change="sortAlbums">
                         <option disabled value="">Sort by...</option>
                         <option v-for="option in sortOptions" :value="option.id">
@@ -118,7 +117,42 @@
                         v-on:change="updateAlbum">
             </div>
         </template>
-        <footer class="footer">Brian BRiscoe</footer>
+        <template id="modal-template">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+
+                            <div class="modal-header">
+                                <slot name="header">
+                                    default header
+                                </slot>
+                            </div>
+
+                            <div class="modal-body">
+                                <slot name="body">
+                                    default body
+                                </slot>
+                            </div>
+
+                            <div class="modal-footer">
+                                <slot name="footer">
+                                    default footer
+                                    <button class="modal-default-button" @click="$emit('close')">
+                                        OK
+                                    </button>
+                                </slot>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </template>
+        <footer id="footer">
+            <div id="footer-text">
+                Brian Briscoe 2017
+            </div>
+        </footer>
         <script src="js/album.js"></script>
         <script src="js/app.js"></script>
     </body>

@@ -1,15 +1,46 @@
 html, body {
     height: 100%;
 }
+#app {
+    font-family: 'Montserrat', sans-serif;
+}
 body {
     display: flex;
     flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+.content {
+    background-color: #000000;
+
+}
+#header {
+    background-color: #1ed760;
+    height:10%;
+
+}
+#header-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color: #000000;
+}
+
+#go-icon {
+    margin-right: 10%;
+    float: right;
+
+}
+#search-line {
+    font-family: 'Montserrat', sans-serif;
+    list-style-type: none;
+    background-color: #828282;
+
+}
+#search-line-content {
+    cursor: pointer;
+    cursor: hand;
 }
 .content {
     flex: 1 0 auto;
-}
-.footer {
-    background-color: #025162;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -17,4 +48,53 @@ body {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0
+}
+
+#login-box {
+    background-color: #1ED763;
+    border-radius: 10px;
+    height: 50%;
+    position: relative;
+}
+
+#search-box {
+    padding: 2%
+}
+#login-button {
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 40px;
+    color: #ffffff;
+    background-color: #828282;
+    position: absolute;
+    bottom: 10%;
+}
+#login-button:hover {
+    background-color: #ecebe8;
+    color: #000000;
+}
+
+#footer {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1ed760;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+}
+
+#footer-text {
+    padding: 1%;
+}
+
+colours {
+    background-color: #6FE89C;
+    background-color: #43DE7D;
+    background-color: #00D04D;
+    background-color: #009C3A;
+    background-color: #1ED763;
+    background-color: #ecebe8; /* sand*/
+    background-color: #828282; /* grey */
 }
