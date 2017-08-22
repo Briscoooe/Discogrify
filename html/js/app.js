@@ -5,37 +5,44 @@ Vue.component('modal', {
 var app = new Vue({
     el: '#app',
 
-    data: {
-        sortOptions:                [
-            { text: 'Alphabetical (A-Z)', id: 'alphaAToZ'},
-            { text: 'Alphabetical (Z-A)', id: 'alphaZToA'},
-            { text: 'Popularity (most first)', id: 'popularMost'},
-            { text: 'Popularity (least first)', id: 'popularLeast'} ,
-            { text: 'Release date (oldest first)', id: 'dateOldest'} ,
-            { text: 'Release date (recent first)', id: 'dateRecent'}  ,
-            { text: 'Number of tracks (most first)', id: 'tracksMost'}  ,
-            { text: 'Number of tracks (least first)', id: 'tracksLeast'}
-        ],
-        instrumentalKeys:           [
-            "Instrumentals"
-        ],
-        searchVisible:              true,
-        searchResults:              false,
-        trackResults:               true,
-        showModal:                  false,
-        loggedIn:                   false,
-        originalAlbumList:          [],
-        loginToken:                 "",
-        checkedTracks:              [],
-        markets:                    [],
-        artistSearchResults:        [],
-        allAlbums:                  [],
-        loginUrl:                   "",
-        artist:                     {},
-        sortOption:                 "",
-        duplicates:                 false,
-        instrumentals:              false
+    data: function() {
+        return {
+                sortOptions: [
+                {text: 'Alphabetical (A-Z)', id: 'alphaAToZ'},
+                {text: 'Alphabetical (Z-A)', id: 'alphaZToA'},
+                {text: 'Popularity (most first)', id: 'popularMost'},
+                {text: 'Popularity (least first)', id: 'popularLeast'},
+                {text: 'Release date (oldest first)', id: 'dateOldest'},
+                {text: 'Release date (recent first)', id: 'dateRecent'},
+                {text: 'Number of tracks (most first)', id: 'tracksMost'},
+                {text: 'Number of tracks (least first)', id: 'tracksLeast'}
+            ],
+            instrumentalKeys: [
+                "Instrumentals"
+            ],
+            searchVisible: true,
+            showModal: false,
+            loggedIn: false,
+            originalAlbumList: [],
+            loginToken: "",
+            checkedTracks: [],
+            markets: [],
+            artistSearchResults: [],
+            allAlbums: [],
+            loginUrl: "",
+            artist: {},
+            sortOption: "",
+        }
 
+    },
+
+    computed: {
+        searchResultsPresent: function () {
+            return this.artistSearchResults !== null && this.artistSearchResults.length > 0
+        },
+        trackResultsPresent: function () {
+            return this.allAlbums !== null && this.allAlbums.length > 0
+        }
     },
 
     methods: {
@@ -66,55 +73,6 @@ var app = new Vue({
                     this.allAlbums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
                     break;
             }
-        },
-        removeInstrumentals: function () {
-            /*
-            var self = this;
-            if(self.instrumentals) {
-                this.originalAlbumList = this.allAlbums;
-                var updatedList = this.allAlbums.filter(function (album) {
-                    if (album.name.indexOf("Instrumentals") !== -1) {
-                        album.tracks.items.forEach(function (track) {
-                            self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
-                        });
-                        return false
-                    } else {
-                        album.tracks.items.forEach(function (track) {
-                            if(track.name.indexOf("Instrumental") !== -1) {
-                                var index = self.checkedTracks.indexOf(track.id);
-                                if (index !== -1) {
-                                    self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1);
-                                    return false
-                                }
-                            }
-                        });
-                    }
-                    return true
-                });
-                this.allAlbums = updatedList
-            } else {
-                this.originalAlbumList.forEach(function (album) {
-                    if (self.allAlbums.indexOf(album) === -1) {
-                        album.tracks.items.forEach(function (track) {
-                            self.checkedTracks.push(track.id)
-                        })
-                    } else {
-                        album.tracks.items.forEach(function (track) {
-                            if(self.checkedTracks.indexOf(track.id) === -1) {
-                                self.checkedTracks.push(track.id)
-                            }
-                        });
-                    }
-                });
-                this.allAlbums = this.originalAlbumList
-            }*/
-
-        },
-        removeDuplicates: function () {
-            var updatedList = this.allAlbums.filter(function (albumA) {
-                return albumA.name.indexOf("Instrumentals")
-            });
-            this.allAlbums = updatedList
         },
         updateTrack : function (trackId) {
             var index = this.checkedTracks.indexOf(trackId);
@@ -147,7 +105,7 @@ var app = new Vue({
             }
 
             this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function(response) {
-                this.artistSearchResults = response.data;
+                this.artistSearchResults = response.data
             }).catch(function(error) {
                 console.log(error)
             })

@@ -12,7 +12,7 @@
         <div class="content" id="app" >
             <div class="row" style="width: 100%;height: 5%"></div>
             <div class="row align-center" v-if="loggedIn">
-                <div id="login-box" class="col col-6">
+                <div id="login-div" class="col col-6">
                     <div class="col col-8 push-middle push-center">
                         <button class="button green large round" id="login-button" @click="login">
                             <i aria-hidden="false" class="fa fa-spotify"></i>
@@ -21,73 +21,81 @@
                 </div>
             </div>
 
-            <div class="row align-center" v-else style="background-color: #ecebe8">
-                <!-- Left column -->
-                <transition name="">
-                    <div id="test" v-if="searchVisible" class="col col-2" >
-                        <div>
-                            <div id="search-box" class="append">
-                                <input class="search" type="text" class="form-control" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
-                                <button class="button outline" type="button" v-on:click="searchArtist">Search</button>
-                            </div>
-                            <ul>
-                                <li id="search-line" v-for="artist in artistSearchResults">
-                                    <div id="search-line-content" v-on:click="getTracks(artist.id)">
-                                        {{ artist.name }}<i class="fa fa-arrow-circle-right" id="go-icon"></i>
+            <div class="" v-else>
+                <div v-if="!trackResultsPresent">
+                    <div class="row align-center">
+                        <div id="search-div-large" class="col col-6">
+                            <div class="">
+                                <transition name="fade">
+                                    <div v-if="searchVisible">
+                                            <div v-show="!searchResultsPresent" class="row" style="height: 17%"></div>
+                                        <div style="padding:2%;" class="col col-10 push-middle push-center">
+                                            <div id="search-div" class="append" style="padding: 2%;width: Auto; margin: 0 auto;">
+                                                <input class="search" id="search-input" style="font-size: 22px" id="search-input" type="text" class="form-control" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
+                                                <button class="button outline" id="search-button" type="button" v-on:click="searchArtist">Search</button>
+                                            </div>
+
+                                            <transition name="fade">
+                                                <ul v-if="searchResultsPresent" style="width: Auto; margin: 0 auto;">
+                                                    <li id="search-line" style="font-size: 20px;padding:2%; border: 2px solid;margin-left: 2%;margin-right: 2%" class="round"  v-for="artist in artistSearchResults">
+                                                        <div v-on:click="getTracks(artist.id)">
+                                                            {{ artist.name }}<i class="fa fa-arrow-circle-right" id="go-icon"></i>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </transition>
+                                        </div>
                                     </div>
-                                </li>
-                            </ul>
+                                </transition>
+                            </div>
                         </div>
                     </div>
-                </transition>
-                <div class="col" style="background-color: #ecebe8">
-                    <button id="hide-button" @click="searchVisible = !searchVisible">{{ searchVisible ? 'Hide' : 'Show' }}</button>
                 </div>
-                <!-- Right column -->
-                <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
-                    <select v-model="sortOption" v-on:change="sortAlbums">
-                        <option disabled value="">Sort by...</option>
-                        <option v-for="option in sortOptions" :value="option.id">
-                            {{ option.text }}
-                        </option>
-                    </select>
-                    <div>
-                        <h2>Options</h2>
-                        <input type="checkbox" v-model="duplicates" v-on:change="removeDuplicates">Remove duplicates
-                        <input type="checkbox" v-model="instrumentals" v-on:change="removeInstrumentals">Remove instrumentals
+                <div class="row align-center" v-else>
+                    <div class="col" style="background-color: #ecebe8">
+                        <button id="hide-button" @click="searchVisible = !searchVisible">{{ searchVisible ? 'Hide' : 'Show' }}</button>
                     </div>
-                    <h1> Tracks selected: {{ checkedTracks.length }}</h1>
-                    <button v-on:click="publishPlaylist">Create playlist</button>
-                    <table class="unstyled">
-                        <!-- Table header -->
-                        <thead>
-                        <tr>
-                            <th>Album <input style="float:right" type="checkbox" checked="true"></th>
-                            <th>Album artist(s)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="album in allAlbums" :key="album.id">
-                            <!-- Album column -->
-                            <td v-if="album.tracks.items.length > 0">
-                                <album v-model="checkedTracks" v-on:update="updateTrack" :album="album"></album>
-                            </td>
-                            <!-- Artists column -->
-                            <td>
-                                <div v-if="album.isVisible">
-                                    <ul class="list-group">
-                                        <li class="list-group-item" v-for="artist in album.artists">
-                                            {{ artist.name }}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div v-else>
-                                    {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <!-- Right column -->
+                    <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
+                        <select v-model="sortOption" v-on:change="sortAlbums">
+                            <option disabled value="">Sort by...</option>
+                            <option v-for="option in sortOptions" :value="option.id">
+                                {{ option.text }}
+                            </option>
+                        </select>
+                        <h1> Tracks selected: {{ checkedTracks.length }}</h1>
+                        <button v-on:click="publishPlaylist">Create playlist</button>
+                        <table class="unstyled">
+                            <!-- Table header -->
+                            <thead>
+                            <tr>
+                                <th>Album <input style="float:right" type="checkbox" checked="true"></th>
+                                <th>Album artist(s)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="album in allAlbums" :key="album.id">
+                                <!-- Album column -->
+                                <td v-if="album.tracks.items.length > 0">
+                                    <album v-model="checkedTracks" v-on:update="updateTrack" :album="album"></album>
+                                </td>
+                                <!-- Artists column -->
+                                <td>
+                                    <div v-if="album.isVisible">
+                                        <ul class="list-group">
+                                            <li class="list-group-item" v-for="artist in album.artists">
+                                                {{ artist.name }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div v-else>
+                                        {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- End right column-->
                 </div>
             </div>
         </div>

@@ -18,10 +18,39 @@ body {
     height:10%;
 
 }
+
 #header-text {
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
     color: #000000;
+}
+
+.content {
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
+}
+
+#login-div {
+    background-color: #1ED763;
+    border-radius: 10px;
+    height: 50%;
+    position: relative;
+}
+
+#search-div-large {
+    background-color: #1ED763;
+    border-radius: 10px;
+    display:block;
+    overflow:auto;
+    min-height:50%;
+}
+#search-div {
+    padding: 2%
 }
 
 #go-icon {
@@ -32,40 +61,26 @@ body {
 #search-line {
     font-family: 'Montserrat', sans-serif;
     list-style-type: none;
-    background-color: #828282;
-}
-
-#search-line-content {
+    background-color: #fefcff;
     cursor: pointer;
     cursor: hand;
 }
-.content {
-    flex: 1 0 auto;
+
+#search-line:hover {
+    background-color: #828282;
 }
 
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 2s
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0
-}
+#search-input {
+    padding: 2%;
+    height: 50px;
+    border-color: #000000;
 
-#login-box {
-    background-color: #1ED763;
-    border-radius: 10px;
-    height: 50%;
-    position: relative;
-}
-
-#search-box {
-    padding: 2%
 }
 #hide-button {
     padding: 10%;
 }
 #login-button {
     font-family: 'Montserrat', sans-serif;
-
     font-size: 40px;
     color: #ffffff;
     background-color: #828282;
@@ -73,6 +88,17 @@ body {
     bottom: 10%;
 }
 #login-button:hover {
+    background-color: #ecebe8;
+    color: #000000;
+}
+#search-button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    color: #ffffff;
+    background-color: #828282;
+    border-color: #000000;
+}
+#search-button:hover {
     background-color: #ecebe8;
     color: #000000;
 }
@@ -91,6 +117,7 @@ body {
 #footer-text {
     padding: 1%;
 }
+
 
 colours {
     background-color: #6FE89C;
