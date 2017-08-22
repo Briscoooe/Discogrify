@@ -52,21 +52,23 @@
                     </div>
                 </div>
                 <div class="row align-center" v-else>
-                    <div class="col" style="background-color: #ecebe8">
-                        <button id="hide-button" @click="searchVisible = !searchVisible">{{ searchVisible ? 'Hide' : 'Show' }}</button>
-                    </div>
                     <!-- Right column -->
                     <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
-                        <select v-model="sortOption" v-on:change="sortAlbums">
-                            <option disabled value="">Sort by...</option>
-                            <option v-for="option in sortOptions" :value="option.id">
-                                {{ option.text }}
-                            </option>
-                        </select>
-                        <h1> Tracks selected: {{ checkedTracks.length }}</h1>
-                        <button v-on:click="publishPlaylist">Create playlist</button>
+                        <div class="row">
+                            <p id="tracks-selected-text" class="col col-6"> Tracks selected: {{ checkedTracks.length }}</p>
+                            <select v-model="sortOption" class="col col-4" id="select-sort" v-on:change="sortAlbums">
+                                <option disabled value="">Sort by...</option>
+                                <option v-for="option in sortOptions" :value="option.id">
+                                    {{ option.text }}
+                                </option>`
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col col-4 push-right">
+                                <button id="create-button" v-on:click="publishPlaylist">Create playlist</button>
+                            </div>
+                        </div>
                         <table class="unstyled">
-                            <!-- Table header -->
                             <thead>
                             <tr>
                                 <th>Album <input style="float:right" type="checkbox" checked="true"></th>
@@ -74,9 +76,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="album in allAlbums" :key="album.id">
+                            <tr style="background-color: #4ca0f5;border: 1px solid" v-for="album in allAlbums" :key="album.id">
                                 <!-- Album column -->
-                                <td v-if="album.tracks.items.length > 0">
+                                <td  v-if="album.tracks.items.length > 0">
                                     <album v-model="checkedTracks" v-on:update="updateTrack" :album="album"></album>
                                 </td>
                                 <!-- Artists column -->
@@ -101,8 +103,8 @@
         </div>
 
         <template id="album-col">
-            <div>
-                <i aria-hidden="false" style="float:left" class="ion-plus-round" v-on:click="show = !show"></i>
+            <div id="album-title">
+                <i aria-hidden="false" style="float:left" class="ion-plus-round" v-on:click="show = !show">X&nbsp</i>
                 <div>{{ album.name }}
                     <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
                 </div>
@@ -127,37 +129,6 @@
                         :value="album.id"
                         v-on:change="updateAlbum">
             </div>
-        </template>
-        <template id="modal-template">
-            <transition name="modal">
-                <div class="modal-mask">
-                    <div class="modal-wrapper">
-                        <div class="modal-container">
-
-                            <div class="modal-header">
-                                <slot name="header">
-                                    default header
-                                </slot>
-                            </div>
-
-                            <div class="modal-body">
-                                <slot name="body">
-                                    default body
-                                </slot>
-                            </div>
-
-                            <div class="modal-footer">
-                                <slot name="footer">
-                                    default footer
-                                    <button class="modal-default-button" @click="$emit('close')">
-                                        OK
-                                    </button>
-                                </slot>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
         </template>
         <footer id="footer">
             <div id="footer-text">

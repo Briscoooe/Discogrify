@@ -31,7 +31,7 @@ var app = new Vue({
             allAlbums: [],
             loginUrl: "",
             artist: {},
-            sortOption: "",
+            sortOption: ""
         }
 
     },

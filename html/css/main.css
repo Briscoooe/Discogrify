@@ -25,6 +25,7 @@ body {
     color: #000000;
 }
 
+
 .content {
 }
 
@@ -56,7 +57,6 @@ body {
 #go-icon {
     margin-right: 10%;
     float: right;
-
 }
 #search-line {
     font-family: 'Montserrat', sans-serif;
@@ -114,6 +114,50 @@ body {
     text-align: center;
 }
 
+#select-sort {
+    margin: 2%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+#create-button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    color: #ffffff;
+    background-color: #828282;
+    border-color: #000000;
+}
+#create-button:hover {
+    background-color: #ecebe8;
+    color: #000000;
+}
+#tracks-selected-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color: #000000;
+    margin: 3%;
+}
+
+th {
+    padding: 2%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+}
+td {
+    padding: 2%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    background-color: #ecebe8;
+    border: 1px solid;
+}
+
+#album-title {
+    padding: 1%;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
 #footer-text {
     padding: 1%;
 }
