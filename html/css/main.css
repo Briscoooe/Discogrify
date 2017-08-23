@@ -138,21 +138,20 @@ body {
     margin: 3%;
 }
 
+i:hover {
+    cursor: pointer;
+    cursor: hand;
+}
+
 th {
     padding: 2%;
+    margin: 2%;
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
 }
 td {
-    padding: 2%;
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
-    background-color: #ecebe8;
-    border: 1px solid;
-}
-
-#album-title {
-    padding: 1%;
 }
 
 input[type=checkbox] {
@@ -160,6 +159,10 @@ input[type=checkbox] {
 }
 #footer-text {
     padding: 1%;
+}
+
+#checkbox-column {
+
 }
 
 

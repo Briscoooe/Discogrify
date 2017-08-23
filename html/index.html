@@ -53,7 +53,7 @@
                 </div>
                 <div class="row align-center" v-else>
                     <!-- Right column -->
-                    <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #fff7bf;">
+                    <div :class="{'col col-8': searchVisible, 'col col-10': !searchVisible}" style="background-color: #1ED763;border-radius: 10px;">
                         <div class="row">
                             <p id="tracks-selected-text" class="col col-6"> Tracks selected: {{ checkedTracks.length }}</p>
                             <select v-model="sortOption" class="col col-4" id="select-sort" v-on:change="sortAlbums">
@@ -68,30 +68,36 @@
                                 <button id="create-button" v-on:click="publishPlaylist">Create playlist</button>
                             </div>
                         </div>
-                        <table class="unstyled">
+                        <table class="bordered" style="background-color: #ecebe8">
                             <thead>
                             <tr>
-                                <th>Album <input style="float:right" type="checkbox" checked="true"></th>
+                                <th> <input style="float:right" type="checkbox" checked="true"></th>
+                                <th>Album</th>
                                 <th>Album artist(s)</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr style="background-color: #4ca0f5;border: 1px solid" v-for="album in allAlbums" :key="album.id">
+                            <tr  v-for="album in allAlbums" :key="album.id">
+                                <td>
+                                    <input type="checkbox">
+                                </td>
                                 <!-- Album column -->
                                 <td  v-if="album.tracks.items.length > 0">
                                     <album v-model="checkedTracks" v-on:update="updateTrack" :album="album"></album>
                                 </td>
                                 <!-- Artists column -->
                                 <td>
-                                    <div v-if="album.isVisible">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" v-for="artist in album.artists">
-                                                {{ artist.name }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div v-else>
-                                        {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
+                                    <div >
+                                        <div v-if="album.isVisible">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" v-for="artist in album.artists">
+                                                    {{ artist.name }}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div v-else>
+                                            {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -104,14 +110,14 @@
 
         <template id="album-col">
             <div id="album-title">
-                <i aria-hidden="false" style="float:left" class="ion-plus-round" v-on:click="show = !show">X&nbsp</i>
+                <i aria-hidden="false" style="float:left" :class="{'ion-arrow-up-b': show, 'ion-arrow-down-b': !show}" v-on:click="show = !show">X&nbsp</i>
                 <div>{{ album.name }}
                     <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
                 </div>
                 <transition name="fade">
                     <div v-show="show">
-                        <ul class="list-group">
-                            <li class="list-group-item" v-for="track in album.tracks.items">
+                        <ul class="">
+                            <li style="list-style-type: none;background-color: #ecebe8;padding: 10px 10px;border:1px solid" v-for="track in album.tracks.items">
                                 <input type="checkbox"
                                        checked="checkedTracks.contains(track.id)"
                                        :value="track.id"
@@ -122,12 +128,7 @@
                         </ul>
                     </div>
                 </transition>
-                <input  style="float:right"
-                        type="checkbox"
-                        :checked="allTracksChecked"
-                        :id="album.id"
-                        :value="album.id"
-                        v-on:change="updateAlbum">
+
             </div>
         </template>
         <footer id="footer">
