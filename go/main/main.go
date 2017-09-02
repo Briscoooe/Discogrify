@@ -50,6 +50,6 @@ func main() {
 	}
 
 	router := setupRouter(cacheClient, logger, spotifyClient)
-
-	logger.Fatal(http.ListenAndServe(":8080", router))
+	contextedRouter := AddContext(router)
+	logger.Fatal(http.ListenAndServe(":8080", contextedRouter))
 }

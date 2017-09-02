@@ -11,12 +11,13 @@ import (
 	"bytes"
 	"io/ioutil"
 	"time"
+	"golang.org/x/oauth2"
 )
 
 type Spotify interface {
-	CheckLoggedIn() bool
+	GetCurrentUser() (spotify.User, error)
 	GenerateLoginUrl() map[string]string
-	ValidateCallback(r *http.Request) (*spotify.PrivateUser, error, string)
+	ValidateCallback(r *http.Request) (*oauth2.Token, error, string)
 	GetDiscography(artistId string) []*spotify.FullAlbum
 	SearchForArtist(artistName string, cacheClient caching.Client) []spotify.FullArtist
 	PublishPlaylist(tracks []string) bool
@@ -37,12 +38,12 @@ func NewSpotifyClient(logger logging.Logger) *SpotifyClient {
 	}
 }
 
-func (s *SpotifyClient) CheckLoggedIn() bool {
-	_, err := s.Client.CurrentUser()
+func (s *SpotifyClient) GetCurrentUser() (spotify.User, error) {
+	user, err := s.Client.CurrentUser()
 	if err != nil {
-		return false
+		return user.User, err
 	}
-	return true
+	return user.User, nil
 }
 func (s *SpotifyClient) GenerateLoginUrl() map[string]string {
 	s.StateString = s.Authenticator.AuthURL(GenerateStateString())
@@ -54,24 +55,20 @@ func (s *SpotifyClient) GenerateLoginUrl() map[string]string {
 	return urlJson
 }
 
-func (s *SpotifyClient) ValidateCallback(r *http.Request) (user *spotify.PrivateUser, err error, errMsg string) {
+func (s *SpotifyClient) ValidateCallback(r *http.Request) (token *oauth2.Token, err error, errMsg string) {
 	tok, err := s.Authenticator.Token(s.StateString, r)
 	if err != nil {
 		s.Logger.Println(err)
-		return user, err, "Could not get token"
+		return tok, err, "Could not get token"
 	}
 	if st := r.FormValue("state"); st != s.StateString {
-		return user, err, fmt.Sprintf("State mismatch: %s != %s\n", st, stateString)
+		return tok, err, fmt.Sprintf("State mismatch: %s != %s\n", st, stateString)
 	}
 
 	s.Client = s.Authenticator.NewClient(tok)
 	s.Client.AutoRetry = true
-	user, err = s.Client.CurrentUser()
-	if err != nil {
-		return user, err, err.Error()
-	}
 
-	return user, nil, ""
+	return tok, nil, ""
 }
 
 func (s *SpotifyClient) GetDiscography(artistId string) []*spotify.FullAlbum {

@@ -11,7 +11,7 @@
     <body>
         <div class="content" id="app" >
             <div class="row" style="width: 100%;height: 5%"></div>
-            <div class="row align-center" v-if="loggedIn">
+            <div class="row align-center" v-if="token === null">
                 <div id="login-div" class="col col-6">
                     <div class="col col-8 push-middle push-center">
                         <button class="button green large round" id="login-button" @click="login">
@@ -38,7 +38,7 @@
                                             <transition name="fade">
                                                 <ul v-if="searchResultsPresent" style="width: Auto; margin: 0 auto;">
                                                     <li id="search-line" style="font-size: 20px;padding:2%; border: 2px solid;margin-left: 2%;margin-right: 2%" class="round"  v-for="artist in artistSearchResults">
-                                                        <div v-on:click="getTracks(artist.id)">
+                                                        <div v-on:click="getTracks(artist)">
                                                             {{ artist.name }}<i class="fa fa-arrow-circle-right" id="go-icon"></i>
                                                         </div>
                                                     </li>
@@ -64,11 +64,13 @@
                             </select>
                         </div>
                         <div class="row">
-                            <div class="col col-4 push-right">
-                                <button id="create-button" v-on:click="publishPlaylist">Create playlist</button>
+                            <p id="artist-name" class="col col-6"> {{ artist.name }}</p>
+                            <div class="col col-4">
+                                <button id="create-button" style="width: 100%;" v-on:click="publishPlaylist">Create playlist</button>
                             </div>
                         </div>
-                        <table class="bordered" style="background-color: #ecebe8">
+                        <div class="row" style="width: 100%;height: 5%"></div>
+                        <table class="bordered" style="background-color: #ecebe8;">
                             <thead>
                             <tr>
                                 <th> <input style="float:right" type="checkbox" checked="true"></th>

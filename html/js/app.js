@@ -22,7 +22,7 @@ var app = new Vue({
             ],
             searchVisible: true,
             showModal: false,
-            loggedIn: false,
+            token: "",
             originalAlbumList: [],
             loginToken: "",
             checkedTracks: [],
@@ -33,10 +33,14 @@ var app = new Vue({
             artist: {},
             sortOption: ""
         }
+    },
 
+    created: function () {
+        this.token = document.cookie.match('(^|;)\\s*' + "auth_token" + '\\s*=\\s*([^;]+)');
     },
 
     computed: {
+
         searchResultsPresent: function () {
             return this.artistSearchResults !== null && this.artistSearchResults.length > 0
         },
@@ -92,7 +96,10 @@ var app = new Vue({
             })
         },
         publishPlaylist: function() {
-            this.$http.post('/publish', this.checkedTracks, "teststring").then(function(response) {
+            var playlist = {};
+            playlist.tracks = this.checkedTracks;
+            playlist.name = this.artist;
+            this.$http.post('/publish', playlist).then(function(response) {
                 alert("Created")
             }).catch(function(error) {
                 console.log(error)
@@ -105,14 +112,15 @@ var app = new Vue({
             }
 
             this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function(response) {
-                this.artistSearchResults = response.data
+                this.artistSearchResults = response.data;
             }).catch(function(error) {
                 console.log(error)
             })
         },
 
-        getTracks: function(artistId) {
-            this.$http.get('/tracks/' + artistId).then(function(response) {
+        getTracks: function(artist) {
+            this.artist.name = artist.name;
+            this.$http.get('/tracks/' + artist.id).then(function(response) {
                 if(response.data !== ""){
                     var checkedTracks = [];
                     var albums = [];

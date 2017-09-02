@@ -5,12 +5,11 @@ html, body {
     font-family: 'Montserrat', sans-serif;
 }
 body {
-    display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
 }
 .content {
-    background-color: #000000;
+    background-color: #ecebe8;
 
 }
 #header {
@@ -132,6 +131,13 @@ body {
     color: #000000;
 }
 #tracks-selected-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color: #000000;
+    margin: 3%;
+}
+
+#artist-name {
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
     color: #000000;

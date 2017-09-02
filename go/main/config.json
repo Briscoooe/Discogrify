@@ -12,5 +12,5 @@
     "db" : 0
   },
   "requestDelay" : 100,
-  "devMode": true
+  "devMode": false
 }
