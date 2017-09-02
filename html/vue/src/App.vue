@@ -1,17 +1,35 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <custom-header></custom-header>
+    <login></login>
+    <search v-on:albums="albums"></search>
+    <sort></sort>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Header from './components/Header'
+import Login from './components/Login'
+import Search from './components/Search'
+import Sort from './components/Sort'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    'custom-header': Header,
+    'login': Login,
+    'search': Search,
+    'sort': Sort
+  },
+  data: function () {
+    return {
+      albums: []
+    }
+  },
+  methods: {
+    albums: function () {
+      console.log(this.albums)
+    }
   }
 }
 </script>
@@ -23,6 +41,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
