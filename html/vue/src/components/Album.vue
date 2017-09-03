@@ -66,9 +66,10 @@
       },
       updateTrack: function (trackId) {
         this.$emit('update-track', trackId)
-        if (this.checkedTracks.length === 0 ||
-            this.checkedTracks.length === this.album.tracks.items.length) {
-          this.$emit('update-album', this.album.id)
+        if (this.checkedTracks.length === this.album.tracks.items.length) {
+          this.$emit('update-album', this.album.id, true)
+        } else {
+          this.$emit('update-album', this.album.id, false)
         }
       }
     }

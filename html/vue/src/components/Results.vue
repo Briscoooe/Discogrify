@@ -8,7 +8,7 @@
     <table>
       <thead>
       <tr>
-        <th><input type="checkbox" :checked="true" @click="toggleAllAlbums"></th>
+        <th></th>
         <th>Album</th>
         <th>Album artist(s)</th>
       </tr>
@@ -17,7 +17,7 @@
       <tr v-for="album in allAlbums" :key="album.id">
         <td>
         <input type="checkbox" :value="album.id"
-               :checked="checkedAlbums.indexOf(album.id) >= 0"
+               :checked="checkedAlbums.indexOf(album.id) > -1"
                v-model="checkedAlbums"
                @click="toggleSingleAlbum(album.id)">
         </td>
@@ -58,10 +58,8 @@
     },
     data () {
       return {
-        artistSearchResults: [],
         allAlbums: [],
         checkedTracks: [],
-        originalAlbumList: [],
         artist: {},
         checkedAlbums: []
       }
@@ -70,8 +68,8 @@
 
     },
     mounted () {
-      EventBus.$on('albums', this.updateAlbums)
-      EventBus.$on('artist', this.updateArtist)
+      EventBus.$on('albums', this.initialiseAlbums)
+      EventBus.$on('artist', this.initialiseArtist)
       EventBus.$on('sort-changed', this.updateSort)
     },
     computed: {
@@ -81,21 +79,22 @@
     },
     methods: {
       toggleSingleAlbum: function (albumId) {
+        this.updateAlbum(albumId)
         EventBus.$emit('toggle-album', albumId)
       },
-      toggleAllAlbums: function () {
-        this.checkedAlbums.forEach(function (album) {
-        })
-      },
-      updateAlbum: function (albumId) {
+      updateAlbum: function (albumId, check) {
         let index = this.checkedAlbums.indexOf(albumId)
         if (index >= 0) {
-          this.checkedAlbums.splice(index, 1)
+          if (!check) {
+            this.checkedAlbums.splice(index, 1)
+          }
         } else {
-          this.checkedAlbums.push(albumId)
+          if (check) {
+            this.checkedAlbums.push(albumId)
+          }
         }
       },
-      updateAlbums: function (allAlbums) {
+      initialiseAlbums: function (allAlbums) {
         let self = this
         self.allAlbums = []
         self.checkedAlbums = []
@@ -110,7 +109,7 @@
           }
         })
       },
-      updateArtist: function (artist) {
+      initialiseArtist: function (artist) {
         this.artist = artist
       },
       updateSort: function (albums) {
