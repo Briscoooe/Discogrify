@@ -34,6 +34,11 @@
         checked: true
       }
     },
+    computed: {
+      allTracksChecked: function () {
+        return this.checkedTracks.length === this.album.tracks.items.length
+      }
+    },
     mounted () {
       EventBus.$on('toggle-album', this.updateAlbum)
     },
@@ -47,7 +52,9 @@
       updateAlbum: function (albumId) {
         let self = this
         if (self.album.id === albumId) {
-          self.checked = !self.checked
+          if (this.allTracksChecked) {
+            self.checked = true
+          }
           self.album.tracks.items.forEach(function (track) {
             let index = self.checkedTracks.indexOf(track.id)
             if (self.checked) {
@@ -66,7 +73,7 @@
       },
       updateTrack: function (trackId) {
         this.$emit('update-track', trackId)
-        if (this.checkedTracks.length === this.album.tracks.items.length) {
+        if (this.allTracksChecked) {
           this.$emit('update-album', this.album.id, true)
         } else {
           this.$emit('update-album', this.album.id, false)
