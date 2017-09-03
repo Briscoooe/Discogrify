@@ -17,7 +17,7 @@
       <tr v-for="album in allAlbums" :key="album.id">
         <td>
         <input type="checkbox" :value="album.id"
-               :checked="checkedAlbums.indexOf(album.id) !== -1"
+               :checked="checkedAlbums.indexOf(album.id) >= 0"
                v-model="checkedAlbums"
                @click="toggleSingleAlbum(album.id)">
         </td>
