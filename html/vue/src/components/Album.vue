@@ -36,7 +36,13 @@
     },
     computed: {
       allTracksChecked: function () {
-        return this.checkedTracks.length === this.album.tracks.items.length
+        if (this.checkedTracks.length === this.album.tracks.items.length) {
+          self.checked = true
+          return true
+        } else {
+          self.checked = false
+          return false
+        }
       }
     },
     mounted () {
@@ -73,11 +79,7 @@
       },
       updateTrack: function (trackId) {
         this.$emit('update-track', trackId)
-        if (this.allTracksChecked) {
-          this.$emit('update-album', this.album.id, true)
-        } else {
-          this.$emit('update-album', this.album.id, false)
-        }
+        this.$emit('update-album', this.album.id, this.allTracksChecked)
       }
     }
   }
