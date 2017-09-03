@@ -37,10 +37,10 @@
     computed: {
       allTracksChecked: function () {
         if (this.checkedTracks.length === this.album.tracks.items.length) {
-          self.checked = true
+          // self.checked = true
           return true
         } else {
-          self.checked = false
+          // self.checked = false
           return false
         }
       }
@@ -58,28 +58,31 @@
       updateAlbum: function (albumId) {
         let self = this
         if (self.album.id === albumId) {
-          if (this.allTracksChecked) {
-            self.checked = true
-          }
+          // if (self.allTracksChecked) {
+          //  self.checked = true
+          // }
           self.album.tracks.items.forEach(function (track) {
             let index = self.checkedTracks.indexOf(track.id)
-            if (self.checked) {
-              if (index < 0) {
-                self.checkedTracks.push(track.id)
-                self.updateTrack(track.id)
-              }
-            } else {
-              if (index > -1) {
-                self.checkedTracks.splice(index, 1)
-                self.updateTrack(track.id)
-              }
+            // if (self.checked) {
+            if (index < 0) {
+              self.checkedTracks.push(track.id)
+              self.updateTrack(track.id)
             }
+            // } else {
+            if (index > -1) {
+              self.checkedTracks.splice(index, 1)
+              self.updateTrack(track.id)
+            }
+            // }
           })
         }
       },
       updateTrack: function (trackId) {
         this.$emit('update-track', trackId)
-        this.$emit('update-album', this.album.id, this.allTracksChecked)
+        if (this.checkedTracks.length === this.album.tracks.items.length ||
+          this.checkedTracks.length === 0) {
+          this.$emit('update-album', this.album.id, 'VA')
+        }
       }
     }
   }

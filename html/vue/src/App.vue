@@ -28,11 +28,27 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/kube/6.5.2/css/kube.min.css');
+  @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+</style>
+
+<style>
+:root {
+  --primary-green: #1ED763;
+  --primary-grey: #828282;
+  --primary-sand: #ECEBE8;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
+a:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
 </style>

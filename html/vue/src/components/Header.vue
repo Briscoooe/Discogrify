@@ -1,10 +1,12 @@
 <template>
-  <div id="content">
-    <p id="header-text">{{ title }}</p>
-    <div v-show="isLoggedIn">
-      <p>
-        Logged in as {{ user.display_name === "" ? user.id : user.display_name }}
-        <a v-on:click="logout">Logout</a> </p>
+  <div class="row align-center" id="content">
+    <div class="col col-6">
+      <p id="header-text">Discogrify</p>
+      <div id="account" v-show="isLoggedIn">
+        <p>
+          Logged in as {{ user.display_name === "" ? user.id : user.display_name }}
+          <a v-on:click="logout">Logout</a> </p>
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +15,6 @@
 export default {
   data () {
     return {
-      title: 'Discogrify',
       token: '',
       cookieName: 'auth_token',
       user: {}
@@ -49,14 +50,20 @@ export default {
 
 <style scoped>
 #content {
-  background-color: #1ed760;
-  height:10%;
+  background-color: var(--primary-green);
+  height:15%;
+  padding:1%;
 }
 
 #header-text {
   font-family: 'Montserrat', sans-serif;
   font-size: 40px;
   color: #000000;
+  float:left;
+}
+
+#account {
+  float:right;
 }
 
 </style>

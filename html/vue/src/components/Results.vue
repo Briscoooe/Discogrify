@@ -4,8 +4,8 @@
     <div>
       <button v-on:click="publishPlaylist">Create playlist</button>
     </div>
-    <h1> {{ numberOfTracks }} Tracks selected</h1>
-    <table>
+    <div data-component="sticky"> {{ numberOfTracks }} tracks selected</div>
+    <table class="bordered">
       <thead>
       <tr>
         <th></th>
@@ -16,7 +16,8 @@
       <tbody>
       <tr v-for="album in allAlbums" :key="album.id">
         <td>
-        <input type="checkbox" :value="album.id"
+        <input type="checkbox"
+               :value="album.id"
                :checked="checkedAlbums.indexOf(album.id) > -1"
                v-model="checkedAlbums"
                @click="toggleSingleAlbum(album.id)">
@@ -79,19 +80,17 @@
     },
     methods: {
       toggleSingleAlbum: function (albumId) {
-        this.updateAlbum(albumId)
         EventBus.$emit('toggle-album', albumId)
+        this.updateAlbum(albumId)
       },
-      updateAlbum: function (albumId, check) {
+      updateAlbum: function (albumId, val) {
+        console.log(val)
         let index = this.checkedAlbums.indexOf(albumId)
-        if (index >= 0) {
-          if (!check) {
-            this.checkedAlbums.splice(index, 1)
-          }
+        console.log('index: ' + index)
+        if (index > -1) {
+          this.checkedAlbums.splice(index, 1)
         } else {
-          if (check) {
-            this.checkedAlbums.push(albumId)
-          }
+          this.checkedAlbums.push(albumId)
         }
       },
       initialiseAlbums: function (allAlbums) {
