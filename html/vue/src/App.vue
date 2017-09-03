@@ -2,8 +2,9 @@
   <div id="app">
     <custom-header></custom-header>
     <login></login>
-    <search v-on:albums="albums"></search>
+    <search></search>
     <sort></sort>
+    <results></results>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Search from './components/Search'
 import Sort from './components/Sort'
+import Results from './components/Results'
 
 export default {
   name: 'app',
@@ -19,17 +21,8 @@ export default {
     'custom-header': Header,
     'login': Login,
     'search': Search,
-    'sort': Sort
-  },
-  data: function () {
-    return {
-      albums: []
-    }
-  },
-  methods: {
-    albums: function () {
-      console.log(this.albums)
-    }
+    'sort': Sort,
+    'results': Results
   }
 }
 </script>

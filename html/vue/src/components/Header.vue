@@ -38,7 +38,6 @@ export default {
     },
     getUserInfo: function () {
       this.$http.get('/user').then(function (response) {
-        console.log(response)
         this.user = response.data
       }).catch(function (error) {
         console.log(error)

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+  import EventBus from '../event-bus'
+
   export default {
     data () {
       return {
@@ -20,37 +22,46 @@
           {text: 'Release date (recent first)', id: 'dateRecent'},
           {text: 'Number of tracks (most first)', id: 'tracksMost'},
           {text: 'Number of tracks (least first)', id: 'tracksLeast'}
-        ]
+        ],
+        albums: []
       }
     },
+    mounted () {
+      EventBus.$on('albums', this.updateAlbums)
+    },
     methods: {
+      updateAlbums: function (albums) {
+        this.albums = albums
+        this.sortAlbums()
+      },
       sortAlbums: function () {
         switch (this.sortOption) {
           case 'alphaAToZ':
-            this.allAlbums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
+            this.albums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
             break
           case 'alphaZToA':
-            this.allAlbums.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
+            this.albums.sort((albumA, albumB) => albumB.name.localeCompare(albumA.name))
             break
           case 'popularMost':
-            this.allAlbums.sort((albumA, albumB) => albumB.popularity - albumA.popularity)
+            this.albums.sort((albumA, albumB) => albumB.popularity - albumA.popularity)
             break
           case 'popularLeast':
             this.allAlbums.sort((albumA, albumB) => albumA.popularity - albumB.popularity)
             break
           case 'dateOldest':
-            this.allAlbums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
+            this.albums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
             break
           case 'dateRecent':
-            this.allAlbums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
+            this.albums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
             break
           case 'tracksMost':
-            this.allAlbums.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)
+            this.albums.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)
             break
           case 'tracksLeast':
-            this.allAlbums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
+            this.albums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
             break
         }
+        EventBus.$emit('sort-changed', this.albums)
       }
     }
   }

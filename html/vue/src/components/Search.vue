@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import EventBus from '../event-bus'
+
   export default {
     data () {
       return {
@@ -25,6 +27,7 @@
         artist: {}
       }
     },
+
     computed: {
       searchResultsPresent: function () {
         return this.artistSearchResults !== null && this.artistSearchResults.length > 0
@@ -46,8 +49,9 @@
             response.data.forEach(function (album) {
               albums.push(album)
             })
+            EventBus.$emit('albums', albums)
+            EventBus.$emit('artist', this.artist)
           }
-          this.$emit('albums', albums)
         }).catch(function (error) {
           console.log(error)
         })
