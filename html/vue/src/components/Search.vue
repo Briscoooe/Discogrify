@@ -2,21 +2,21 @@
   <div id="content" class="row align-center font-override">
     <div class="col col-6">
       <div class="append">
-        <input class="search" placeholder="Search artist..." class="font-override" v-on:keyup.enter="searchArtist" v-model="artist.name">
-        <button type="button" class="button outline" class="font-override" v-on:click="searchArtist">Search</button>
+        <input id="search-box" class="search font-override" placeholder="Search artist..." v-on:keyup.enter="searchArtist" v-model="artist.name">
+        <button type="button" class="font-override" v-on:click="searchArtist">Search</button>
       </div>
       <transition name="fade">
         <ul v-if="searchResultsPresent">
           <li v-for="artist in artistSearchResults">
-            <div id="search-line" v-on:click="getTracks(artist)">
+            <div id="result-line" v-on:click="getTracks(artist)">
               {{ artist.name }}
             </div>
           </li>
         </ul>
       </transition>
-      <button type="button" @click="showModal = true" >press me</button>
+      <!--<button type="button" @click="showModal = true" >press me</button>
       <modal v-if="showModal" @close="showModal = false">
-      </modal>
+      </modal>-->
     </div>
   </div>
 </template>
@@ -35,7 +35,6 @@
         showModal: false
       }
     },
-
     computed: {
       searchResultsPresent: function () {
         return this.artistSearchResults !== null && this.artistSearchResults.length > 0
@@ -53,12 +52,15 @@
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id).then(function (response) {
           if (response.data !== '') {
-            var albums = []
+            let albums = []
             response.data.forEach(function (album) {
               albums.push(album)
             })
             EventBus.$emit('albums', albums)
             EventBus.$emit('artist', this.artist)
+            this.$emit('scroll')
+            let objDiv = document.getElementById('results')
+            objDiv.scrollTop = objDiv.scrollHeight
           }
         }).catch(function (error) {
           console.log(error)
@@ -70,13 +72,41 @@
 </script>
 
 <style scoped>
-#content {
-  margin-top: 5%;
-}
 .font-override {
-  font-size:20px;
+  font-family: var(--font);
+  font-size: var(--font-size-control);
 }
 
+#search-box:focus{
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-green);
+  border:1px solid var(--secondary-green);
+}
+
+#search-box:hover{
+  border: 1px solid var(--primary-grey);
+  border-radius: 5px;
+}
+
+#search-box:focus:hover{
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-green);
+  border:1px solid var(--secondary-green);
+  border-radius:0;
+
+}
+
+#result-line{
+  background-color: var(--primary-grey);
+  text-align: left;
+  padding: 1% 2%;
+  cursor: pointer;
+  border: 1px e
+}
+
+#result-line:hover{
+  background-color: var(--primary-sand);
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .2s
 }

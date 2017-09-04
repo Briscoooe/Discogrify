@@ -1,18 +1,19 @@
 <template >
-  <div>
-    <div v-on:click='show = !show'>{{ album.name }}
-      <b>({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
+  <div id="content">
+    <div class="clickable" v-on:click='show = !show'>{{ album.name }}
+      <b id="track-count">({{ album.tracks.items.length }} {{ album.tracks.items.length == 1 ? 'track' : 'tracks' }})</b>
     </div>
     <transition name='fade'>
       <div v-show='show'>
         <ul>
           <li v-for='track in album.tracks.items'>
-            <input type='checkbox'
+            <input id="checkbox"
+                   type='checkbox'
                    checked='checkedTracks.contains(track.id)'
                    :value='track.id'
                    v-model='checkedTracks'
                    v-on:change='updateTrack($event.target.value)'>
-            {{ track.name }}
+            <label class="clickable" for="checkbox">{{ track.name }}</label>
           </li>
         </ul>
       </div>
@@ -88,4 +89,12 @@
   }
 </script>
 
-<style></style>
+<style scoped>
+#content {
+  text-align: left;
+}
+.clickable:hover {
+  cursor: pointer;
+}
+
+</style>

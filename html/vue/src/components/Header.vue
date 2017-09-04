@@ -5,7 +5,7 @@
       <div id="account" v-show="isLoggedIn">
         <p>
           Logged in as {{ user.display_name === "" ? user.id : user.display_name }}
-          <a v-on:click="logout">Logout</a> </p>
+          <a id="logout" v-on:click="logout">Logout</a> </p>
       </div>
     </div>
   </div>
@@ -56,14 +56,18 @@ export default {
 }
 
 #header-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 40px;
-  color: #000000;
+  font-family: var(--font);
+  font-size: var(--font-size-title);
+  color: var(--primary-black);
   float:left;
 }
 
 #account {
   float:right;
+}
+
+#logout {
+  color: var(--primary-sand);
 }
 
 </style>

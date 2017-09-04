@@ -1,8 +1,9 @@
 <template>
-  <div v-if="!isLoggedIn">
+  <div id="content" v-if="!isLoggedIn">
     <div>
       <div>
         <button id="login-button" @click="login">
+          <i aria-hidden="false" class="fa fa-spotify"></i>
           Please log in to Spotify</button>
       </div>
     </div>
@@ -39,15 +40,8 @@
 </script>
 
 <style scoped>
-  #content {
-    background-color: #1ed760;
-    height:10%;
-  }
-
-  #header-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
-    color: #000000;
-  }
-
+#content {
+  padding-top:5%;
+  font-size: var(--font-size-title);
+}
 </style>

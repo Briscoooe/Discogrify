@@ -2,9 +2,9 @@
   <div id="app">
     <custom-header></custom-header>
     <login></login>
-    <search></search>
+    <search id="search" v-on:scroll="scroll('results')"></search>
     <sort></sort>
-    <results></results>
+    <results id="results" v-on:scroll="scroll('search')"></results>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ import Login from './components/Login'
 import Search from './components/Search'
 import Sort from './components/Sort'
 import Results from './components/Results'
+import Jump from '../node_modules/jump.js'
 
 export default {
   name: 'app',
@@ -23,6 +24,13 @@ export default {
     'search': Search,
     'sort': Sort,
     'results': Results
+  },
+  methods: {
+    scroll: function (element) {
+      Jump('#' + element, {
+        duration: 400
+      })
+    }
   }
 }
 </script>
@@ -38,17 +46,40 @@ export default {
   --primary-green: #1ED763;
   --primary-grey: #828282;
   --primary-sand: #ECEBE8;
+  --primary-black: #0d0d0e;
+  --secondary-green: #009C3A;
+  --font: 'Montserrat', sans-serif;
+  --font-size-title: 2.5em;
+  --font-size-control: 1.25em;
+  --font-size-data: 1em;
 }
 #app {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--primary-black);
 }
 a:hover {
   cursor: pointer;
   cursor: hand;
 }
+button {
+  background-color: var(--secondary-green);
+  font-size: var(--font-size-control);
+  font-family: var(--font);
+}
 
+button:hover {
+  background-color: var(--primary-green);
+}
+li {
+  list-style-type: none;
+}
+</style>
+
+<style scoped>
+  #search{
+    margin-top: 5%;
+  }
 </style>

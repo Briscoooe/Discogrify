@@ -69,6 +69,8 @@
 </script>
 
 <style scoped>
-
+select {
+  font-size: var(--font-size-control);
+}
 
 </style>

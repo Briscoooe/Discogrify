@@ -1,48 +1,50 @@
 <template>
-  <div>
-    <p> Artist name {{ artist.name }}</p>
-    <div>
-      <button v-on:click="publishPlaylist">Create playlist</button>
+  <div id="content" class="row align-center">
+    <div class="col col-6">
+      <p> Artist name {{ artist.name }}</p>
+      <div>
+        <button v-on:click="publishPlaylist">Create playlist</button>
+      </div>
+      <div data-component="sticky"> {{ numberOfTracks }} tracks selected</div>
+      <table class="striped" id="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Album</th>
+          <th>Album artist(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="album in allAlbums" :key="album.id">
+          <td>
+            <input type="checkbox"
+                   :value="album.id"
+                   :checked="checkedAlbums.indexOf(album.id) > -1"
+                   v-model="checkedAlbums"
+                   @click="toggleSingleAlbum(album.id)">
+          </td>
+          <td v-if="album.tracks.items.length > 0">
+            <album v-model="checkedTracks"
+                   v-on:update-track="updateTrack"
+                   v-on:update-album="updateAlbum"
+                   :album="album"></album>
+          </td>
+          <td>
+            <div v-if="album.isVisible">
+              <ul>
+                <li v-for="artist in album.artists">
+                  {{ artist.name }}
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-    <div data-component="sticky"> {{ numberOfTracks }} tracks selected</div>
-    <table class="bordered">
-      <thead>
-      <tr>
-        <th></th>
-        <th>Album</th>
-        <th>Album artist(s)</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="album in allAlbums" :key="album.id">
-        <td>
-        <input type="checkbox"
-               :value="album.id"
-               :checked="checkedAlbums.indexOf(album.id) > -1"
-               v-model="checkedAlbums"
-               @click="toggleSingleAlbum(album.id)">
-        </td>
-        <td v-if="album.tracks.items.length > 0">
-           <album v-model="checkedTracks"
-                  v-on:update-track="updateTrack"
-                  v-on:update-album="updateAlbum"
-                  :album="album"></album>
-        </td>
-        <td>
-          <div v-if="album.isVisible">
-            <ul>
-              <li v-for="artist in album.artists">
-                {{ artist.name }}
-              </li>
-            </ul>
-          </div>
-          <div v-else>
-            {{ album.artists[0].name }}<span v-if="album.artists.length > 1">, {{ album.artists.length -1  }} more</span>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -138,5 +140,11 @@
 </script>
 
 <style scoped>
+#content {
+  font-size: var(--font-size-data);
+}
 
+#table {
+  text-align: left;
+}
 </style>
