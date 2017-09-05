@@ -155,7 +155,7 @@
   margin-bottom: 1%;
 }
 #artist-name {
-  float:left;
+  text-align:left;
 }
 #table {
   text-align: left;

@@ -95,11 +95,10 @@
 }
 
 #result-line{
-  background-color: var(--primary-grey);
   text-align: left;
   padding: 1% 2%;
   cursor: pointer;
-  border: 1px;
+  border: 1px solid;
 }
 
 #result-line:hover{
