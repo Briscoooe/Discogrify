@@ -59,8 +59,6 @@
             EventBus.$emit('albums', albums)
             EventBus.$emit('artist', this.artist)
             this.$emit('scroll')
-            let objDiv = document.getElementById('results')
-            objDiv.scrollTop = objDiv.scrollHeight
           }
         }).catch(function (error) {
           console.log(error)
@@ -101,17 +99,10 @@
   text-align: left;
   padding: 1% 2%;
   cursor: pointer;
-  border: 1px e
+  border: 1px;
 }
 
 #result-line:hover{
   background-color: var(--primary-sand);
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0
-}
-
 </style>

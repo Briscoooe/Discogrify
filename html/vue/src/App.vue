@@ -3,7 +3,6 @@
     <custom-header></custom-header>
     <login></login>
     <search id="search" v-on:scroll="scroll('results')"></search>
-    <sort></sort>
     <results id="results" v-on:scroll="scroll('search')"></results>
   </div>
 </template>
@@ -12,7 +11,6 @@
 import Header from './components/Header'
 import Login from './components/Login'
 import Search from './components/Search'
-import Sort from './components/Sort'
 import Results from './components/Results'
 import Jump from '../node_modules/jump.js'
 
@@ -22,7 +20,6 @@ export default {
     'custom-header': Header,
     'login': Login,
     'search': Search,
-    'sort': Sort,
     'results': Results
   },
   methods: {
@@ -62,7 +59,6 @@ export default {
 }
 a:hover {
   cursor: pointer;
-  cursor: hand;
 }
 button {
   background-color: var(--secondary-green);
@@ -75,6 +71,15 @@ button:hover {
 }
 li {
   list-style-type: none;
+}
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 </style>
 

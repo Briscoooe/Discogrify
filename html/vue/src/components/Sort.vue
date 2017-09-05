@@ -61,7 +61,7 @@
             this.albums.sort((albumA, albumB) => albumA.tracks.items.length - albumB.tracks.items.length)
             break
         }
-        EventBus.$emit('sort-changed', this.albums)
+        this.$emit('sort', this.albums)
       }
     }
   }

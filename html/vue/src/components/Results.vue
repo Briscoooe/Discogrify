@@ -1,16 +1,20 @@
 <template>
   <div id="content" class="row align-center">
     <div class="col col-6">
-      <p> Artist name {{ artist.name }}</p>
-      <div>
-        <button v-on:click="publishPlaylist">Create playlist</button>
+      <div class="row">
+        <p id="artist-name" class="margin large-text col col-6"> {{ artist.name }}</p>
+        <sort v-on:sort="updateSort" class="margin col col-6"></sort>
       </div>
-      <div data-component="sticky"> {{ numberOfTracks }} tracks selected</div>
+      <div class="row">
+        <p class="margin large-text col col-6"> {{ numberOfTracks }} tracks selected</p>
+        <button class="margin col col-6" v-on:click="publishPlaylist">Create playlist</button>
+      </div>
       <table class="striped" id="table">
         <thead>
         <tr>
           <th></th>
           <th>Album</th>
+          <th>Tracks</th>
           <th>Album artist(s)</th>
         </tr>
         </thead>
@@ -28,6 +32,9 @@
                    v-on:update-track="updateTrack"
                    v-on:update-album="updateAlbum"
                    :album="album"></album>
+          </td>
+          <td>
+            {{ album.tracks.items.length }}
           </td>
           <td>
             <div v-if="album.isVisible">
@@ -51,10 +58,11 @@
 <script>
   import Album from './Album'
   import EventBus from '../event-bus'
-
+  import Sort from './Sort'
   export default {
     components: {
-      'album': Album
+      'album': Album,
+      'sort': Sort
     },
     props: {
       results: []
@@ -73,7 +81,6 @@
     mounted () {
       EventBus.$on('albums', this.initialiseAlbums)
       EventBus.$on('artist', this.initialiseArtist)
-      EventBus.$on('sort-changed', this.updateSort)
     },
     computed: {
       numberOfTracks: function () {
@@ -140,11 +147,18 @@
 </script>
 
 <style scoped>
-#content {
-  font-size: var(--font-size-data);
+.large-text{
+  font-size: var(--font-size-title);
 }
-
+.margin {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+#artist-name {
+  float:left;
+}
 #table {
   text-align: left;
+  font-size: var(--font-size-data);
 }
 </style>
