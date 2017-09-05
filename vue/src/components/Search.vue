@@ -11,7 +11,7 @@
       <transition name="fade">
         <ul id="list" v-if="show">
           <li id="list-item" v-for="artist in artistSearchResults">
-            <div style="width:100%" id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
+            <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
               {{ artist.name }}<span class="hvr-icon-forward"></span>
             </div>
           </li>
@@ -97,6 +97,8 @@
   padding: 1% 2%;
   cursor: pointer;
   border: 1px solid;
+  width: 100%;
+  border-radius: 3px;
 }
 
 #result-line:hover{

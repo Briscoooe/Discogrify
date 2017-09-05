@@ -1,13 +1,15 @@
 <template>
   <div id="content" class="row align-center">
     <div v-if="resultsPresent" class="col col-6">
-      <div class="row">
-        <p class="margin large-text col col-6"> {{ artist.name }}</p>
-        <sort :albums="allAlbums" v-on:sort="updateSort" class="margin col col-6"></sort>
-      </div>
-      <div class="row">
-        <p class="margin large-text col col-6"> {{ checkedTracks.length }} tracks selected</p>
-        <button class="margin col col-6" v-on:click="publishPlaylist">Create playlist</button>
+      <div id="results-header">
+        <div class="row">
+          <p class="margin large-text col col-6"> {{ artist.name }}</p>
+          <sort :albums="allAlbums" v-on:sort="updateSort" class="margin col col-6"></sort>
+        </div>
+        <div class="row">
+          <p class="margin large-text col col-6"> {{ checkedTracks.length }} tracks selected</p>
+          <button class="margin col col-6" v-on:click="publishPlaylist">Publish playlist</button>
+        </div>
       </div>
       <table class="striped" id="table">
         <thead>
@@ -150,17 +152,25 @@
 
 <style scoped>
 .large-text{
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-heading);
   text-align: left;
 }
 .margin {
   margin-top: 2%;
   margin-bottom: 2%;
 }
+#results-header {
+  background-color: var(--primary-sand);
+  padding: 2%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 3px;
+}
 #table {
   text-align: left;
   font-size: var(--font-size-data);
 }
+
 
 #no-results {
   font-size: var(--font-size-control);

@@ -15,12 +15,12 @@ import (
 )
 
 type Spotify interface {
-	GetCurrentUser() (spotify.User, error)
-	GenerateLoginUrl() map[string]string
+	GetUserInfo(token *oauth2.Token) (spotify.User, error)
+	GenerateLoginUrl() string
 	ValidateCallback(r *http.Request) (*oauth2.Token, error, string)
 	GetDiscography(artistId string) []*spotify.FullAlbum
 	SearchForArtist(artistName string, cacheClient caching.Client) []spotify.FullArtist
-	PublishPlaylist(tracks []string) bool
+	PublishPlaylist(tracks []string, title string) (bool, string)
 }
 
 type SpotifyClient struct {
@@ -38,21 +38,18 @@ func NewSpotifyClient(logger logging.Logger) *SpotifyClient {
 	}
 }
 
-func (s *SpotifyClient) GetCurrentUser() (spotify.User, error) {
+func (s *SpotifyClient) GetUserInfo(token *oauth2.Token) (spotify.User, error) {
+	s.Client = spotify.Authenticator{}.NewClient(token)
 	user, err := s.Client.CurrentUser()
-	if err != nil {
-		return user.User, err
-	}
-	return user.User, nil
+
+	return user.User, err
 }
-func (s *SpotifyClient) GenerateLoginUrl() map[string]string {
+func (s *SpotifyClient) GenerateLoginUrl() string {
 	s.StateString = s.Authenticator.AuthURL(GenerateStateString())
 
 	url := s.Authenticator.AuthURL(s.StateString)
 
-	urlJson := map[string]string{"url": url}
-
-	return urlJson
+	return url
 }
 
 func (s *SpotifyClient) ValidateCallback(r *http.Request) (token *oauth2.Token, err error, errMsg string) {
@@ -109,14 +106,14 @@ func (s *SpotifyClient) SearchForArtist(artistName string, cacheClient caching.C
 	return artistsArray
 }
 
-func (s *SpotifyClient) PublishPlaylist(tracks []string) bool {
+func (s *SpotifyClient) PublishPlaylist(tracks []string, artistName string) (bool, string) {
 	user, _ := s.Client.CurrentUser()
-	playlist, err := s.Client.CreatePlaylistForUser(user.ID, "My Playlist", true)
+	playlist, err := s.Client.CreatePlaylistForUser(user.ID, artistName + " - By Discogrify", true)
 
 	if err != nil {
 		s.Logger.Printf("Could not create playlist")
 		s.Logger.Println(err)
-		return false
+		return false, "Could not create playlist"
 	}
 
 	s.Logger.Println("Playlist created: " + playlist.ID)
@@ -145,7 +142,9 @@ func (s *SpotifyClient) PublishPlaylist(tracks []string) bool {
 	for tracksAdded != len(tracks) {
 		bodyJSON, err := json.Marshal(bodyStruct.Uris[startIndex:endIndex+1])
 		if err != nil {
+			s.Logger.Printf("Could not create playlist")
 			s.Logger.Println(err)
+			return false, "Could not create playlist"
 		}
 		tracksAdded += endIndex - startIndex + 1
 		// If less than 100 tracks left
@@ -176,7 +175,7 @@ func (s *SpotifyClient) PublishPlaylist(tracks []string) bool {
 		}
 	}
 	s.Logger.Printf("Added %s tracks to playlist ID: %s", tracksAdded, playlist.ID)
-	return result
+	return result, string(playlist.URI)
 }
 
 func (s *SpotifyClient) getUniqueAlbums(artistId string) []spotify.ID {

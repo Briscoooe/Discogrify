@@ -17,7 +17,8 @@ func setupRouter(cacheClient caching.Client, logger logging.Logger, spotify Spot
 	router.Handle("/tracks/{artistId}", AddContext(getTracksHandler(cacheClient, logger, spotify))).Methods("GET")
 	router.Handle("/search/{name}", AddContext(searchArtistHandler(cacheClient, logger, spotify))).Methods("GET")
 	router.Handle("/publish", AddContext(publishPlaylistHandler(cacheClient, spotify))).Methods("POST")
-	router.PathPrefix("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/html/")))
+	router.Handle("/user", AddContext(userInfoHandler(cacheClient, spotify))).Methods("GET")
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/vue/dist")))
 
 	return router
 }

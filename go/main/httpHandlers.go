@@ -8,10 +8,10 @@ import (
 	"time"
 	"github.com/Briscooe/Discogrify/go/caching"
 	"io/ioutil"
-	"strings"
 	"regexp"
 	"context"
 	"fmt"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -30,7 +30,6 @@ func AddContext(next http.Handler) http.Handler {
 	})
 }
 func indexHandlerFunc(logger logging.Logger) http.Handler {
-	// Do something
 	return nil
 }
 
@@ -38,9 +37,7 @@ func loginToSpotifyHandlerFunc(logger logging.Logger, spotify Spotify) http.Hand
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := spotify.GenerateLoginUrl()
 
-		if err := json.NewEncoder(w).Encode(url); err != nil {
-			panic(err)
-		}
+		w.Write([]byte(url))
 	})
 }
 
@@ -83,7 +80,7 @@ func getTracksHandler(cacheClient caching.Client, logger logging.Logger, spotify
 				}
 			}
 		} else {
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("Not logged in"))
 		}
 	})
@@ -108,6 +105,27 @@ func callbackHandler(cacheClient caching.Client, logger logging.Logger, spotify 
 	})
 }
 
+func userInfoHandler(cacheClient caching.Client, spotify Spotify) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if token := r.Context().Value("AuthToken"); token != nil {
+			user, err := spotify.GetUserInfo(&oauth2.Token{AccessToken: fmt.Sprintf("%v", token)})
+
+			if err != nil {
+				w.WriteHeader(http.StatusBadRequest)
+				w.Write([]byte("Invalid token"))
+			} else {
+				w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+				w.WriteHeader(http.StatusOK)
+				if err := json.NewEncoder(w).Encode(user); err != nil {
+					panic(err)
+				}
+			}
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Not logged in"))
+		}
+	})
+}
 func searchArtistHandler(cacheClient caching.Client, logger logging.Logger, spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if token := r.Context().Value("AuthToken"); token != nil {
@@ -130,7 +148,7 @@ func searchArtistHandler(cacheClient caching.Client, logger logging.Logger, spot
 				panic(err)
 			}
 		} else {
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("Not logged in"))
 		}
 	})
@@ -141,10 +159,8 @@ func publishPlaylistHandler(cacheClient caching.Client, s Spotify) http.Handler 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if token := r.Context().Value("AuthToken"); token != nil {
 			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-			w.WriteHeader(http.StatusOK)
 
 			body, _ := ioutil.ReadAll(r.Body)
-			tracks := strings.Split(string(body), ",")
 			type playlist struct {
 				Tracks []string
 				Title string `json:"name"`
@@ -157,13 +173,17 @@ func publishPlaylistHandler(cacheClient caching.Client, s Spotify) http.Handler 
 
 			}
 
-			result := s.PublishPlaylist(tracks)
-
-			if err := json.NewEncoder(w).Encode(result); err != nil {
+			result, message := s.PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title)
+			if result {
+				w.WriteHeader(http.StatusCreated)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+			if err := json.NewEncoder(w).Encode(message); err != nil {
 				panic(err)
 			}
 		}else {
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("Not logged in"))
 		}
 	})

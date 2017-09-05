@@ -4,6 +4,7 @@
     <login v-if="!loggedIn"></login>
     <search id="search" v-on:scroll="scroll('results')"></search>
     <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
+    <custom-footer></custom-footer>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Search from './components/Search'
 import Results from './components/Results'
+import Footer from './components/Footer'
 import Jump from '../node_modules/jump.js'
 
 export default {
@@ -20,7 +22,8 @@ export default {
     'custom-header': Header,
     'login': Login,
     'search': Search,
-    'results': Results
+    'results': Results,
+    'custom-footer': Footer
   },
   data () {
     return {
@@ -58,6 +61,7 @@ export default {
   --secondary-green: #009C3A;
   --font: 'Montserrat', sans-serif;
   --font-size-title: 2.5em;
+  --font-size-heading: 2em;
   --font-size-control: 1.25em;
   --font-size-data: 1em;
 }
