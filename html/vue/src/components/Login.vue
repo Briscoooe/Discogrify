@@ -1,5 +1,5 @@
 <template>
-  <div id="content" v-if="!isLoggedIn">
+  <div id="content">
     <div>
       <div>
         <button id="login-button" @click="login">
@@ -12,17 +12,6 @@
 
 <script>
   export default {
-    data () {
-      return {
-        token: '',
-        cookieName: 'auth_token'
-      }
-    },
-    computed: {
-      isLoggedIn: function () {
-        return this.token !== null
-      }
-    },
     methods: {
       login: function () {
         this.$http.get('/login').then(function (response) {
@@ -31,9 +20,6 @@
           console.log(error)
         })
       }
-    },
-    created: function () {
-      this.token = document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')
     }
   }
 
@@ -42,6 +28,6 @@
 <style scoped>
 #content {
   padding-top:5%;
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-control);
 }
 </style>

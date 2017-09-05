@@ -1,6 +1,5 @@
 <template>
-  <select v-model='sortOption' v-on:change='sortAlbums'>
-    <option disabled value=''>Sort by...</option>
+  <select class="green-control" v-model='sortOption' v-on:change='sortAlbums'>
     <option v-for='option in sortOptions' :value='option.id'>
       {{ option.text }}
     </option>
@@ -9,24 +8,24 @@
 
 <script>
   import EventBus from '../event-bus'
-
   export default {
     data () {
       return {
         sortOptions: [
+          {text: 'Release date (recent first)', id: 'dateRecent'},
+          {text: 'Release date (oldest first)', id: 'dateOldest'},
           {text: 'Alphabetical (A-Z)', id: 'alphaAToZ'},
           {text: 'Alphabetical (Z-A)', id: 'alphaZToA'},
           {text: 'Popularity (most first)', id: 'popularMost'},
           {text: 'Popularity (least first)', id: 'popularLeast'},
-          {text: 'Release date (oldest first)', id: 'dateOldest'},
-          {text: 'Release date (recent first)', id: 'dateRecent'},
           {text: 'Number of tracks (most first)', id: 'tracksMost'},
           {text: 'Number of tracks (least first)', id: 'tracksLeast'}
         ],
         albums: []
       }
     },
-    mounted () {
+    created: function () {
+      this.sortOption = this.sortOptions[0].id
       EventBus.$on('albums', this.updateAlbums)
     },
     methods: {
@@ -36,6 +35,12 @@
       },
       sortAlbums: function () {
         switch (this.sortOption) {
+          case 'dateRecent':
+            this.albums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
+            break
+          case 'dateOldest':
+            this.albums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
+            break
           case 'alphaAToZ':
             this.albums.sort((albumA, albumB) => albumA.name.localeCompare(albumB.name))
             break
@@ -46,13 +51,7 @@
             this.albums.sort((albumA, albumB) => albumB.popularity - albumA.popularity)
             break
           case 'popularLeast':
-            this.allAlbums.sort((albumA, albumB) => albumA.popularity - albumB.popularity)
-            break
-          case 'dateOldest':
-            this.albums.sort((albumA, albumB) => albumA.release_date.localeCompare(albumB.release_date))
-            break
-          case 'dateRecent':
-            this.albums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
+            this.albums.sort((albumA, albumB) => albumA.popularity - albumB.popularity)
             break
           case 'tracksMost':
             this.albums.sort((albumA, albumB) => albumB.tracks.items.length - albumA.tracks.items.length)

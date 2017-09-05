@@ -1,12 +1,12 @@
 <template>
   <div id="content" class="row align-center">
-    <div class="col col-6">
+    <div v-if="resultsPresent" class="col col-6">
       <div class="row">
-        <p id="artist-name" class="margin large-text col col-6"> {{ artist.name }}</p>
-        <sort v-on:sort="updateSort" class="margin col col-6"></sort>
+        <p class="margin large-text col col-6"> {{ artist.name }}</p>
+        <sort :albums="allAlbums" v-on:sort="updateSort" class="margin col col-6"></sort>
       </div>
       <div class="row">
-        <p class="margin large-text col col-6"> {{ numberOfTracks }} tracks selected</p>
+        <p class="margin large-text col col-6"> {{ this.checkedTracks.length }} tracks selected</p>
         <button class="margin col col-6" v-on:click="publishPlaylist">Create playlist</button>
       </div>
       <table class="striped" id="table">
@@ -52,6 +52,11 @@
         </tbody>
       </table>
     </div>
+    <div class="col col-6" v-else>
+      <div >
+        <p>Track results will appear here when searched</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,10 +64,12 @@
   import Album from './Album'
   import EventBus from '../event-bus'
   import Sort from './Sort'
+  import Modal from './Modal'
   export default {
     components: {
       'album': Album,
-      'sort': Sort
+      'sort': Sort,
+      'modal': Modal
     },
     props: {
       results: []
@@ -75,16 +82,13 @@
         checkedAlbums: []
       }
     },
-    created: function () {
-
-    },
     mounted () {
       EventBus.$on('albums', this.initialiseAlbums)
       EventBus.$on('artist', this.initialiseArtist)
     },
     computed: {
-      numberOfTracks: function () {
-        return this.checkedTracks.length
+      resultsPresent: function () {
+        return this.checkedTracks.length > 0
       }
     },
     methods: {
@@ -149,16 +153,40 @@
 <style scoped>
 .large-text{
   font-size: var(--font-size-title);
+  text-align: left;
 }
 .margin {
-  margin-top: 1%;
-  margin-bottom: 1%;
-}
-#artist-name {
-  text-align:left;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 #table {
   text-align: left;
   font-size: var(--font-size-data);
+}
+/* Icon Fade */
+.hvr-icon-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  padding-right: 2.2em;
+}
+.hvr-icon-fade:before {
+  content: "\f00c";
+  position: absolute;
+  right: 1em;
+  padding: 0 1px;
+  font-family: FontAwesome;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color;
+  transition-property: color;
+}
+.hvr-icon-fade:hover:before, .hvr-icon-fade:focus:before, .hvr-icon-fade:active:before {
+  color: #0F9E5E;
 }
 </style>

@@ -3,27 +3,15 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="modal-header">
             <slot name="header">
               You must login through Spotify to continue
             </slot>
           </div>
-
-          <div class="modal-body">
-            <slot name="body">
-            </slot>
-          </div>
-
           <div class="modal-footer">
             <slot name="footer">
               <div class="row">
-                <button class="button green large round" @click="login">
-                  <i aria-hidden="false" class="fa fa-spotify"></i>
-                  Login</button>
-              </div>
-              <div class="row">
-                <button class="modal-default-button" @click="$emit('close')">
+                <button id="close-button" @click="$emit('close')">
                   Close
                 </button>
               </div>
@@ -42,6 +30,9 @@
 </script>
 
 <style>
+#close-button {
+  width:100%;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -72,14 +63,6 @@
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
 }
 
 /*

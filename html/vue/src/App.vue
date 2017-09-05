@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <custom-header></custom-header>
-    <login></login>
+    <login v-if="!loggedIn"></login>
     <search id="search" v-on:scroll="scroll('results')"></search>
-    <results id="results" v-on:scroll="scroll('search')"></results>
+    <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
   </div>
 </template>
 
@@ -22,10 +22,21 @@ export default {
     'search': Search,
     'results': Results
   },
+  data () {
+    return {
+      cookieName: 'auth_token'
+    }
+  },
+  computed: {
+    loggedIn: function () {
+      let token = document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')
+      return token !== null
+    }
+  },
   methods: {
     scroll: function (element) {
       Jump('#' + element, {
-        duration: 400
+        duration: 1000
       })
     }
   }
@@ -60,14 +71,26 @@ export default {
 a:hover {
   cursor: pointer;
 }
-button {
+
+/* Fade */
+button{
   background-color: var(--secondary-green);
   font-size: var(--font-size-control);
   font-family: var(--font);
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
 }
-
-button:hover {
+button:hover, button:focus, button:active {
   background-color: var(--primary-green);
+  color: var(--primary-sand);
 }
 li {
   list-style-type: none;
@@ -75,8 +98,26 @@ li {
 input[type="checkbox"]:hover {
   cursor: pointer;
 }
+.green-control:focus{
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-green);
+  border:1px solid var(--secondary-green);
+}
+
+.green-control:hover{
+  border: 1px solid var(--primary-grey);
+  border-radius: 5px;
+}
+
+.green-control:focus:hover{
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-green);
+  border:1px solid var(--secondary-green);
+  border-radius:0;
+
+}
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .2s
+  transition: opacity .3s
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
