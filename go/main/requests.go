@@ -12,6 +12,7 @@ import (
 	"context"
 	"fmt"
 	"golang.org/x/oauth2"
+	"strings"
 )
 
 var (
@@ -29,45 +30,35 @@ func AddContext(next http.Handler) http.Handler {
 		}
 	})
 }
-func indexHandlerFunc(logger logging.Logger) http.Handler {
+func IndexHandlerFunc(logger logging.Logger) http.Handler {
 	return nil
 }
 
-func loginToSpotifyHandlerFunc(logger logging.Logger, spotify Spotify) http.Handler {
+func LoginToSpotifyHandlerFunc(logger logging.Logger, spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := spotify.GenerateLoginUrl()
 		w.Write([]byte(url))
 	})
 }
 
-func getTracksHandler(cacheClient caching.Client, logger logging.Logger, spotify Spotify) http.Handler {
+func GetTracksHandler(cacheClient caching.Client, logger logging.Logger, spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if token := r.Context().Value("AuthToken"); token != nil {
-			artistId := mux.Vars(r)["artistId"]
-			match, _ := regexp.MatchString("^[a-zA-Z0-9]{22,}$", artistId)
+		if tok := r.Context().Value("AuthToken"); tok != nil {
+			id := mux.Vars(r)["artistId"]
+			match, _ := regexp.MatchString("^[a-zA-Z0-9]{22,}$", id)
 			if !match {
 				w.WriteHeader(http.StatusBadRequest)
 				w.Write([]byte("Invalid artist ID"))
 			} else {
-				logger.Printf("%s: Checking cache for artist ID", artistId)
-				artistTracks := GetTracksFromCache("artist:" + artistId + ":tracks", cacheClient)
-				if artistTracks == nil {
-					logger.Printf("%s: Artist ID not found", artistId)
-					artistTracks = spotify.GetDiscography(artistId)
-					tracksJson, _ := json.Marshal(artistTracks)
-					if AddToCache("artist:" + artistId + ":tracks", string(tracksJson), time.Hour * 168, cacheClient) {
-						IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
-						logger.Printf("%s: Successfully added artist to cache", artistId)
-					} else {
-						logger.Printf("%s: Could not add artist to cache", artistId)
-					}
-				} else {
-					IncrementKeyInCache("artist:" + artistId + ":searched", cacheClient)
-					logger.Printf("%s: Artist ID found in cache", artistId)
+				logger.Printf("%s: Checking cache for artist ID", id)
+				tracks := GetTracksFromCache(id, cacheClient, logger)
+				if tracks == nil {
+					tracks = spotify.GetDiscography(id)
+					tracksJson, _ := json.Marshal(tracks)
+					AddToCache(id, string(tracksJson), cacheClient, logger)
 				}
-
-				logger.Printf("%s: Returning tracks", artistId)
-				if err := json.NewEncoder(w).Encode(artistTracks); err != nil {
+				logger.Printf("%s: Returning tracks", id)
+				if err := json.NewEncoder(w).Encode(tracks); err != nil {
 					panic(err)
 				}
 			}
@@ -78,7 +69,7 @@ func getTracksHandler(cacheClient caching.Client, logger logging.Logger, spotify
 	})
 }
 
-func callbackHandler(logger logging.Logger, spotify Spotify) http.Handler {
+func CallbackHandler(logger logging.Logger, spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tok, err, msg := spotify.ValidateCallback(r)
 		if err != nil {
@@ -94,10 +85,10 @@ func callbackHandler(logger logging.Logger, spotify Spotify) http.Handler {
 	})
 }
 
-func userInfoHandler(spotify Spotify) http.Handler {
+func UserInfoHandler(spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if token := r.Context().Value("AuthToken"); token != nil {
-			user, err := spotify.GetUserInfo(&oauth2.Token{AccessToken: fmt.Sprintf("%v", token)})
+		if tok := r.Context().Value("AuthToken"); tok != nil {
+			user, err := spotify.GetUserInfo(&oauth2.Token{AccessToken: fmt.Sprintf("%v", tok)})
 			if err != nil {
 				w.WriteHeader(http.StatusBadRequest)
 				w.Write([]byte("Invalid token"))
@@ -114,21 +105,21 @@ func userInfoHandler(spotify Spotify) http.Handler {
 		}
 	})
 }
-func searchArtistHandler(cacheClient caching.Client, logger logging.Logger, spotify Spotify) http.Handler {
+func SearchArtistHandler(cacheClient caching.Client, logger logging.Logger, spotify Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if token := r.Context().Value("AuthToken"); token != nil {
-			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-			query := mux.Vars(r)["name"]
+		if tok := r.Context().Value("AuthToken"); tok != nil {
+			query := strings.ToLower(mux.Vars(r)["name"])
 			logger.Printf("%s: Checking cache for search query ", query)
-			results := GetSearchResultsFromCache("artist:search:"+query, cacheClient)
+			results := GetSearchResultsFromCache(query, cacheClient, logger)
+
 			if len(results) == 0 {
 				w.WriteHeader(http.StatusNotFound)
-				logger.Printf("%s: Query not found", query)
 				results = spotify.SearchForArtist(query, cacheClient)
 			} else {
 				w.WriteHeader(http.StatusFound)
-				logger.Printf("%s: Query results found ", query)
 			}
+
+			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 			if err := json.NewEncoder(w).Encode(results); err != nil {
 				panic(err)
 			}
@@ -140,10 +131,10 @@ func searchArtistHandler(cacheClient caching.Client, logger logging.Logger, spot
 }
 
 
-func publishPlaylistHandler(logger logging.Logger, s Spotify) http.Handler {
+func PublishPlaylistHandler(logger logging.Logger, s Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var message string
-		if token := r.Context().Value("AuthToken"); token != nil {
+		if tok := r.Context().Value("AuthToken"); tok != nil {
 			body, _ := ioutil.ReadAll(r.Body)
 			type playlist struct {
 				Tracks []string

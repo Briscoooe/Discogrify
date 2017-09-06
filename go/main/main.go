@@ -34,7 +34,8 @@ func main() {
 		config.Redis.Host,
 		config.Redis.Port,
 		config.Redis.Password,
-		config.Redis.Db)
+		config.Redis.Db,
+		config.Redis.HoursExpiration)
 
 	spotifyClient := NewSpotifyClient(*logger)
 

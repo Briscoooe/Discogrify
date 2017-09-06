@@ -4,13 +4,11 @@ import (
 	"fmt"
 	"github.com/zmb3/spotify"
 	"net/http"
-	//	"time"
 	"github.com/Briscooe/Discogrify/go/logging"
 	"github.com/Briscooe/Discogrify/go/caching"
 	"encoding/json"
 	"bytes"
 	"io/ioutil"
-	"time"
 	"golang.org/x/oauth2"
 )
 
@@ -99,7 +97,7 @@ func (s *SpotifyClient) SearchForArtist(artistName string, cacheClient caching.C
 	}
 
 	artistsJson, _ := json.Marshal(artistsArray)
-	if cacheClient.Set("artist:search:" + artistName , string(artistsJson), time.Hour * 168) {
+	if cacheClient.Set(artistName , string(artistsJson)) {
 		s.Logger.Printf("Added query to cache: " + artistName)
 	}
 	s.Logger.Printf("Artists found: %v\n", len(artistsArray))

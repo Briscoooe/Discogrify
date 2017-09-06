@@ -10,9 +10,10 @@ import (
 type RedisClient struct {
 	RedisClient *redis.Client
 	Logger logging.Logger
+	Expiration time.Duration
 }
 
-func NewRedisClient(logger logging.Logger, host, port, password string, db int) *RedisClient {
+func NewRedisClient(logger logging.Logger, host, port, password string, db int, expiration int) *RedisClient {
 	logger = logger
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", host, port),
@@ -29,6 +30,7 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int) 
 	return &RedisClient{
 		RedisClient: redisClient,
 		Logger: logger,
+		Expiration: time.Hour * time.Duration(expiration),
 	}
 }
 
@@ -38,8 +40,8 @@ func (r *RedisClient) Get(key string) []byte {
 	return bytes
 }
 
-func (r *RedisClient) Set(key string,  value string, expireIn time.Duration) bool {
-	result := r.RedisClient.Set(key, value, expireIn)
+func (r *RedisClient) Set(key string,  value string) bool {
+	result := r.RedisClient.Set(key, value, r.Expiration)
 	return result.Val() != ""
 }
 
