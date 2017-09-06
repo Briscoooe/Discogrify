@@ -1,19 +1,19 @@
-package discogrify
+package main
 
 import (
-	"net/http"
-	"sync"
 	"github.com/Briscooe/Discogrify/go/caching"
 	"github.com/Briscooe/Discogrify/go/logging"
+	"net/http"
+	"sync"
 )
 
 var (
-	done         = make(chan bool)
-	mutex        = &sync.Mutex{}
+	done  = make(chan bool)
+	mutex = &sync.Mutex{}
 )
 
 func main() {
-	config := LoadConfiguration("/home/r00t/go/src/github.com/Briscooe/Discogrify/go/discogrify/config.json")
+	config := LoadConfiguration("/home/r00t/go/src/github.com/Briscooe/Discogrify/go/main/config.json")
 
 	logger := logging.NewRollingLogger(
 		config.Logger.Filename,
@@ -21,7 +21,6 @@ func main() {
 		config.Logger.MaxBackups,
 		config.Logger.MaxAge)
 	logger.Println("Starting application...")
-
 
 	cacheClient := caching.NewRedisClient(
 		*logger,

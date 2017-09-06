@@ -1,18 +1,18 @@
-package discogrify
+package main
 
 import (
-	"github.com/zmb3/spotify"
-	"net/http"
-	"github.com/Briscooe/Discogrify/go/logging"
-	"github.com/Briscooe/Discogrify/go/caching"
 	"encoding/json"
+	"errors"
+	"github.com/Briscooe/Discogrify/go/caching"
+	"github.com/Briscooe/Discogrify/go/logging"
+	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2"
 	"math/rand"
-	"errors"
+	"net/http"
 )
 
 var (
-	characters   = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+	characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
 
 type SpotifyClient interface {
@@ -26,17 +26,17 @@ type SpotifyClient interface {
 
 type Spotify struct {
 	Client SpotifyClient
-	Auth spotify.Authenticator
+	Auth   spotify.Authenticator
 }
 
-func InitSpotifyClient(redirectUri string) *Spotify{
+func InitSpotifyClient(redirectUri string) *Spotify {
 	return &Spotify{
 		Auth: spotify.NewAuthenticator(redirectUri, spotify.ScopePlaylistModifyPublic),
 	}
 }
 
 func (s Spotify) NewClient(tokenStr string) SpotifyClient {
-	token := oauth2.Token{AccessToken:tokenStr}
+	token := oauth2.Token{AccessToken: tokenStr}
 	client := s.Auth.NewClient(&token)
 	client.AutoRetry = true
 	return &client
@@ -122,7 +122,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 		log.Println("Could not get user")
 		result = false
 	}
-	playlist, err := s.CreatePlaylistForUser(user.ID, name+ " - By Discogrify", true)
+	playlist, err := s.CreatePlaylistForUser(user.ID, name+" - By Discogrify", true)
 
 	if err != nil {
 		log.Printf("Could not create playlist")
@@ -146,7 +146,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 			result = false
 		}
 		added += endIndex - startIndex + 1
-		if len(tracks) - added < 100 {
+		if len(tracks)-added < 100 {
 			startIndex += 100
 			endIndex = len(tracks) - 1
 		} else {

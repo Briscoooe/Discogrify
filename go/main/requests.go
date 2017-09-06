@@ -1,16 +1,16 @@
-package discogrify
+package main
 
 import (
+	"context"
 	"encoding/json"
-	"net/http"
+	"github.com/Briscooe/Discogrify/go/caching"
 	"github.com/Briscooe/Discogrify/go/logging"
 	"github.com/gorilla/mux"
-	"time"
-	"github.com/Briscooe/Discogrify/go/caching"
 	"io/ioutil"
+	"net/http"
 	"regexp"
-	"context"
 	"strings"
+	"time"
 )
 
 var (
@@ -56,6 +56,7 @@ func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Han
 					AddToCache(id, string(tracksJson), c, log)
 				}
 				log.Printf("%s: Returning tracks", id)
+				w.WriteHeader(http.StatusOK)
 				if err := json.NewEncoder(w).Encode(tracks); err != nil {
 					panic(err)
 				}
@@ -74,9 +75,9 @@ func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expirati
 			w.WriteHeader(http.StatusBadRequest)
 			w.Write([]byte(err.Error()))
 		} else {
-			cookie := http.Cookie{Name:cookieName, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
-			http.SetCookie(w,&cookie)
-			http.Redirect(w, r, "/", http.StatusFound)
+			cookie := http.Cookie{Name: cookieName, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
+			http.SetCookie(w, &cookie)
+			http.Redirect(w, r, "/", http.StatusOK)
 		}
 	})
 }
@@ -89,12 +90,10 @@ func SearchArtistHandler(c caching.Client, log logging.Logger, s *Spotify) http.
 			results := GetSearchResultsFromCache(query, c, log)
 
 			if len(results) == 0 {
-				w.WriteHeader(http.StatusNotFound)
 				results = SearchForArtist(query, c, s.NewClient(tok.(string)), log)
-			} else {
-				w.WriteHeader(http.StatusFound)
 			}
 
+			w.WriteHeader(http.StatusOK)
 			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 			if err := json.NewEncoder(w).Encode(results); err != nil {
 				panic(err)
@@ -106,7 +105,6 @@ func SearchArtistHandler(c caching.Client, log logging.Logger, s *Spotify) http.
 	})
 }
 
-
 func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var message string
@@ -114,12 +112,12 @@ func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 			body, _ := ioutil.ReadAll(r.Body)
 			type playlist struct {
 				Tracks []string
-				Title string `json:"name"`
+				Title  string `json:"name"`
 			}
 
 			var newPlaylist playlist
 			err := json.Unmarshal(body, &newPlaylist)
-			if err != nil{
+			if err != nil {
 				log.Println(err)
 			}
 
@@ -131,11 +129,10 @@ func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 				w.WriteHeader(http.StatusBadRequest)
 				message = "Could not create playlist"
 			}
-		}else {
+		} else {
 			w.WriteHeader(http.StatusUnauthorized)
 			message = "Not logged in"
 		}
 		w.Write([]byte(message))
 	})
 }
-

@@ -1,11 +1,11 @@
-package discogrify
+package main
 
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/Briscooe/Discogrify/go/logging"
 	"github.com/Briscooe/Discogrify/go/caching"
+	"github.com/Briscooe/Discogrify/go/logging"
+	"github.com/gorilla/mux"
 )
 
 func SetupRouter(c caching.Client, log logging.Logger, s *Spotify, cookieName string, expiration int) *mux.Router {

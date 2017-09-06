@@ -1,19 +1,18 @@
-package discogrify
+package main
 
 import (
 	"encoding/json"
-	"github.com/zmb3/spotify"
-	"strings"
-	"regexp"
+	"fmt"
 	"github.com/Briscooe/Discogrify/go/caching"
 	"github.com/Briscooe/Discogrify/go/logging"
-	"fmt"
+	"github.com/zmb3/spotify"
+	"regexp"
+	"strings"
 )
 
 const formatArtistTracks = "artist:%s:tracks"
 const formatArtistSearched = "artist:%s:searched"
 const formatArtistSearch = "artist:search:%s"
-
 
 func GetSearchResultsFromCache(query string, client caching.Client, logger logging.Logger) []spotify.FullArtist {
 	key := fmt.Sprintf(formatArtistSearch, query)
@@ -89,7 +88,7 @@ func validateKey(key string) bool {
 		return false
 	}
 	for _, str := range stringSlice {
-		if !validateValue(str){
+		if !validateValue(str) {
 			return false
 		}
 	}
