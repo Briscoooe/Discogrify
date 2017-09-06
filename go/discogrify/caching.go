@@ -1,4 +1,4 @@
-package main
+package discogrify
 
 import (
 	"encoding/json"
@@ -67,17 +67,20 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 	return result
 }
 
-func AddToCache(key string, value string, client caching.Client, logger logging.Logger) {
+func AddToCache(key string, value string, client caching.Client, logger logging.Logger) bool {
+	result := false
 	if validateKey(key) && validateValue(value) {
 		if client.Set(key, value) {
 			IncrementKeyInCache(fmt.Sprintf(formatArtistSearched, key), client)
 			logger.Printf("%s: Successfully added key to cache", key)
+			result = true
 		} else {
 			logger.Printf("%s: Could not add key to cache", key)
 		}
 	} else {
 		logger.Printf("%s: Incorrect format\nKey: %s\nValue: %s", key, key, value)
 	}
+	return result
 }
 
 func validateKey(key string) bool {

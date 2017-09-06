@@ -63,7 +63,7 @@
         this.$http.get('/tracks/' + artist.id).then(function (response) {
           if (response.data !== '') {
             let albums = []
-            response.data.forEach(function (album) {
+            response.body.forEach(function (album) {
               albums.push(album)
             })
             EventBus.$emit('albums', albums)

@@ -12,6 +12,13 @@
     "db" : 0,
     "expiration" : 168
   },
-  "requestDelay" : 100,
+  "spotify" : {
+    "redirectUri": "http://localhost:8080/callback",
+    "requestDelay" : 100
+  },
+  "cookie" : {
+    "cookieName" : "auth_token",
+    "expiration": 1
+  },
   "devMode": false
 }

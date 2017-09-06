@@ -1,4 +1,4 @@
-package main
+package discogrify
 
 import (
 	"encoding/json"
@@ -18,13 +18,20 @@ type Configuration struct {
 		Port     string `json:"port"`
 		Password string `json:"password"`
 		Db       int    `json:"db"`
-		HoursExpiration int `json:expiration`
+		HoursExpiration int `json:"expiration"`
 	} `json:"redis"`
-	RequestDelay int `json:"requestDelay"`
+	Spotify struct {
+		RedirectURI string `json:"redirectUri"`
+		RequestDelay int `json:"requestDelay"`
+	}
+	Cookie struct {
+		CookieName string `json:"cookieName"`
+		Expiration int `json:"expiration"`
+	}
 	DevMode bool `json:"devMode"`
 }
 
-func loadConfiguration(file string) Configuration {
+func LoadConfiguration(file string) Configuration {
 	var config Configuration
 
 	configFile, err := os.Open(file)
