@@ -53,7 +53,7 @@ func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Han
 				if tracks == nil {
 					tracks = GetDiscography(id, log, s.NewClient(tok.(string)))
 					tracksJson, _ := json.Marshal(tracks)
-					AddToCache(id, string(tracksJson), c, log)
+					AddToCache(id, string(tracksJson), c, log, formatArtistTracks)
 				}
 				log.Printf("%s: Returning tracks", id)
 				w.WriteHeader(http.StatusOK)

@@ -138,3 +138,4 @@ input[type="checkbox"]:hover {
     margin-top: 5%;
   }
 </style>
+"[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"},"popularity":2,"genres":[],"Followers":{"total":33,"href":""},"images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/fd7e1946097fc138b977ba169ba5a2d1f2f491b7"},{"height":320,"width":320,"url":"https://i.scdn.co/image/1f00fca7dc45561aeaa63c943e1e72c63f80bd1d"},{"height":160,"width":160,"url":"https://i.scdn.co/image/0765da4ffb49815ff6d63f2c35b6a0ec9e45132e"}]}]

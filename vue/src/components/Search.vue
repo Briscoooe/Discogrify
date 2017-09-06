@@ -61,7 +61,7 @@
       getTracks: function (artist) {
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id).then(function (response) {
-          if (response.data !== '') {
+          if (response.body) {
             let albums = []
             response.body.forEach(function (album) {
               albums.push(album)

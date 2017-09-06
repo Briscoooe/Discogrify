@@ -103,9 +103,7 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, log logging
 	}
 
 	artistsJson, _ := json.Marshal(artistsArray)
-	if c.Set(name, string(artistsJson)) {
-		log.Printf("Added query to cache: " + name)
-	}
+	AddToCache(name, string(artistsJson), c, log, formatSearchArtist)
 	log.Printf("Artists found: %v\n", len(artistsArray))
 	return artistsArray
 }

@@ -12,11 +12,13 @@ import (
 
 const formatArtistTracks = "artist:%s:tracks"
 const formatArtistSearched = "artist:%s:searched"
-const formatArtistSearch = "artist:search:%s"
+const formatSearchArtist = "artist:search:%s"
 
 func GetSearchResultsFromCache(query string, client caching.Client, logger logging.Logger) []spotify.FullArtist {
-	key := fmt.Sprintf(formatArtistSearch, query)
+	key := fmt.Sprintf(formatSearchArtist, query)
 	result := client.Get(key)
+
+	fmt.Println(key)
 
 	if len(result) == 0 {
 		logger.Printf("%s: Query not found", query)
@@ -35,9 +37,10 @@ func GetSearchResultsFromCache(query string, client caching.Client, logger loggi
 	return artists
 }
 func GetTracksFromCache(id string, client caching.Client, logger logging.Logger) []*spotify.FullAlbum {
-	cacheKey := fmt.Sprintf(formatArtistTracks, id)
-	result := client.Get(cacheKey)
+	key := fmt.Sprintf(formatArtistTracks, id)
+	result := client.Get(key)
 
+	fmt.Println(key)
 	if len(result) == 0 {
 		logger.Printf("%s: Artist ID not found", id)
 		return nil
@@ -66,20 +69,17 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 	return result
 }
 
-func AddToCache(key string, value string, client caching.Client, logger logging.Logger) bool {
-	result := false
-	if validateKey(key) && validateValue(value) {
-		if client.Set(key, value) {
-			IncrementKeyInCache(fmt.Sprintf(formatArtistSearched, key), client)
-			logger.Printf("%s: Successfully added key to cache", key)
-			result = true
+func AddToCache(key string, value string, client caching.Client, logger logging.Logger, format string) {
+	formattedKey := fmt.Sprintf(format, key)
+	if validateKey(formattedKey) && validateValue(value) {
+		if client.Set(formattedKey, value) {
+			logger.Printf("%s: Successfully added key to cache", formattedKey)
 		} else {
-			logger.Printf("%s: Could not add key to cache", key)
+			logger.Printf("%s: Could not add key to cache", formattedKey)
 		}
 	} else {
-		logger.Printf("%s: Incorrect format\nKey: %s\nValue: %s", key, key, value)
+		logger.Printf("%s: Incorrect format\nKey: %s\nValue: %s", formattedKey, formattedKey, value)
 	}
-	return result
 }
 
 func validateKey(key string) bool {
