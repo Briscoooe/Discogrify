@@ -92,7 +92,7 @@ func (s *SpotifyClient) SearchForArtist(artistName string, cacheClient caching.C
 	}
 
 	var artistsArray []spotify.FullArtist
-	if result.Artists != nil {
+	if result != nil {
 		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
