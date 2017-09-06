@@ -11,7 +11,7 @@
           <button class="margin col col-6" v-on:click="publishPlaylist">Publish playlist</button>
         </div>
       </div>
-      <table class="striped" id="table">
+      <table class="bordered striped" id="table">
         <thead>
         <tr>
           <th></th>
@@ -57,6 +57,9 @@
     <div id="no-results" class="col col-6 margin" v-else>
       <div>Results will appear here when you perform a search</div>
     </div>
+    <modal v-if="showModal" @close="showModal = false">
+      <span slot="header"> {{ createPlaylistMessage }} </span>
+    </modal>
   </div>
 </template>
 
@@ -79,7 +82,9 @@
         allAlbums: [],
         checkedTracks: [],
         artist: {},
-        checkedAlbums: []
+        checkedAlbums: [],
+        createPlaylistMessage: '',
+        showModal: false
       }
     },
     mounted () {
@@ -140,7 +145,13 @@
         playlist.tracks = this.checkedTracks
         playlist.name = this.artist.name
         this.$http.post('/publish', playlist).then(function (response) {
-          alert('Created')
+          if (response.statusCode === 201) {
+            this.createPlaylistMessage = 'Playlist created successfully: ' + response.data
+          } else {
+            this.createPlaylistMessage = 'Playlist could not be created'
+          }
+          this.showModal = true
+          console.log(response)
         }).catch(function (error) {
           console.log(error)
         })

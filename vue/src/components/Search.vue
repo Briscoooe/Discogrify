@@ -18,6 +18,7 @@
         </ul>
       </transition>
       <modal v-if="showModal" @close="showModal = false">
+        <span slot="header">You must login through Spotify to continue</span>
       </modal>
     </div>
   </div>

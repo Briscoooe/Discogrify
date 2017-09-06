@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <custom-header></custom-header>
-    <login v-if="!loggedIn"></login>
-    <search id="search" v-on:scroll="scroll('results')"></search>
-    <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
+    <div style="flex: 1">
+      <login v-if="!loggedIn"></login>
+      <search id="search" v-on:scroll="scroll('results')"></search>
+      <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
+    </div>
     <custom-footer></custom-footer>
   </div>
 </template>
@@ -71,6 +73,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: var(--primary-black);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 a:hover {
   cursor: pointer;

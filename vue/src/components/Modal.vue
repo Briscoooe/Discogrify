@@ -5,7 +5,6 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              You must login through Spotify to continue
             </slot>
           </div>
           <div class="modal-footer">
