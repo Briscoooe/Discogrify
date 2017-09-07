@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
-	"strings"
 	"time"
 )
 
@@ -48,6 +47,7 @@ func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Han
 				w.WriteHeader(http.StatusBadRequest)
 				w.Write([]byte("Invalid artist ID"))
 			} else {
+				IncrementKeyInCache(id, c)
 				log.Printf("%s: Checking cache for artist ID", id)
 				tracks := GetTracksFromCache(id, c, log)
 				if tracks == nil {
@@ -78,6 +78,9 @@ func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expirati
 			cookie := http.Cookie{Name: cookieName, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
 			http.SetCookie(w, &cookie)
 			http.Redirect(w, r, "/", http.StatusOK)
+			if err := json.NewEncoder(w).Encode(tok); err != nil {
+				panic(err)
+			}
 		}
 	})
 }
@@ -85,7 +88,7 @@ func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expirati
 func SearchArtistHandler(c caching.Client, log logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {
-			query := strings.ToLower(mux.Vars(r)["name"])
+			query := mux.Vars(r)["name"]
 			log.Printf("%s: Checking cache for search query ", query)
 			results := GetSearchResultsFromCache(query, c, log)
 

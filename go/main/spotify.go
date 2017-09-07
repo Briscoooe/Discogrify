@@ -24,9 +24,15 @@ type SpotifyClient interface {
 	GetAlbums(ids ...spotify.ID) ([]*spotify.FullAlbum, error)
 }
 
+type Authenticator interface {
+	NewClient(token *oauth2.Token) spotify.Client
+	Token(state string, r *http.Request) (*oauth2.Token, error)
+	AuthURL(state string) string
+}
+
 type Spotify struct {
 	Client SpotifyClient
-	Auth   spotify.Authenticator
+	Auth   Authenticator
 }
 
 func InitSpotifyClient(redirectUri string) *Spotify {
@@ -109,17 +115,23 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, log logging
 }
 
 func PublishPlaylist(tracks []string, name string, log logging.Logger, s SpotifyClient) (string, bool) {
-	user, err := s.CurrentUser()
-
-	var ids []spotify.ID
-	for track := range tracks {
-		ids = append(ids, spotify.ID(track))
-	}
 	result := true
+
+	user, err := s.CurrentUser()
 	if err != nil {
 		log.Println("Could not get user")
 		result = false
 	}
+
+	if len(tracks) == 0 {
+		log.Println("No tracks present")
+		return "No tracks present", false
+	}
+	var ids []spotify.ID
+	for track := range tracks {
+		ids = append(ids, spotify.ID(track))
+	}
+
 	playlist, err := s.CreatePlaylistForUser(user.ID, name+" - By Discogrify", true)
 
 	if err != nil {
@@ -137,18 +149,20 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 		endIndex = len(tracks)
 	}
 	for added != len(tracks) {
-		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
+		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex]...)
 		if err != nil {
 			log.Fatal("Error adding tracks to playlist")
 			log.Fatal(err)
 			result = false
 		}
-		added += endIndex - startIndex + 1
+		added += endIndex - startIndex
+		if endIndex >= 99 && endIndex != len(tracks) {
+			added += 1
+		}
+		startIndex += 100
 		if len(tracks)-added < 100 {
-			startIndex += 100
 			endIndex = len(tracks) - 1
 		} else {
-			startIndex += 100
 			endIndex += 100
 		}
 	}

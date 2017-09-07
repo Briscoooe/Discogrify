@@ -3,3 +3,4 @@
 *test.go
 *.log
 html/vue/node_modules
+.idea/

@@ -15,6 +15,7 @@ const formatArtistSearched = "artist:%s:searched"
 const formatSearchArtist = "artist:search:%s"
 
 func GetSearchResultsFromCache(query string, client caching.Client, logger logging.Logger) []spotify.FullArtist {
+	formatQuery(query)
 	key := fmt.Sprintf(formatSearchArtist, query)
 	result := client.Get(key)
 
@@ -40,7 +41,6 @@ func GetTracksFromCache(id string, client caching.Client, logger logging.Logger)
 	key := fmt.Sprintf(formatArtistTracks, id)
 	result := client.Get(key)
 
-	fmt.Println(key)
 	if len(result) == 0 {
 		logger.Printf("%s: Artist ID not found", id)
 		return nil
@@ -69,17 +69,25 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 	return result
 }
 
-func AddToCache(key string, value string, client caching.Client, logger logging.Logger, format string) {
+func AddToCache(key string, value string, client caching.Client, logger logging.Logger, format string) bool {
+	result := false
 	formattedKey := fmt.Sprintf(format, key)
 	if validateKey(formattedKey) && validateValue(value) {
 		if client.Set(formattedKey, value) {
 			logger.Printf("%s: Successfully added key to cache", formattedKey)
+			result = true
 		} else {
 			logger.Printf("%s: Could not add key to cache", formattedKey)
 		}
 	} else {
 		logger.Printf("%s: Incorrect format\nKey: %s\nValue: %s", formattedKey, formattedKey, value)
 	}
+	return result
+}
+
+func formatQuery(query string) {
+	query = strings.ToLower(query)
+	query = strings.Replace(query, " ", "", -1)
 }
 
 func validateKey(key string) bool {
@@ -96,6 +104,9 @@ func validateKey(key string) bool {
 }
 
 func validateValue(value string) bool {
+	if len(value) == 0 || value == "" {
+		return false
+	}
 	var js map[string]interface{}
 	result := json.Unmarshal([]byte(value), &js) != nil
 

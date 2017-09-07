@@ -52,7 +52,9 @@
           return
         }
         this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function (response) {
+          console.log(response)
           this.artistSearchResults = response.data
+          console.log(this.artistSearchResults)
           this.show = true
         }).catch(function (error) {
           console.log(error)
