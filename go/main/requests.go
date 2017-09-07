@@ -56,7 +56,7 @@ func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Han
 					AddToCache(id, string(tracksJson), c, log, formatArtistTracks)
 				}
 				log.Printf("%s: Returning tracks", id)
-				w.WriteHeader(http.StatusOK)
+				w.Header().Set("Content-Type", "application/json")
 				if err := json.NewEncoder(w).Encode(tracks); err != nil {
 					panic(err)
 				}
@@ -96,8 +96,7 @@ func SearchArtistHandler(c caching.Client, log logging.Logger, s *Spotify) http.
 				results = SearchForArtist(query, c, s.NewClient(tok.(string)), log)
 			}
 
-			w.WriteHeader(http.StatusOK)
-			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+			w.Header().Set("Content-Type", "application/json")
 			if err := json.NewEncoder(w).Encode(results); err != nil {
 				panic(err)
 			}

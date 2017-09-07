@@ -32,12 +32,12 @@ func NewRollingLogger(filename string, maxSize, maxBackups, maxAge int) *Rolling
 
 func (r RollingLogger) Fatal(v ...interface{}) {
 	fmt.Println(v...)
-	r.RollingLog.Fatal(v...)
+	r.RollingLog.Println(v...)
 }
 
 func (r RollingLogger) Fatalf(format string, v ...interface{}) {
 	fmt.Println(fmt.Sprintf(format, v...))
-	r.RollingLog.Fatalf(fmt.Sprintf(format, v...))
+	r.RollingLog.Printf(fmt.Sprintf(format, v...))
 }
 
 func (r RollingLogger) Printf(format string, v ...interface{}) {

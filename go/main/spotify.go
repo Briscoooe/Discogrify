@@ -127,10 +127,6 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 		log.Println("No tracks present")
 		return "No tracks present", false
 	}
-	var ids []spotify.ID
-	for track := range tracks {
-		ids = append(ids, spotify.ID(track))
-	}
 
 	playlist, err := s.CreatePlaylistForUser(user.ID, name+" - By Discogrify", true)
 
@@ -142,8 +138,13 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 
 	log.Println("Playlist created: " + playlist.ID)
 
+	var ids []spotify.ID
+	for _, track := range tracks {
+		ids = append(ids, spotify.ID(track))
+	}
+
 	startIndex := 0
-	endIndex := 99
+	endIndex := 49
 	added := 0
 	if endIndex > len(tracks) {
 		endIndex = len(tracks)
@@ -156,14 +157,14 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 			result = false
 		}
 		added += endIndex - startIndex
-		if endIndex >= 99 && endIndex != len(tracks) {
+		if endIndex >= 49 && endIndex != len(tracks) {
 			added += 1
 		}
-		startIndex += 100
-		if len(tracks)-added < 100 {
+		startIndex += 50
+		if len(tracks)-added < 50 {
 			endIndex = len(tracks) - 1
 		} else {
-			endIndex += 100
+			endIndex += 50
 		}
 	}
 

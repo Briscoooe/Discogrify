@@ -145,7 +145,7 @@
         playlist.tracks = this.checkedTracks
         playlist.name = this.artist.name
         this.$http.post('/publish', playlist).then(function (response) {
-          if (response.statusCode === 201) {
+          if (response.status === 201) {
             this.createPlaylistMessage = 'Playlist created successfully: ' + response.data
           } else {
             this.createPlaylistMessage = 'Playlist could not be created'

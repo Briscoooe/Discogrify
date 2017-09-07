@@ -52,9 +52,7 @@
           return
         }
         this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function (response) {
-          console.log(response)
           this.artistSearchResults = response.data
-          console.log(this.artistSearchResults)
           this.show = true
         }).catch(function (error) {
           console.log(error)
@@ -63,9 +61,10 @@
       getTracks: function (artist) {
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id).then(function (response) {
-          if (response.body) {
+          if (response.data) {
+            console.log(response)
             let albums = []
-            response.body.forEach(function (album) {
+            response.data.forEach(function (album) {
               albums.push(album)
             })
             EventBus.$emit('albums', albums)
