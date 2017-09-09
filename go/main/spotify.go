@@ -9,6 +9,7 @@ import (
 	"golang.org/x/oauth2"
 	"math/rand"
 	"net/http"
+	"fmt"
 )
 
 var (
@@ -72,7 +73,7 @@ func ValidateCallback(r *http.Request, log logging.Logger, s *Spotify) (token *o
 
 	if st := r.FormValue("state"); st != stateString {
 		log.Printf("State mismatch: %s != %s\n", st, stateString)
-		return nil, errors.New("State mismatch")
+		return nil, errors.New(fmt.Sprintf("State mismatch: %s != %s\n", st, stateString))
 	}
 
 	return tok, nil
