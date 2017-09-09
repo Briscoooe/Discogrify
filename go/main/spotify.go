@@ -161,7 +161,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 			added += 1
 		}
 		startIndex += 50
-		if len(tracks) - added < 50 {
+		if len(tracks)-added < 50 {
 			endIndex = len(tracks) - 1
 		} else {
 			endIndex += 50
