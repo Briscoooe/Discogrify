@@ -77,10 +77,7 @@ func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expirati
 		} else {
 			cookie := http.Cookie{Name: cookieName, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
 			http.SetCookie(w, &cookie)
-			http.Redirect(w, r, "/", http.StatusOK)
-			if err := json.NewEncoder(w).Encode(tok); err != nil {
-				panic(err)
-			}
+			http.Redirect(w, r, "/", http.StatusFound)
 		}
 	})
 }

@@ -58,7 +58,12 @@
       <div>Results will appear here when you perform a search</div>
     </div>
     <modal v-if="showModal" @close="showModal = false">
-      <span slot="header"> {{ createPlaylistMessage }} </span>
+      <span slot="header">
+        {{ createPlaylistMessage }}
+        <div if="published">
+          <button :href="playlistUrl">View on Spotify</button>
+        </div>
+      </span>
     </modal>
   </div>
 </template>
@@ -84,7 +89,9 @@
         artist: {},
         checkedAlbums: [],
         createPlaylistMessage: '',
-        showModal: false
+        showModal: false,
+        published: false,
+        playlistUrl: ''
       }
     },
     mounted () {
@@ -93,7 +100,7 @@
     },
     computed: {
       resultsPresent: function () {
-        return this.checkedTracks.length > 0
+        return this.allAlbums.length > 0
       }
     },
     methods: {
@@ -102,9 +109,7 @@
         this.updateAlbum(albumId)
       },
       updateAlbum: function (albumId, val) {
-        console.log(val)
         let index = this.checkedAlbums.indexOf(albumId)
-        console.log('index: ' + index)
         if (index > -1) {
           this.checkedAlbums.splice(index, 1)
         } else {
@@ -141,17 +146,19 @@
         }
       },
       publishPlaylist: function () {
+        this.published = false
         let playlist = {}
         playlist.tracks = this.checkedTracks
         playlist.name = this.artist.name
         this.$http.post('/publish', playlist).then(function (response) {
           if (response.status === 201) {
-            this.createPlaylistMessage = 'Playlist created successfully: ' + response.data
+            this.published = true
+            this.playlistUrl = response.data
+            this.createPlaylistMessage = 'Playlist created successfully: '
           } else {
             this.createPlaylistMessage = 'Playlist could not be created'
           }
           this.showModal = true
-          console.log(response)
         }).catch(function (error) {
           console.log(error)
         })

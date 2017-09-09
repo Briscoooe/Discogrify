@@ -150,7 +150,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 		endIndex = len(tracks)
 	}
 	for added != len(tracks) {
-		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex]...)
+		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
 		if err != nil {
 			log.Fatal("Error adding tracks to playlist")
 			log.Fatal(err)
@@ -161,7 +161,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 			added += 1
 		}
 		startIndex += 50
-		if len(tracks)-added < 50 {
+		if len(tracks) - added < 50 {
 			endIndex = len(tracks) - 1
 		} else {
 			endIndex += 50
@@ -169,7 +169,7 @@ func PublishPlaylist(tracks []string, name string, log logging.Logger, s Spotify
 	}
 
 	log.Printf("Added %d tracks to playlist ID: %s", added, playlist.ID)
-	return string(playlist.URI), result
+	return string(playlist.ExternalURLs["spotify"]), result
 }
 
 func getUniqueAlbums(id string, s SpotifyClient, log logging.Logger) []spotify.ID {

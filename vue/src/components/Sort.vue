@@ -7,9 +7,10 @@
 </template>
 
 <script>
-  import EventBus from '../event-bus'
-
   export default {
+    props: {
+      albums: []
+    },
     data () {
       return {
         sortOptions: [
@@ -21,23 +22,15 @@
           {text: 'Popularity (least first)', id: 'popularLeast'},
           {text: 'Number of tracks (most first)', id: 'tracksMost'},
           {text: 'Number of tracks (least first)', id: 'tracksLeast'}
-        ],
-        albums: []
+        ]
       }
     },
     mounted () {
-      EventBus.$on('albums', this.updateAlbums)
       this.sortOption = this.sortOptions[0].id
+      this.sortAlbums()
     },
     methods: {
-      updateAlbums: function (albums) {
-        console.log('updateAlbums')
-        this.albums = albums
-        this.sortAlbums()
-      },
       sortAlbums: function () {
-        console.log(this.albums)
-        console.log(this.sortOption)
         switch (this.sortOption) {
           case 'dateRecent':
             this.albums.sort((albumA, albumB) => albumB.release_date.localeCompare(albumA.release_date))
@@ -73,7 +66,7 @@
 
 <style scoped>
 select {
-  font-size: var(--font-size-control);
+  font-size: var(--font-size-data);
 }
 
 </style>
