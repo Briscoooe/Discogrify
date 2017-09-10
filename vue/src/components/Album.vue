@@ -1,7 +1,7 @@
 <template >
   <div id='content'>
     <div class='clickable' v-on:click='show = !show'>
-      <i class="fa fa-caret-down" aria-hidden="false"></i>{{ album.name }}
+      <i aria-hidden="false" class="fa fa-caret-down" ></i>{{ album.name }}
     </div>
     <transition name='fade'>
       <div v-show='show'>
