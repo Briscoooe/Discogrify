@@ -40,6 +40,7 @@ export default {
     getUserInfo: function () {
       this.$http.get('/user').then(function (response) {
         this.user = response.data
+        console.log(response)
       }).catch(function (error) {
         console.log(error)
       })

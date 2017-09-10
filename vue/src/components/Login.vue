@@ -3,7 +3,7 @@
     <div>
       <div>
         <button id="login-button" @click="login">
-          <i aria-hidden="false" class="fa fa-spotify"></i>
+          <i aria-hidden="false" class="fa fa-spotify hvr"></i>
           Please log in to Spotify</button>
       </div>
     </div>

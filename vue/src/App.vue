@@ -81,6 +81,45 @@ a:hover {
   cursor: pointer;
 }
 
+.checkbox-div {
+  width: 25px;
+  margin: 20px 100px;
+  position: relative;
+}
+.checkbox-div label {
+  cursor: pointer;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 0;
+  left: 0;
+  background: #eee;
+  border:1px solid #ddd;
+}
+
+.checkbox-div label:after {
+  opacity: 0.2;
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 5px;
+  background: transparent;
+  top: 6px;
+  left: 7px;
+  border: 3px solid #333;
+  border-top: none;
+  border-right: none;
+
+  transform: rotate(-45deg);
+}
+
+.checkbox-div label:hover::after {
+  opacity: 0.5;
+}
+
+.checkbox-div input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
 /* Fade */
 button{
   background-color: var(--secondary-green);

@@ -1,7 +1,8 @@
 <template >
   <div id='content'>
     <div class='clickable' v-on:click='show = !show'>
-      <i aria-hidden="false" class="fa fa-caret-down" ></i>{{ album.name }}
+      <i aria-hidden="false" v-bind:class="[show ? expanded : '', minimised]" ></i>&nbsp;&nbsp;
+      {{ album.name }}
     </div>
     <transition name='fade'>
       <div v-show='show'>
@@ -30,6 +31,8 @@
     },
     data: function () {
       return {
+        minimised: 'fa fa-caret-down',
+        expanded: 'fa fa-caret-up',
         checkedTracks: [],
         show: false
       }
