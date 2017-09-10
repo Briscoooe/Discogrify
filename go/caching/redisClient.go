@@ -10,9 +10,10 @@ import (
 type RedisClient struct {
 	RedisClient *redis.Client
 	Logger logging.Logger
+	Expiration time.Duration
 }
 
-func NewRedisClient(logger logging.Logger, host, port, password string, db int) *RedisClient {
+func NewRedisClient(logger logging.Logger, host, port, password string, db int, expiration int) *RedisClient {
 	logger = logger
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", host, port),
@@ -25,20 +26,22 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int) 
 		logger.Fatalf("Could not connect to Redis host %s:%s\n%v\n", host, port, err)
 	}
 
+	logger.Printf("Successfully connected to Redis host %s:%s", host, port)
 	return &RedisClient{
 		RedisClient: redisClient,
 		Logger: logger,
+		Expiration: time.Hour * time.Duration(expiration),
 	}
 }
 
 func (r *RedisClient) Get(key string) []byte {
 	result := r.RedisClient.Get(key)
-	artistTracks, _ := result.Bytes()
-	return artistTracks
+	bytes, _ := result.Bytes()
+	return bytes
 }
 
-func (r *RedisClient) Set(key string,  value string, expireIn time.Duration) bool {
-	result := r.RedisClient.Set(key, value, expireIn)
+func (r *RedisClient) Set(key string,  value string) bool {
+	result := r.RedisClient.Set(key, value, r.Expiration)
 	return result.Val() != ""
 }
 

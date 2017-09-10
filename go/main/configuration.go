@@ -2,27 +2,36 @@ package main
 
 import (
 	"encoding/json"
-	"os"
 	"log"
+	"os"
 )
 
 type Configuration struct {
 	Logger struct {
-		Filename string `json:"filename"`
-		MaxSize	 int	`json:"maxSize"`
-		MaxBackups	 int	`json:"maxBackups"`
-		MaxAge	 int	`json:"maxAge"`
+		Filename   string `json:"filename"`
+		MaxSize    int    `json:"maxSize"`
+		MaxBackups int    `json:"maxBackups"`
+		MaxAge     int    `json:"maxAge"`
 	}
 	Redis struct {
-		Host     string `json:"host"`
-		Port     string `json:"port"`
-		Password string `json:"password"`
-		Db       int    `json:"db"`
+		Host            string `json:"host"`
+		Port            string `json:"port"`
+		Password        string `json:"password"`
+		Db              int    `json:"db"`
+		HoursExpiration int    `json:"expiration"`
 	} `json:"redis"`
-	RequestDelay int `json:"requestDelay"`
+	Spotify struct {
+		RedirectURI  string `json:"redirectUri"`
+		RequestDelay int    `json:"requestDelay"`
+	}
+	Cookie struct {
+		CookieName string `json:"cookieName"`
+		Expiration int    `json:"expiration"`
+	}
+	DevMode bool `json:"devMode"`
 }
 
-func loadConfiguration(file string) Configuration {
+func LoadConfiguration(file string) Configuration {
 	var config Configuration
 
 	configFile, err := os.Open(file)

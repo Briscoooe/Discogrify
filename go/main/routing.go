@@ -3,21 +3,21 @@ package main
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/Briscooe/Discogrify/go/logging"
 	"github.com/Briscooe/Discogrify/go/caching"
+	"github.com/Briscooe/Discogrify/go/logging"
+	"github.com/gorilla/mux"
 )
 
-func setupRouter(cacheClient caching.Client, logger logging.Logger, spotify Spotify) *mux.Router {
+func SetupRouter(c caching.Client, log logging.Logger, s *Spotify, cookieName string, expiration int) *mux.Router {
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.Path("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/html")))
-	router.Handle("/login", loginToSpotifyHandlerFunc(logger, spotify)).Methods("GET")
-	router.Handle("/index", indexHandlerFunc(logger)).Methods("GET")
-	router.Handle("/callback", callbackHandler(cacheClient, logger, spotify)).Methods("GET")
-	router.Handle("/tracks/{artistId}", getTracksHandler(cacheClient, logger, spotify)).Methods("GET")
-	router.Handle("/search/{name}", searchArtistHandler(cacheClient, spotify)).Methods("GET")
-	router.Handle("/publish", publishPlaylistHandle(cacheClient)).Methods("POST")
+	router.Handle("/login", LoginToSpotifyHandlerFunc(s)).Methods("GET")
+	router.Handle("/index", IndexHandlerFunc(log)).Methods("GET")
+	router.Handle("/callback", CallbackHandler(log, s, cookieName, expiration)).Methods("GET")
+	router.Handle("/tracks/{artistId}", AddContext(GetTracksHandler(c, log, s))).Methods("GET")
+	router.Handle("/search/{name}", AddContext(SearchArtistHandler(c, log, s))).Methods("GET")
+	router.Handle("/publish", AddContext(PublishPlaylistHandler(log, s))).Methods("POST")
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("/home/r00t/go/src/github.com/Briscooe/Discogrify/vue/dist")))
 
 	return router
 }

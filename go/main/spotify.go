@@ -1,95 +1,179 @@
 package main
 
 import (
-	"fmt"
-	"github.com/zmb3/spotify"
-	"net/http"
-	//	"time"
-	"github.com/Briscooe/Discogrify/go/logging"
+	"encoding/json"
+	"errors"
 	"github.com/Briscooe/Discogrify/go/caching"
+	"github.com/Briscooe/Discogrify/go/logging"
+	"github.com/zmb3/spotify"
+	"golang.org/x/oauth2"
+	"math/rand"
+	"net/http"
+	"fmt"
 )
 
-type Spotify interface {
-	GenerateLoginUrl() map[string]string
-	ValidateCallback(r *http.Request) (error, string)
-	GetDiscography(artistId string) []*spotify.FullAlbum
-	SearchForArtist(artistName string, cacheClient caching.Client) []spotify.FullArtist
+var (
+	characters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+)
+
+type SpotifyClient interface {
+	CurrentUser() (*spotify.PrivateUser, error)
+	Search(query string, t spotify.SearchType) (*spotify.SearchResult, error)
+	CreatePlaylistForUser(userID, playlistName string, public bool) (*spotify.FullPlaylist, error)
+	AddTracksToPlaylist(userID string, playlistID spotify.ID, trackIDs ...spotify.ID) (snapshotID string, err error)
+	GetArtistAlbumsOpt(artistID spotify.ID, options *spotify.Options, t *spotify.AlbumType) (*spotify.SimpleAlbumPage, error)
+	GetAlbums(ids ...spotify.ID) ([]*spotify.FullAlbum, error)
 }
 
-type SpotifyClient struct {
-	Client spotify.Client
-	StateString string
-	Authenticator spotify.Authenticator
-	Logger logging.Logger
+type Authenticator interface {
+	NewClient(token *oauth2.Token) spotify.Client
+	Token(state string, r *http.Request) (*oauth2.Token, error)
+	AuthURL(state string) string
 }
 
-func NewSpotifyClient(logger logging.Logger) *SpotifyClient {
-	auth := spotify.NewAuthenticator(redirectURI, spotify.ScopePlaylistModifyPrivate, spotify.ScopePlaylistModifyPublic)
-	return &SpotifyClient{
-		Authenticator: auth,
-		Logger: logger,
+type Spotify struct {
+	Client SpotifyClient
+	Auth   Authenticator
+}
+
+func InitSpotifyClient(redirectUri string) *Spotify {
+	return &Spotify{
+		Auth: spotify.NewAuthenticator(redirectUri, spotify.ScopePlaylistModifyPublic),
 	}
 }
 
-func (s *SpotifyClient) GenerateLoginUrl() map[string]string {
-	s.StateString = s.Authenticator.AuthURL(GenerateStateString())
-
-	url := s.Authenticator.AuthURL(s.StateString)
-
-	urlJson := map[string]string{"url": url}
-
-	return urlJson
+func (s Spotify) NewClient(tokenStr string) SpotifyClient {
+	token := oauth2.Token{AccessToken: tokenStr}
+	client := s.Auth.NewClient(&token)
+	client.AutoRetry = true
+	return &client
 }
 
-func (s *SpotifyClient) ValidateCallback(r *http.Request) (err error, errMsg string) {
-	tok, err := s.Authenticator.Token(s.StateString, r)
+func GenerateStateString() string {
+	b := make([]rune, 16)
+	for i := range b {
+		b[i] = characters[rand.Intn(len(characters))]
+	}
+	return string(b)
+}
+
+func GenerateLoginUrl(s *Spotify) string {
+	stateString = GenerateStateString()
+	url := s.Auth.AuthURL(stateString)
+	return url
+}
+
+func ValidateCallback(r *http.Request, log logging.Logger, s *Spotify) (token *oauth2.Token, err error) {
+	tok, err := s.Auth.Token(stateString, r)
 	if err != nil {
-		return err, "Could not get token"
-		s.Logger.Fatal(err)
+		log.Fatal(err)
+		log.Fatal("Could not get token")
+		return nil, err
 	}
+
 	if st := r.FormValue("state"); st != stateString {
-		return err, fmt.Sprintf("State mismatch: %s != %s\n", st, stateString)
+		log.Printf("State mismatch: %s != %s\n", st, stateString)
+		return nil, errors.New(fmt.Sprintf("State mismatch: %s != %s\n", st, stateString))
 	}
 
-	s.Client = s.Authenticator.NewClient(tok)
-	_, err = s.Client.CurrentUser()
-	if err != nil {
-		return err, err.Error()
-	}
-
-	return nil, ""
+	return tok, nil
 }
 
-func (s *SpotifyClient) GetDiscography(artistId string) []*spotify.FullAlbum {
-	s.Logger.Printf("%s: Getting unique albums...", artistId)
-	uniqueAlbums := s.getUniqueAlbums(artistId)
-	s.Logger.Printf("%s: Unique albums found: %v\n", artistId, len(uniqueAlbums))
-	s.Logger.Printf("%s: Getting unique tracks...", artistId)
-	allTracks := s.getAllTracksFromAlbums(artistId, uniqueAlbums)
-	s.Logger.Printf("%s: Unique tracks found: %v\n", artistId, len(allTracks))
+func GetDiscography(id string, log logging.Logger, s SpotifyClient) []*spotify.FullAlbum {
+	var allTracks []*spotify.FullAlbum
+	log.Printf("%s: Getting unique albums...", id)
+	uniqueAlbums := getUniqueAlbums(id, s, log)
+	if len(uniqueAlbums) > 0 {
+		log.Printf("%s: Unique albums found: %v\n", id, len(uniqueAlbums))
+		log.Printf("%s: Getting unique tracks...", id)
+		allTracks = getAllTracksFromAlbums(id, uniqueAlbums, s, log)
+		log.Printf("%s: Unique tracks found: %v\n", id, len(allTracks))
+	}
+
 	return allTracks
 }
 
-func (s *SpotifyClient) SearchForArtist(artistName string, cacheClient caching.Client) []spotify.FullArtist {
-	s.Logger.Println("Searching for artist: ", artistName)
-	result, err := s.Client.Search(artistName, spotify.SearchTypeArtist)
+func SearchForArtist(name string, c caching.Client, s SpotifyClient, log logging.Logger) []spotify.FullArtist {
+	log.Println("Searching for artist:", name)
+	result, err := s.Search(name, spotify.SearchTypeArtist)
 
 	if err != nil {
-		s.Logger.Fatal(err)
+		log.Printf("%s: Could not get results", name)
+		log.Println(err)
 	}
 
 	var artistsArray []spotify.FullArtist
-	if result.Artists != nil {
+	if result != nil {
 		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
 	}
 
-	s.Logger.Printf("Artists found: %v\n", len(artistsArray))
+	artistsJson, _ := json.Marshal(artistsArray)
+	AddToCache(name, string(artistsJson), c, log, formatSearchArtist)
+	log.Printf("Artists found: %v\n", len(artistsArray))
 	return artistsArray
 }
 
-func (s *SpotifyClient) getUniqueAlbums(artistId string) []spotify.ID {
+func PublishPlaylist(tracks []string, name string, log logging.Logger, s SpotifyClient) (string, bool) {
+	result := true
+
+	user, err := s.CurrentUser()
+	if err != nil {
+		log.Println("Could not get user")
+		result = false
+	}
+
+	if len(tracks) == 0 {
+		log.Println("No tracks present")
+		return "No tracks present", false
+	}
+
+	playlist, err := s.CreatePlaylistForUser(user.ID, name+" - By Discogrify", true)
+
+	if err != nil {
+		log.Printf("Could not create playlist")
+		log.Println(err)
+		result = false
+	}
+
+	log.Println("Playlist created: " + playlist.ID)
+
+	var ids []spotify.ID
+	for _, track := range tracks {
+		ids = append(ids, spotify.ID(track))
+	}
+
+	startIndex := 0
+	endIndex := 49
+	added := 0
+	if endIndex > len(tracks) {
+		endIndex = len(tracks)
+	}
+	for added != len(tracks) {
+		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
+		if err != nil {
+			log.Fatal("Error adding tracks to playlist")
+			log.Fatal(err)
+			result = false
+		}
+		added += endIndex - startIndex
+		if endIndex >= 49 && endIndex != len(tracks) {
+			added += 1
+		}
+		startIndex += 50
+		if len(tracks)-added < 50 {
+			endIndex = len(tracks) - 1
+		} else {
+			endIndex += 50
+		}
+	}
+
+	log.Printf("Added %d tracks to playlist ID: %s", added, playlist.ID)
+	return string(playlist.ExternalURLs["spotify"]), result
+}
+
+func getUniqueAlbums(id string, s SpotifyClient, log logging.Logger) []spotify.ID {
 	allAlbums := make(map[spotify.ID]spotify.SimpleAlbum)
 	limit := 50
 	albumTypes := []int{1, 2, 3, 4, 5}
@@ -100,7 +184,12 @@ func (s *SpotifyClient) getUniqueAlbums(artistId string) []spotify.ID {
 			for {
 				options := &spotify.Options{Limit: &limit, Offset: &offset}
 				albumTypes := spotify.AlbumType(albumType)
-				results, _ := s.Client.GetArtistAlbumsOpt(spotify.ID(artistId), options, &albumTypes)
+				results, err := s.GetArtistAlbumsOpt(spotify.ID(id), options, &albumTypes)
+				if err != nil {
+					log.Printf("%s: Could not get albums", id)
+					log.Println(err)
+					break
+				}
 				for _, album := range results.Albums {
 					mutex.Lock()
 					allAlbums[album.ID] = album
@@ -134,7 +223,7 @@ func (s *SpotifyClient) getUniqueAlbums(artistId string) []spotify.ID {
 	return uniqueAlbumsArray
 }
 
-func (s *SpotifyClient) getAllTracksFromAlbums(artistId string, uniqueAlbums []spotify.ID) []*spotify.FullAlbum {
+func getAllTracksFromAlbums(artistId string, uniqueAlbums []spotify.ID, s SpotifyClient, logger logging.Logger) []*spotify.FullAlbum {
 	count := 0
 	var allTracks []*spotify.FullAlbum
 	for i := 0; i < len(uniqueAlbums); i += 20 {
@@ -144,9 +233,10 @@ func (s *SpotifyClient) getAllTracksFromAlbums(artistId string, uniqueAlbums []s
 			if limit >= len(uniqueAlbums) {
 				limit = i + (i-len(uniqueAlbums))*-1
 			}
-			results, err := s.Client.GetAlbums(uniqueAlbums[i:limit]...)
+			results, err := s.GetAlbums(uniqueAlbums[i:limit]...)
 			if err != nil {
-				s.Logger.Fatal(err)
+				logger.Printf("%s: Could not get albums", artistId)
+				logger.Println(err)
 			}
 			for _, album := range results {
 				var tempTrackList []spotify.SimpleTrack
@@ -161,10 +251,12 @@ func (s *SpotifyClient) getAllTracksFromAlbums(artistId string, uniqueAlbums []s
 						}
 					}
 				}
-				album.Tracks = spotify.SimpleTrackPage{
-					Tracks: tempTrackList,
+				if len(tempTrackList) > 0 {
+					album.Tracks = spotify.SimpleTrackPage{
+						Tracks: tempTrackList,
+					}
+					allTracks = append(allTracks, album)
 				}
-				allTracks = append(allTracks, album)
 			}
 			done <- true
 		}()
