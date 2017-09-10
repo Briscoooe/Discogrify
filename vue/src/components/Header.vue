@@ -5,7 +5,7 @@
       <div id="account" v-show="isLoggedIn">
         <p>
           Logged in as {{ user.display_name === "" ? user.id : user.display_name }}
-          <button id="logout" v-on:click="logout">Logout</button> </p>
+          <button class="logout" v-on:click="logout">Logout</button> </p>
       </div>
     </div>
   </div>
@@ -67,8 +67,12 @@ export default {
   float:right;
 }
 
-#logout {
-  color: var(--primary-sand);
+.logout {
+  background-color: var(--primary-sand);
+  color: var(--primary-black);
+}
+.logout:hover, .logout:focus, .logout:active {
+  background-color: var(--primary-grey);
 }
 
 </style>
