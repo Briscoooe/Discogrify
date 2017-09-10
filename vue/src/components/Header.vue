@@ -5,7 +5,7 @@
       <div id="account" v-show="isLoggedIn">
         <p>
           Logged in as {{ user.display_name === "" ? user.id : user.display_name }}
-          <a id="logout" v-on:click="logout">Logout</a> </p>
+          <button id="logout" v-on:click="logout">Logout</button> </p>
       </div>
     </div>
   </div>
