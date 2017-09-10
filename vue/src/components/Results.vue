@@ -24,10 +24,9 @@
         <tr v-for="album in allAlbums" :key="album.id">
           <td>
             <input type="checkbox"
-                   :value="album.id"
                    :checked="checkedAlbums.indexOf(album.id) > -1"
-                   v-model="checkedAlbums"
-                   @click="toggleSingleAlbum(album.id)">
+                   :value="album.id"
+                   v-on:change="toggleAlbum(album.id)">
           </td>
           <td v-if="album.tracks.items.length > 0">
             <album v-model="checkedTracks"
@@ -86,8 +85,8 @@
       return {
         allAlbums: [],
         checkedTracks: [],
-        artist: {},
         checkedAlbums: [],
+        artist: {},
         createPlaylistMessage: '',
         showModal: false,
         published: false,
@@ -104,18 +103,6 @@
       }
     },
     methods: {
-      toggleSingleAlbum: function (albumId) {
-        EventBus.$emit('toggle-album', albumId)
-        this.updateAlbum(albumId)
-      },
-      updateAlbum: function (albumId, val) {
-        let index = this.checkedAlbums.indexOf(albumId)
-        if (index > -1) {
-          this.checkedAlbums.splice(index, 1)
-        } else {
-          this.checkedAlbums.push(albumId)
-        }
-      },
       initialiseAlbums: function (allAlbums) {
         let self = this
         self.allAlbums = []
@@ -134,16 +121,25 @@
       initialiseArtist: function (artist) {
         this.artist = artist
       },
-      updateSort: function (albums) {
-        this.allAlbums = albums
+      toggleAlbum: function (albumId) {
+        EventBus.$emit('toggle-album', albumId, this.checkedAlbums.indexOf(albumId) > -1)
+      },
+      updateAlbum: function (albumId) {
+        this.updateArray(this.checkedAlbums, albumId)
       },
       updateTrack: function (trackId) {
-        let index = this.checkedTracks.indexOf(trackId)
-        if (index < 0) {
-          this.checkedTracks.push(trackId)
+        this.updateArray(this.checkedTracks, trackId)
+      },
+      updateArray: function (array, element) {
+        let index = array.indexOf(element)
+        if (index > -1) {
+          array.splice(index, 1)
         } else {
-          this.checkedTracks.splice(index, 1)
+          array.push(element)
         }
+      },
+      updateSort: function (albums) {
+        this.allAlbums = albums
       },
       publishPlaylist: function () {
         this.published = false
@@ -154,7 +150,7 @@
           if (response.status === 201) {
             this.published = true
             this.playlistUrl = response.data
-            this.createPlaylistMessage = 'Playlist created successfully: '
+            this.createPlaylistMessage = 'Playlist created successfully'
           } else {
             this.createPlaylistMessage = 'Playlist could not be created'
           }
@@ -165,7 +161,6 @@
       }
     }
   }
-
 </script>
 
 <style scoped>
@@ -188,7 +183,6 @@
   text-align: left;
   font-size: var(--font-size-data);
 }
-
 
 #no-results {
   font-size: var(--font-size-control);

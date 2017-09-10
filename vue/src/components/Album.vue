@@ -8,7 +8,7 @@
           <li v-for='track in album.tracks.items'>
             <input id='checkbox'
                    type='checkbox'
-                   checked='checkedTracks.contains(track.id)'
+                   :checked='checkedTracks.indexOf(track.id) > -1'
                    :value='track.id'
                    v-model='checkedTracks'
                    v-on:change='updateTrack($event.target.value)'>
@@ -30,19 +30,7 @@
     data: function () {
       return {
         checkedTracks: [],
-        show: false,
-        checked: true
-      }
-    },
-    computed: {
-      allTracksChecked: function () {
-        if (this.checkedTracks.length === this.album.tracks.items.length) {
-          // self.checked = true
-          return true
-        } else {
-          // self.checked = false
-          return false
-        }
+        show: false
       }
     },
     mounted () {
@@ -55,33 +43,30 @@
       })
     },
     methods: {
-      updateAlbum: function (albumId) {
+      updateAlbum: function (albumId, isChecked) {
         let self = this
         if (self.album.id === albumId) {
-          // if (self.allTracksChecked) {
-          //  self.checked = true
-          // }
           self.album.tracks.items.forEach(function (track) {
             let index = self.checkedTracks.indexOf(track.id)
-            // if (self.checked) {
-            if (index < 0) {
-              self.checkedTracks.push(track.id)
-              self.updateTrack(track.id)
+            if (!isChecked) {
+              if (index === -1) {
+                self.checkedTracks.push(track.id)
+                self.updateTrack(track.id)
+              }
+            } else {
+              if (index > -1) {
+                self.checkedTracks.splice(index, 1)
+                self.updateTrack(track.id)
+              }
             }
-            // } else {
-            if (index > -1) {
-              self.checkedTracks.splice(index, 1)
-              self.updateTrack(track.id)
-            }
-            // }
           })
         }
       },
       updateTrack: function (trackId) {
         this.$emit('update-track', trackId)
         if (this.checkedTracks.length === this.album.tracks.items.length ||
-          this.checkedTracks.length === 0) {
-          this.$emit('update-album', this.album.id, 'VA')
+            this.checkedTracks.length === 0) {
+          this.$emit('update-album', this.album.id)
         }
       }
     }
