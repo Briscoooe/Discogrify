@@ -32,7 +32,7 @@ func main() {
 
 	spotifyClient := InitSpotifyClient(config.Spotify.RedirectURI)
 
-	router := SetupRouter(cacheClient, logger, spotifyClient, config.Cookie.CookieName, config.Cookie.Expiration)
+	router := SetupRouter(cacheClient, logger, spotifyClient, config.Cookie.CookieName, config.Cookie.Expiration, config.FilePath)
 	contextedRouter := AddContext(router)
 	logger.Fatal(http.ListenAndServe(":8080", contextedRouter))
 }

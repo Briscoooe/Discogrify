@@ -38,6 +38,26 @@ func LoginToSpotifyHandlerFunc(s *Spotify) http.Handler {
 	})
 }
 
+func UserInfoHandler(l logging.Logger, s *Spotify) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if tok := r.Context().Value("AuthToken"); tok != nil {
+			user := GetUserInfo(l, s.NewClient(tok.(string)))
+			if user != nil {
+				w.Header().Set("Content-Type", "application/json")
+				if err := json.NewEncoder(w).Encode(user); err != nil {
+					panic(err)
+				}
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				w.Write([]byte("Could not get user"))
+			}
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Not logged in"))
+		}
+	})
+}
+
 func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {

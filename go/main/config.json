@@ -20,5 +20,5 @@
     "cookieName" : "auth_token",
     "expiration": 1
   },
-  "devMode": false
+  "filePath" : "/home/r00t/go/src/github.com/Briscooe/Discogrify/vue/dist"
 }

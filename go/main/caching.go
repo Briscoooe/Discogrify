@@ -19,8 +19,6 @@ func GetSearchResultsFromCache(query string, client caching.Client, logger loggi
 	key := fmt.Sprintf(formatSearchArtist, query)
 	result := client.Get(key)
 
-	fmt.Println(key)
-
 	if len(result) == 0 {
 		logger.Printf("%s: Query not found", query)
 		return nil

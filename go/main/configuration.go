@@ -28,7 +28,7 @@ type Configuration struct {
 		CookieName string `json:"cookieName"`
 		Expiration int    `json:"expiration"`
 	}
-	DevMode bool `json:"devMode"`
+	FilePath string `json:"filePath"`
 }
 
 func LoadConfiguration(file string) Configuration {

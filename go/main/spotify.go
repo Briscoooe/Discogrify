@@ -49,6 +49,16 @@ func (s Spotify) NewClient(tokenStr string) SpotifyClient {
 	return &client
 }
 
+func GetUserInfo(l logging.Logger, s SpotifyClient) *spotify.PrivateUser {
+	user, err := s.CurrentUser()
+	if err != nil {
+		l.Println("Could not get user info")
+		l.Println(err)
+		return nil
+	}
+	return user
+}
+
 func GenerateStateString() string {
 	b := make([]rune, 16)
 	for i := range b {
