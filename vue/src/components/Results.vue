@@ -60,7 +60,7 @@
       <span slot="header">
         {{ createPlaylistMessage }}
         <div if="published">
-          <button :href="playlistUrl">View on Spotify</button>
+          <a :href="playlistUrl">View on Spotify</a>
         </div>
       </span>
     </modal>
