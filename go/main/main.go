@@ -5,6 +5,7 @@ import (
 	"github.com/Briscooe/Discogrify/go/logging"
 	"net/http"
 	"sync"
+	"github.com/rs/cors"
 )
 
 var (
@@ -13,7 +14,7 @@ var (
 )
 
 func main() {
-	config := LoadConfiguration("/home/r00t/go/src/github.com/Briscooe/Discogrify/go/main/config.json")
+	config := LoadConfiguration("./config.json")
 
 	logger := logging.NewRollingLogger(
 		config.Logger.Filename,
@@ -34,5 +35,7 @@ func main() {
 
 	router := SetupRouter(cacheClient, logger, spotifyClient, config.Cookie.CookieName, config.Cookie.Expiration, config.FilePath)
 	contextedRouter := AddContext(router)
-	logger.Fatal(http.ListenAndServe(":8080", contextedRouter))
+
+	handler := cors.Default().Handler(contextedRouter)
+	logger.Fatal(http.ListenAndServe(":8080", handler))
 }

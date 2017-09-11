@@ -27,13 +27,11 @@ func AddContext(next http.Handler) http.Handler {
 		}
 	})
 }
-func IndexHandlerFunc(l logging.Logger) http.Handler {
-	return nil
-}
 
 func LoginToSpotifyHandlerFunc(s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := GenerateLoginUrl(s)
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Write([]byte(url))
 	})
 }

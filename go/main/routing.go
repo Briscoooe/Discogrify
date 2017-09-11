@@ -12,7 +12,6 @@ func SetupRouter(c caching.Client, l logging.Logger, s *Spotify, cookieName stri
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.Handle("/login", LoginToSpotifyHandlerFunc(s)).Methods("GET")
-	router.Handle("/index", IndexHandlerFunc(l)).Methods("GET")
 	router.Handle("/callback", CallbackHandler(l, s, cookieName, expiration)).Methods("GET")
 	router.Handle("/tracks/{artistId}", AddContext(GetTracksHandler(c, l, s))).Methods("GET")
 	router.Handle("/search/{name}", AddContext(SearchArtistHandler(c, l, s))).Methods("GET")
