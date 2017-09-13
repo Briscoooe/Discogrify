@@ -111,7 +111,7 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.L
 	}
 
 	var artistsArray []spotify.FullArtist
-	if result != nil {
+	if result != nil && len(result.Artists.Artists) > 0 {
 		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
