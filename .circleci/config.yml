@@ -1,12 +1,11 @@
 version: 2
 jobs:
   build:
-    working_directory: /go/src/github.com/Briscoooe/Discogrify/go/main
     docker:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: ls
+      - run: go get
       - run: go build ./go/main
       - run: go test -v ./go/main
 
