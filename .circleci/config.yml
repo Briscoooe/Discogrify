@@ -6,12 +6,17 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: go get ./go/logging
-      - run: go build ./go/logging
-      - run: go get ./go/caching
-      - run: go build ./go/caching
-      - run: go get ./go/main
-      - run: go build ./go/main
-      - run: go test -v ./go/main
+      - run: 
+          name: Build logging
+          command: go get ./go/logging
+          command: go build ./go/logging
+      - run: 
+          name: Build caching
+          command: go get ./go/caching
+          command: go build ./go/caching
+      - run: 
+          name: Build main
+          command: go get ./go/main
+          command: go build ./go/main
 
 
