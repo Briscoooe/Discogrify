@@ -5,6 +5,10 @@ jobs:
     docker:
       - image: circleci/golang:1.8
     dependencies:
+      - mkdir -p $HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME
+      - ln -fs $HOME/$CIRCLE_PROJECT_REPONAME $HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      - |
+      echo 'export GOPATH=$HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$GOPATH' >> ~/.circlerc
       pre:
         - go get -u ./go/logging
         - go get -u ./go/caching
