@@ -7,6 +7,6 @@ jobs:
     steps:
       - checkout
       - run: ls
-      - run: go build go/main
-      - run: go test -v go/main
+      - run: go build ./go/main
+      - run: go test -v ./go/main
 
