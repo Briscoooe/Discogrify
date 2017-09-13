@@ -1,6 +1,18 @@
-version: 2
-jobs:
-  build:
-    working_directory: /go/src/github.com/Briscoooe/Discogrify/go/main
-    docker:
-      - image: circleci/golang:1.8
+machine:
+  environment:
+    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+
+dependencies:
+  override:
+    - mkdir -p "$GOPATH/src/$IMPORT_PATH"
+
+test:
+  pre:
+    - go get github.com/go-redis/redis
+    - go get github.com/zmb3/spotify
+    - go get golang.org/x/oauth2
+    - go get github.com/natefinch/lumberjack
+    - go get github.com/gorilla/mux
+
+  override:
+    - go test -v ./go/main
