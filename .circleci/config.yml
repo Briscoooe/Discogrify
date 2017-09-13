@@ -4,19 +4,22 @@ jobs:
     working_directory: /go/src/github.com/Briscoooe/Discogrify/go/main
     docker:
       - image: circleci/golang:1.8
+    dependencies:
+      pre:
+        - go get -u ./go/logging
+        - go get -u ./go/caching
+        - go get -u ./go/main
     steps:
       - checkout
       - run: 
           name: Build logging
-          command: go get ./go/logging
           command: go build ./go/logging
       - run: 
           name: Build caching
-          command: go get ./go/caching
           command: go build ./go/caching
       - run: 
           name: Build main
-          command: go get ./go/main
           command: go build ./go/main
-
-
+      - run: 
+          name: Deploy
+          command: bash ./deploy.sh
