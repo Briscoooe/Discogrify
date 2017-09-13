@@ -5,7 +5,7 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - checkout
-      - run: go get
+      - run: go get ./go/main
       - run: go build ./go/main
       - run: go test -v ./go/main
 
