@@ -115,11 +115,11 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.L
 		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
+		artistsJson, _ := json.Marshal(artistsArray)
+		AddToCache(name, string(artistsJson), c, l, formatSearchArtist)
+		l.Logf("Artists found: %v\n", len(artistsArray))
 	}
 
-	artistsJson, _ := json.Marshal(artistsArray)
-	AddToCache(name, string(artistsJson), c, l, formatSearchArtist)
-	l.Logf("Artists found: %v\n", len(artistsArray))
 	return artistsArray
 }
 
