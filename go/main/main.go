@@ -16,26 +16,26 @@ var (
 func main() {
 	config := LoadConfiguration("./config.json")
 
-	logger := logging.NewRollingLogger(
+	l := logging.NewRollingLogger(
 		config.Logger.Filename,
 		config.Logger.MaxSize,
 		config.Logger.MaxBackups,
 		config.Logger.MaxAge)
-	logger.Println("Starting application...")
+	l.Log("Starting application...")
 
-	cacheClient := caching.NewRedisClient(
-		*logger,
+	c := caching.NewRedisClient(
+		*l,
 		config.Redis.Host,
 		config.Redis.Port,
 		config.Redis.Password,
 		config.Redis.Db,
 		config.Redis.HoursExpiration)
 
-	spotifyClient := InitSpotifyClient(config.Spotify.RedirectURI)
+	s := InitSpotifyClient(config.Spotify.RedirectURI)
 
-	router := SetupRouter(cacheClient, logger, spotifyClient, config.Cookie.CookieName, config.Cookie.Expiration, config.FilePath)
-	contextedRouter := AddContext(router)
+	router := SetupRouter(c, l, s, config.Cookie.CookieName, config.Cookie.Expiration, config.FilePath)
+	contextedRouter := AddContext(router, l)
 
 	handler := cors.Default().Handler(contextedRouter)
-	logger.Fatal(http.ListenAndServe(":8080", handler))
+	l.Fatal(http.ListenAndServe(":8080", handler))
 }

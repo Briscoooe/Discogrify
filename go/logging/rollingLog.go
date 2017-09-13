@@ -30,6 +30,18 @@ func NewRollingLogger(filename string, maxSize, maxBackups, maxAge int) *Rolling
 	}
 }
 
+func (r RollingLogger) LogErr(err error, v ...interface{}) {
+	fmt.Println(v...)
+	r.RollingLog.Println(v...)
+	r.RollingLog.Println(err.Error())
+}
+
+func (r RollingLogger) 	LogErrf(err error, format string, v ... interface{}) {
+	fmt.Println(v...)
+	r.RollingLog.Printf(format, v...,)
+	r.RollingLog.Printf(err.Error())
+}
+
 func (r RollingLogger) Fatal(v ...interface{}) {
 	fmt.Println(v...)
 	r.RollingLog.Println(v...)
@@ -40,12 +52,12 @@ func (r RollingLogger) Fatalf(format string, v ...interface{}) {
 	r.RollingLog.Printf(fmt.Sprintf(format, v...))
 }
 
-func (r RollingLogger) Printf(format string, v ...interface{}) {
+func (r RollingLogger) Logf(format string, v ...interface{}) {
 	fmt.Println(fmt.Sprintf(format, v...))
 	r.RollingLog.Printf(fmt.Sprintf(format, v...))
 }
 
-func (r RollingLogger) Println(v ...interface{}) {
+func (r RollingLogger) Log(v ...interface{}) {
 	fmt.Println(v...)
 	r.RollingLog.Println(v...)
 }

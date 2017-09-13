@@ -16,8 +16,9 @@ var (
 	stateString string
 )
 
-func AddContext(next http.Handler) http.Handler {
+func AddContext(next http.Handler, l logging.Logger) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		l.Log("New request from IP: " + r.RemoteAddr)
 		cookie, _ := r.Cookie("auth_token")
 		if cookie != nil {
 			ctx := context.WithValue(r.Context(), "AuthToken", cookie.Value)
@@ -43,7 +44,7 @@ func UserInfoHandler(l logging.Logger, s *Spotify) http.Handler {
 			if user != nil {
 				w.Header().Set("Content-Type", "application/json")
 				if err := json.NewEncoder(w).Encode(user); err != nil {
-					panic(err)
+					l.LogErr(err)
 				}
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
@@ -56,7 +57,7 @@ func UserInfoHandler(l logging.Logger, s *Spotify) http.Handler {
 	})
 }
 
-func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Handler {
+func GetTracksHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {
 			id := mux.Vars(r)["artistId"]
@@ -66,17 +67,17 @@ func GetTracksHandler(c caching.Client, log logging.Logger, s *Spotify) http.Han
 				w.Write([]byte("Invalid artist ID"))
 			} else {
 				IncrementKeyInCache(id, c)
-				log.Printf("%s: Checking cache for artist ID", id)
-				tracks := GetTracksFromCache(id, c, log)
+				l.Logf("%s: Checking cache for artist ID", id)
+				tracks := GetTracksFromCache(id, c, l)
 				if tracks == nil {
-					tracks = GetDiscography(id, log, s.NewClient(tok.(string)))
+					tracks = GetDiscography(id, l, s.NewClient(tok.(string)))
 					tracksJson, _ := json.Marshal(tracks)
-					AddToCache(id, string(tracksJson), c, log, formatArtistTracks)
+					AddToCache(id, string(tracksJson), c, l, formatArtistTracks)
 				}
-				log.Printf("%s: Returning tracks", id)
+				l.Logf("%s: Returning tracks", id)
 				w.Header().Set("Content-Type", "application/json")
 				if err := json.NewEncoder(w).Encode(tracks); err != nil {
-					panic(err)
+					l.LogErr(err)
 				}
 			}
 		} else {
@@ -100,20 +101,20 @@ func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expirati
 	})
 }
 
-func SearchArtistHandler(c caching.Client, log logging.Logger, s *Spotify) http.Handler {
+func SearchArtistHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {
 			query := mux.Vars(r)["name"]
-			log.Printf("%s: Checking cache for search query ", query)
-			results := GetSearchResultsFromCache(query, c, log)
+			l.Logf("%s: Checking cache for search query ", query)
+			results := GetSearchResultsFromCache(query, c, l)
 
 			if len(results) == 0 {
-				results = SearchForArtist(query, c, s.NewClient(tok.(string)), log)
+				results = SearchForArtist(query, c, s.NewClient(tok.(string)), l)
 			}
 
 			w.Header().Set("Content-Type", "application/json")
 			if err := json.NewEncoder(w).Encode(results); err != nil {
-				panic(err)
+				l.LogErr(err)
 			}
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)
@@ -135,7 +136,7 @@ func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 			var newPlaylist playlist
 			err := json.Unmarshal(body, &newPlaylist)
 			if err != nil {
-				log.Println(err)
+				log.Log(err)
 			}
 
 			id, result := PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title, log, s.NewClient(tok.(string)))

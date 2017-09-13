@@ -23,10 +23,10 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int, 
 
 	_, err := redisClient.Ping().Result()
 	if err != nil {
-		logger.Fatalf("Could not connect to Redis host %s:%s\n%v\n", host, port, err)
+		logger.LogErr(err,"Could not connect to Redis host %s:%s\n%v\n", host, port)
 	}
 
-	logger.Printf("Successfully connected to Redis host %s:%s", host, port)
+	logger.Logf("Successfully connected to Redis host %s:%s", host, port)
 	return &RedisClient{
 		RedisClient: redisClient,
 		Logger: logger,
