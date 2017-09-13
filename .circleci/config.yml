@@ -4,26 +4,3 @@ jobs:
     working_directory: /go/src/github.com/Briscoooe/Discogrify/go/main
     docker:
       - image: circleci/golang:1.8
-    dependencies:
-      - mkdir -p $HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME
-      - ln -fs $HOME/$CIRCLE_PROJECT_REPONAME $HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - |
-      echo 'export GOPATH=$HOME/.go_project/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$GOPATH' >> ~/.circlerc
-      pre:
-        - go get -u ./go/logging
-        - go get -u ./go/caching
-        - go get -u ./go/main
-    steps:
-      - checkout
-      - run: 
-          name: Build logging
-          command: go build ./go/logging
-      - run: 
-          name: Build caching
-          command: go build ./go/caching
-      - run: 
-          name: Build main
-          command: go build ./go/main
-      - run: 
-          name: Deploy
-          command: bash ./deploy.sh
