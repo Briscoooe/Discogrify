@@ -18,15 +18,13 @@
           {text: 'Release date (oldest first)', id: 'dateOldest'},
           {text: 'Alphabetical (A-Z)', id: 'alphaAToZ'},
           {text: 'Alphabetical (Z-A)', id: 'alphaZToA'},
-          {text: 'Popularity (most first)', id: 'popularMost'},
-          {text: 'Popularity (least first)', id: 'popularLeast'},
           {text: 'Number of tracks (most first)', id: 'tracksMost'},
           {text: 'Number of tracks (least first)', id: 'tracksLeast'}
-        ]
+        ],
+        sortOption: 'dateRecent'
       }
     },
     mounted () {
-      this.sortOption = this.sortOptions[0].id
       this.sortAlbums()
     },
     methods: {
