@@ -1,14 +1,14 @@
 <template>
   <div id="content" class="row align-center">
     <div v-if="resultsPresent" class="col col-6">
-      <div id="results-header">
+      <div id="results-header" class="margin2">
         <div class="row">
-          <p class="margin large-text col col-6"> {{ artist.name }}</p>
-          <sort :albums="allAlbums" v-on:sort="updateSort" class="margin col col-6"></sort>
+          <p class="large-text col col-6 margin2"> {{ artist.name }}</p>
+          <sort :albums="allAlbums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
         </div>
         <div class="row">
-          <p class="margin large-text col col-6"> {{ checkedTracks.length }} tracks selected</p>
-          <button class="margin col col-6" v-on:click="publishPlaylist">Publish playlist</button>
+          <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
+          <button class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
         </div>
       </div>
       <table class="bordered striped" id="table">
@@ -52,9 +52,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-    <div id="no-results" class="col col-6 margin" v-else>
-      <div>Results will appear here when you perform a search</div>
     </div>
     <modal v-if="showModal" @close="showModal = false">
       <span slot="header">
@@ -168,15 +165,10 @@
   font-size: var(--font-size-heading);
   text-align: left;
 }
-.margin {
-  margin-top: 2%;
-  margin-bottom: 2%;
-}
+
 #results-header {
   background-color: var(--primary-sand);
   padding: 2%;
-  margin-top: 2%;
-  margin-bottom: 2%;
   border-radius: 3px;
 }
 #table {
@@ -184,12 +176,6 @@
   font-size: var(--font-size-data);
 }
 
-#no-results {
-  font-size: var(--font-size-control);
-  padding: 2%;
-  height: 100%;
-  background-color: var(--primary-sand);
-}
 /* Icon Fade */
 .hvr-icon-fade {
   display: inline-block;

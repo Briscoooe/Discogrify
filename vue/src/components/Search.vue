@@ -8,6 +8,9 @@
                 v-model="artist.name">
         <button type="button" class="font-override" v-on:click="searchArtist">Search</button>
       </div>
+      <div v-if="loggedIn && artistSearchResults.length == 0" id="no-results" class="col col-6 margin2">
+        <div> {{ noResultsMessage }} </div>
+      </div>
       <transition name="fade">
         <ul id="list" v-if="show">
           <li id="list-item" v-for="artist in artistSearchResults">
@@ -37,12 +40,18 @@
         artistSearchResults: [],
         artist: {},
         showModal: false,
-        show: false
+        show: false,
+        noResultsMessage: 'Results will appear here when you search'
+      }
+    },
+    computed: {
+      loggedIn: function () {
+        return document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')
       }
     },
     methods: {
       searchArtist: function () {
-        if (!document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')) {
+        if (!this.loggedIn) {
           this.showModal = true
           return
         } else {
@@ -52,8 +61,12 @@
           return
         }
         this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function (response) {
-          this.artistSearchResults = response.data
-          this.show = true
+          if (response.data) {
+            this.artistSearchResults = response.data
+            this.show = true
+          } else {
+            this.noResultsMessage = 'No results for "' + this.artist.name + '"'
+          }
         }).catch(function (error) {
           console.log(error)
         })
@@ -104,6 +117,13 @@
 }
 
 #result-line:hover{
+  background-color: var(--primary-sand);
+}
+
+#no-results {
+  font-size: var(--font-size-control);
+  padding: 2%;
+  width: 100%;
   background-color: var(--primary-sand);
 }
 /* Icon Forward */

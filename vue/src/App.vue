@@ -77,6 +77,16 @@ export default {
   min-height: 100vh;
   flex-direction: column;
 }
+
+.margin1 {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.margin2 {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
 a:hover {
   cursor: pointer;
 }
