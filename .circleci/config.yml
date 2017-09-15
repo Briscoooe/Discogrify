@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.8
+
+  test:
+    pre:
+      - go get github.com/go-redis/redis
+      - go get github.com/zmb3/spotify
+      - go get golang.org/x/oauth2
+      - go get github.com/natefinch/lumberjack
+      - go get github.com/gorilla/mux
+
+    override:
+    - go test -v ./go/main
