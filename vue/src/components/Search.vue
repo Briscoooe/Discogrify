@@ -94,6 +94,9 @@
 </script>
 
 <style scoped>
+#content {
+  width:100%;
+}
 .font-override {
   font-family: var(--font);
   font-size: var(--font-size-control);

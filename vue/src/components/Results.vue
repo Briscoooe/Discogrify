@@ -161,6 +161,9 @@
 </script>
 
 <style scoped>
+#content {
+  width:100%;
+}
 .large-text{
   font-size: var(--font-size-heading);
   text-align: left;
@@ -174,6 +177,7 @@
 #table {
   text-align: left;
   font-size: var(--font-size-data);
+  width:100%;
 }
 
 /* Icon Fade */
