@@ -139,13 +139,12 @@ func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 				log.Log(err)
 			}
 
-			id, result := PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title, log, s.NewClient(tok.(string)))
+			msg, result := PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title, log, s.NewClient(tok.(string)))
+			message = msg
 			if result {
 				w.WriteHeader(http.StatusCreated)
-				message = id
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
-				message = "Could not create playlist"
 			}
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)

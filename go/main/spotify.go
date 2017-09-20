@@ -124,8 +124,9 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.L
 }
 
 func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyClient) (string, bool) {
-	result := true
+	var msg string
 
+	result := true
 	user, err := s.CurrentUser()
 	if err != nil {
 		l.Log("Could not get user")
@@ -141,7 +142,7 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 
 	if err != nil {
 		l.LogErr(err, "Could not create playlist")
-		result = false
+		return "Could not create playlist", false
 	}
 
 	l.Log("Playlist created: " + playlist.ID)
@@ -161,6 +162,8 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
 		if err != nil {
 			l.LogErr(err, "Error adding tracks to playlist")
+			l.Log(ids[startIndex:endIndex+1])
+			msg = "Not all tracks could be added to the playlist"
 			result = false
 		}
 		added += endIndex - startIndex
@@ -174,9 +177,11 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 			endIndex += 50
 		}
 	}
-
+	if result {
+		msg = string(playlist.ExternalURLs["spotify"])
+	}
 	l.Logf("Added %d tracks to playlist ID: %s", added, playlist.ID)
-	return string(playlist.ExternalURLs["spotify"]), result
+	return msg, result
 }
 
 func getUniqueAlbums(id string, s SpotifyClient, l logging.Logger) []spotify.ID {
