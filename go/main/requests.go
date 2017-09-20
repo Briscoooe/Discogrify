@@ -139,13 +139,9 @@ func PublishPlaylistHandler(log logging.Logger, s *Spotify) http.Handler {
 				log.Log(err)
 			}
 
-			msg, result := PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title, log, s.NewClient(tok.(string)))
-			message = msg
-			if result {
-				w.WriteHeader(http.StatusCreated)
-			} else {
-				w.WriteHeader(http.StatusBadRequest)
-			}
+			//url, status := PublishPlaylist(newPlaylist.Tracks, newPlaylist.Title, log, s.NewClient(tok.(string)))
+			message = "URL"
+			w.WriteHeader(201)
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)
 			message = "Not logged in"

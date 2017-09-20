@@ -59,8 +59,8 @@ func GetTracksFromCache(id string, client caching.Client, logger logging.Logger)
 
 func IncrementKeyInCache(key string, client caching.Client) bool {
 	result := false
+	key = fmt.Sprintf(formatArtistSearched, key)
 	if validateKey(key) {
-		key = fmt.Sprintf(formatArtistSearched, key)
 		result = client.Increment(key)
 	}
 
@@ -69,16 +69,19 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 
 func AddToCache(key string, value string, client caching.Client, logger logging.Logger, format string) bool {
 	result := false
-	formattedKey := toLowerNoWhiteSpace(fmt.Sprintf(format, key))
-	if validateKey(formattedKey) && validateValue(value) {
-		if client.Set(formattedKey, value) {
-			logger.Logf("%s: Successfully added key to cache", formattedKey)
+	key = fmt.Sprintf(format, key)
+	if format != formatArtistTracks {
+		key = toLowerNoWhiteSpace(key)
+	}
+	if validateKey(key) && validateValue(value) {
+		if client.Set(key, value) {
+			logger.Logf("%s: Successfully added key to cache", key)
 			result = true
 		} else {
-			logger.Logf("%s: Could not add key to cache", formattedKey)
+			logger.Logf("%s: Could not add key to cache", key)
 		}
 	} else {
-		logger.Logf("%s: Incorrect format\nKey: %s\nValue: %s", formattedKey, formattedKey, value)
+		logger.Logf("Incorrect format\nKey: %s\nValue: %s", key, value)
 	}
 	return result
 }

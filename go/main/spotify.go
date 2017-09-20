@@ -123,26 +123,23 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.L
 	return artistsArray
 }
 
-func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyClient) (string, bool) {
-	var msg string
-
-	result := true
+func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyClient) (string, int) {
 	user, err := s.CurrentUser()
 	if err != nil {
 		l.Log("Could not get user")
-		result = false
+		return "", http.StatusUnauthorized
 	}
 
 	if len(tracks) == 0 {
 		l.Log("No tracks present")
-		return "No tracks present", false
+		return "", http.StatusNotFound
 	}
 
 	playlist, err := s.CreatePlaylistForUser(user.ID, name+" - By Discogrify", true)
 
 	if err != nil {
 		l.LogErr(err, "Could not create playlist")
-		return "Could not create playlist", false
+		return "", http.StatusNotModified
 	}
 
 	l.Log("Playlist created: " + playlist.ID)
@@ -158,13 +155,15 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 	if endIndex > len(tracks) {
 		endIndex = len(tracks)
 	}
+	status := http.StatusOK
 	for added != len(tracks) {
 		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
 		if err != nil {
-			l.LogErr(err, "Error adding tracks to playlist")
-			l.Log(ids[startIndex:endIndex+1])
-			msg = "Not all tracks could be added to the playlist"
-			result = false
+			if err.Error() != "Invalid track uri: spotify:track:" {
+				l.LogErr(err, "Error adding tracks to playlist")
+				l.Log(ids[startIndex:endIndex+1])
+				status = http.StatusBadRequest
+			}
 		}
 		added += endIndex - startIndex
 		if endIndex >= 49 && endIndex != len(tracks) {
@@ -177,11 +176,8 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 			endIndex += 50
 		}
 	}
-	if result {
-		msg = string(playlist.ExternalURLs["spotify"])
-	}
 	l.Logf("Added %d tracks to playlist ID: %s", added, playlist.ID)
-	return msg, result
+	return string(playlist.ExternalURLs["spotify"]), status
 }
 
 func getUniqueAlbums(id string, s SpotifyClient, l logging.Logger) []spotify.ID {

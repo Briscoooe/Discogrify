@@ -1,0 +1,1353 @@
+2017/09/20 07:57:45 Starting application...
+2017/09/20 07:57:45 Successfully connected to Redis host localhost:6379
+2017/09/20 07:58:09 New request from IP: 127.0.0.1:39768
+2017/09/20 07:58:09 New request from IP: 127.0.0.1:39768
+2017/09/20 07:58:09 New request from IP: 127.0.0.1:39770
+2017/09/20 07:58:09 New request from IP: 127.0.0.1:39772
+2017/09/20 07:58:09 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:16 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:24 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39768
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39772
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:34 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:45 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:45 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:45 daviis: Checking cache for search query 
+2017/09/20 07:58:45 daviis: Query results found 
+2017/09/20 07:58:46 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:46 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:46 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 07:58:46 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 07:58:46 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 07:58:48 3CRof4xxzfsO59jT5tKX66: Unique albums found: 1
+2017/09/20 07:58:48 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 07:58:48 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 1
+2017/09/20 07:58:48 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 07:58:48 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 07:58:49 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:49 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:49 New request from IP: 127.0.0.1:39772
+2017/09/20 07:58:49 New request from IP: 127.0.0.1:39774
+2017/09/20 07:58:59 New request from IP: 127.0.0.1:39772
+2017/09/20 07:58:59 New request from IP: 127.0.0.1:39772
+2017/09/20 07:59:00 Playlist created: 35f57nehrFwrbu96DryXHW
+2017/09/20 07:59:00 New request from IP: 127.0.0.1:39774
+2017/09/20 07:59:00 New request from IP: 127.0.0.1:39774
+2017/09/20 07:59:00 Playlist created: 0kpbw6lAtoA83NEvQRHAK1
+2017/09/20 07:59:00 New request from IP: 127.0.0.1:39768
+2017/09/20 07:59:00 New request from IP: 127.0.0.1:39768
+2017/09/20 07:59:01 Playlist created: 5AXxjs0r1dtWWtUP8ZDs3S
+2017/09/20 07:59:01 New request from IP: 127.0.0.1:39770
+2017/09/20 07:59:01 New request from IP: 127.0.0.1:39770
+2017/09/20 07:59:06 Playlist created: 3MRyIvTA0k8JvbAOKfMvtI
+2017/09/20 07:59:06 New request from IP: 127.0.0.1:39876
+2017/09/20 07:59:06 New request from IP: 127.0.0.1:39876
+2017/09/20 07:59:06 Playlist created: 5yOhH7396JdiNQggviD28u
+2017/09/20 07:59:53 New request from IP: 127.0.0.1:40066
+2017/09/20 07:59:53 New request from IP: 127.0.0.1:40066
+2017/09/20 08:00:03 New request from IP: 127.0.0.1:40080
+2017/09/20 08:00:03 New request from IP: 127.0.0.1:40080
+2017/09/20 08:00:11 Starting application...
+2017/09/20 08:00:11 Successfully connected to Redis host localhost:6379
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40160
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40160
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40160
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40160
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40160
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:15 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:18 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:18 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:18 daviis: Checking cache for search query 
+2017/09/20 08:00:18 daviis: Query results found 
+2017/09/20 08:00:21 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:21 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:21 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 08:00:21 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 08:00:21 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 08:00:23 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 08:00:23 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 08:00:23 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 08:00:23 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 08:00:23 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 08:00:32 New request from IP: 127.0.0.1:40162
+2017/09/20 08:00:32 New request from IP: 127.0.0.1:40162
+2017/09/20 08:01:13 Playlist created: 13nJ8Bi5JNZNxwmFbbPoEe
+2017/09/20 08:01:13 Error adding tracks to playlist
+2017/09/20 08:01:13 Invalid track uri: spotify:track:
+2017/09/20 08:01:13 [11m3lRxRZmXIayL9kMGEUc 4QiyUh2OM6aMOmZcOZXAfF 7hdwopVgwDTuQBIYwdqWlH 79ypCVMrpFJal2cfAHQlNq 2iDuAjp9MUPOxGxmVD9jzS ]
+2017/09/20 08:01:13 Added 5 tracks to playlist ID: 13nJ8Bi5JNZNxwmFbbPoEe
+2017/09/20 08:01:53 Starting application...
+2017/09/20 08:01:53 Successfully connected to Redis host localhost:6379
+2017/09/20 08:01:55 New request from IP: 127.0.0.1:40596
+2017/09/20 08:01:55 New request from IP: 127.0.0.1:40596
+2017/09/20 08:02:06 Playlist created: 5NHvuWzPf6WorVIDh5kd0m
+2017/09/20 08:02:48 New request from IP: 127.0.0.1:40648
+2017/09/20 08:03:43 New request from IP: 127.0.0.1:40648
+2017/09/20 08:03:43 New request from IP: 127.0.0.1:40864
+2017/09/20 08:03:43 New request from IP: 127.0.0.1:40860
+2017/09/20 08:03:43 New request from IP: 127.0.0.1:40862
+2017/09/20 08:03:46 New request from IP: 127.0.0.1:40648
+2017/09/20 08:05:17 Starting application...
+2017/09/20 08:05:17 Successfully connected to Redis host localhost:6379
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41454
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41454
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41458
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41458
+2017/09/20 08:05:23 New request from IP: 127.0.0.1:41458
+2017/09/20 08:05:24 New request from IP: 127.0.0.1:41458
+2017/09/20 08:05:24 New request from IP: 127.0.0.1:41458
+2017/09/20 08:05:24 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:24 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:26 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:26 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:26 daviis: Checking cache for search query 
+2017/09/20 08:05:26 daviis: Query results found 
+2017/09/20 08:05:27 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:27 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:27 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 08:05:27 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 08:05:27 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 08:05:31 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 08:05:31 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 08:05:31 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 08:05:31 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 08:05:31 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 08:05:33 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:33 New request from IP: 127.0.0.1:41456
+2017/09/20 08:05:36 Playlist created: 7MTMalsfMIlSbwRqCoNNrO
+2017/09/20 08:06:18 New request from IP: 127.0.0.1:41458
+2017/09/20 08:06:18 New request from IP: 127.0.0.1:41458
+2017/09/20 08:06:19 Playlist created: 4bYfDhN2asJ4GRcqoDQnNA
+2017/09/20 08:06:27 New request from IP: 127.0.0.1:41454
+2017/09/20 08:06:27 New request from IP: 127.0.0.1:41454
+2017/09/20 08:06:28 Playlist created: 4VKtShgYQwAe1rlOSXujlS
+2017/09/20 08:06:28 New request from IP: 127.0.0.1:41734
+2017/09/20 08:06:28 New request from IP: 127.0.0.1:41734
+2017/09/20 08:06:28 Playlist created: 2LpL8b41W6UUmsNv3bODAp
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41964
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41964
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41964
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41966
+2017/09/20 08:07:24 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:27 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:27 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:27 daviis: Checking cache for search query 
+2017/09/20 08:07:27 daviis: Query results found 
+2017/09/20 08:07:28 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:28 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:28 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 08:07:28 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 08:07:28 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 08:07:30 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 08:07:30 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 08:07:30 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 08:07:30 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 08:07:30 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 08:07:32 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:32 New request from IP: 127.0.0.1:41962
+2017/09/20 08:07:32 Playlist created: 5LPZIEg6xI6PgKChcvURSB
+2017/09/20 08:11:25 Starting application...
+2017/09/20 08:11:25 Successfully connected to Redis host localhost:6379
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42974
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:29 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:30 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:30 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:30 daviis: Checking cache for search query 
+2017/09/20 08:11:30 daviis: Query results found 
+2017/09/20 08:11:31 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:31 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:31 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 08:11:31 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 08:11:31 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 08:11:37 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 08:11:37 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 08:11:38 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 08:11:38 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 08:11:38 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 08:11:38 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:38 New request from IP: 127.0.0.1:42972
+2017/09/20 08:11:38 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 08:11:38 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 08:11:38 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 08:11:39 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 08:11:39 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 08:11:39 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:39 New request from IP: 127.0.0.1:42976
+2017/09/20 08:11:39 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 08:11:39 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 08:11:39 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 08:11:40 Playlist created: 3fMUOxj3xXfnwAmSwCZh5r
+2017/09/20 18:53:41 Starting application...
+2017/09/20 18:53:41 Successfully connected to Redis host localhost:6379
+2017/09/20 18:53:44 New request from IP: 127.0.0.1:43932
+2017/09/20 18:53:44 New request from IP: 127.0.0.1:43932
+2017/09/20 18:53:44 New request from IP: 127.0.0.1:43934
+2017/09/20 18:53:44 New request from IP: 127.0.0.1:43932
+2017/09/20 18:53:44 New request from IP: 127.0.0.1:43936
+2017/09/20 18:53:52 New request from IP: 127.0.0.1:43936
+2017/09/20 18:53:58 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:06 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:06 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:12 New request from IP: 127.0.0.1:43932
+2017/09/20 18:54:12 New request from IP: 127.0.0.1:43932
+2017/09/20 18:54:12 daviis: Checking cache for search query 
+2017/09/20 18:54:12 daviis: Query results found 
+2017/09/20 18:54:14 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:14 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 18:54:14 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 18:54:14 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 18:54:19 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:19 New request from IP: 127.0.0.1:43936
+2017/09/20 18:54:19 New request from IP: 127.0.0.1:43932
+2017/09/20 18:54:26 New request from IP: 127.0.0.1:43932
+2017/09/20 18:54:26 New request from IP: 127.0.0.1:43932
+2017/09/20 18:54:26 Playlist created: 3G9xvn9FmYn7NZqSXyBRiW
+2017/09/20 18:55:22 Added 5 tracks to playlist ID: 3G9xvn9FmYn7NZqSXyBRiW
+2017/09/20 18:56:38 New request from IP: 127.0.0.1:43932
+2017/09/20 18:56:38 New request from IP: 127.0.0.1:43932
+2017/09/20 18:56:44 Playlist created: 4ekg2DoHKL6i16T8cgBG7Q
+2017/09/20 18:56:44 Added 5 tracks to playlist ID: 4ekg2DoHKL6i16T8cgBG7Q
+2017/09/20 18:57:13 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:13 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:13 New request from IP: 127.0.0.1:43936
+2017/09/20 18:57:14 New request from IP: 127.0.0.1:43936
+2017/09/20 18:57:14 New request from IP: 127.0.0.1:43936
+2017/09/20 18:57:14 New request from IP: 127.0.0.1:43936
+2017/09/20 18:57:14 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:15 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:15 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:15 daviis: Checking cache for search query 
+2017/09/20 18:57:15 daviis: Query results found 
+2017/09/20 18:57:16 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:16 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:16 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 18:57:16 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 18:57:16 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 18:57:30 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 18:57:30 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 18:57:32 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 18:57:32 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 18:57:32 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 18:57:35 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:35 New request from IP: 127.0.0.1:43932
+2017/09/20 18:57:36 Playlist created: 4fGvMDBM3LwMRaUDv6huTF
+2017/09/20 18:57:37 Added 5 tracks to playlist ID: 4fGvMDBM3LwMRaUDv6huTF
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47596
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47596
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47598
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47598
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47598
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47596
+2017/09/20 19:31:40 New request from IP: 127.0.0.1:47604
+2017/09/20 19:31:43 New request from IP: 127.0.0.1:47604
+2017/09/20 19:31:43 New request from IP: 127.0.0.1:47604
+2017/09/20 19:31:43 daviis: Checking cache for search query 
+2017/09/20 19:31:43 daviis: Query results found 
+2017/09/20 19:31:45 New request from IP: 127.0.0.1:47604
+2017/09/20 19:31:45 New request from IP: 127.0.0.1:47604
+2017/09/20 19:31:45 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:31:45 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:31:45 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:31:46 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:31:46 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:31:46 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:31:46 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:31:46 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47604
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47604
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47598
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47598
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47598
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47604
+2017/09/20 19:33:43 New request from IP: 127.0.0.1:47596
+2017/09/20 19:33:45 New request from IP: 127.0.0.1:47596
+2017/09/20 19:33:45 New request from IP: 127.0.0.1:47596
+2017/09/20 19:33:45 daviis: Checking cache for search query 
+2017/09/20 19:33:45 daviis: Query results found 
+2017/09/20 19:33:46 New request from IP: 127.0.0.1:47596
+2017/09/20 19:33:46 New request from IP: 127.0.0.1:47596
+2017/09/20 19:33:46 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:33:46 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:33:46 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:33:49 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:33:49 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:33:49 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:33:49 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:33:49 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:34:15 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:15 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:15 New request from IP: 127.0.0.1:47598
+2017/09/20 19:34:16 New request from IP: 127.0.0.1:47598
+2017/09/20 19:34:16 New request from IP: 127.0.0.1:47598
+2017/09/20 19:34:16 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:16 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:18 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:18 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:18 daviis: Checking cache for search query 
+2017/09/20 19:34:18 daviis: Query results found 
+2017/09/20 19:34:19 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:19 New request from IP: 127.0.0.1:47596
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:34:19 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:34:19 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:35:03 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:03 New request from IP: 127.0.0.1:47598
+2017/09/20 19:35:03 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:04 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:04 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:04 New request from IP: 127.0.0.1:47598
+2017/09/20 19:35:04 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:06 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:06 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:06 davis: Checking cache for search query 
+2017/09/20 19:35:06 davis: Query not found
+2017/09/20 19:35:06 Searching for artist: davis
+2017/09/20 19:35:08 New request from IP: 127.0.0.1:47598
+2017/09/20 19:35:08 New request from IP: 127.0.0.1:47598
+2017/09/20 19:35:08 daviis: Checking cache for search query 
+2017/09/20 19:35:08 daviis: Query results found 
+2017/09/20 19:35:09 artist:search:davis: Successfully added key to cache
+2017/09/20 19:35:09 Artists found: 20
+2017/09/20 19:35:11 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:11 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:11 daviis: Checking cache for search query 
+2017/09/20 19:35:11 daviis: Query results found 
+2017/09/20 19:35:12 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:12 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:35:12 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:35:12 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:35:32 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47596
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:33 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:34 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:34 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:34 daviis: Checking cache for search query 
+2017/09/20 19:35:34 daviis: Query results found 
+2017/09/20 19:35:35 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:35 New request from IP: 127.0.0.1:47604
+2017/09/20 19:35:35 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:35:35 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:35:35 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:35:36 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:35:36 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:35:36 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:35:36 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:35:36 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:36:24 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:24 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:24 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:25 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:25 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:25 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47604
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:26 New request from IP: 127.0.0.1:47596
+2017/09/20 19:36:27 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:28 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:28 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:28 daviis: Checking cache for search query 
+2017/09/20 19:36:28 daviis: Query results found 
+2017/09/20 19:36:30 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:30 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:30 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:36:30 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:36:30 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:36:32 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:36:32 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:32 New request from IP: 127.0.0.1:47598
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:36:32 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:36:32 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:38:36 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:36 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:36 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:36 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:37 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:37 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:37 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:37 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:37 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:38 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47604
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47598
+2017/09/20 19:38:39 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:41 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:41 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:41 daviis: Checking cache for search query 
+2017/09/20 19:38:41 daviis: Query results found 
+2017/09/20 19:38:43 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:43 New request from IP: 127.0.0.1:47596
+2017/09/20 19:38:43 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:38:43 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:38:43 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:38:44 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:38:44 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:38:44 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:38:44 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:38:44 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47596
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47596
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47596
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47596
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47596
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:01 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:02 daviis: Checking cache for search query 
+2017/09/20 19:40:02 daviis: Query results found 
+2017/09/20 19:40:04 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:04 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:04 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:40:04 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:40:04 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:40:06 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:40:06 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:06 New request from IP: 127.0.0.1:47598
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:40:06 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:40:07 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:40:07 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:40:07 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:40:07 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:40:07 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:02 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:04 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:04 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:04 daviis: Checking cache for search query 
+2017/09/20 19:42:04 daviis: Query results found 
+2017/09/20 19:42:05 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:05 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:05 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:42:05 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:42:05 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:42:07 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:42:07 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:42:07 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:42:07 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:42:07 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:47596
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:50638
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:50638
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:50638
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:50638
+2017/09/20 19:42:52 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:53 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:53 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:53 daviis: Checking cache for search query 
+2017/09/20 19:42:53 daviis: Query results found 
+2017/09/20 19:42:55 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:55 New request from IP: 127.0.0.1:47598
+2017/09/20 19:42:55 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:42:55 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:42:55 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:42:57 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:42:57 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:42:57 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:42:57 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:42:57 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47598
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47598
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47596
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47596
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47596
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:47596
+2017/09/20 19:45:35 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:36 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:36 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:36 daviis: Checking cache for search query 
+2017/09/20 19:45:36 daviis: Query results found 
+2017/09/20 19:45:38 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:38 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:38 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:45:38 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:45:38 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:45:41 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:45:41 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:45:41 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:45:41 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:45:41 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:45:45 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:45 New request from IP: 127.0.0.1:50638
+2017/09/20 19:45:45 Playlist created: 0HD2gLZyTdRk1eZv3MQkgD
+2017/09/20 19:45:45 Added 5 tracks to playlist ID: 0HD2gLZyTdRk1eZv3MQkgD
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:50638
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:50638
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47598
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47598
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47598
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:11 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:13 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:13 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:13 daviis: Checking cache for search query 
+2017/09/20 19:48:13 daviis: Query results found 
+2017/09/20 19:48:14 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:14 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:14 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 19:48:14 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 19:48:14 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 19:48:17 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 19:48:17 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 19:48:17 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 19:48:17 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 19:48:17 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 19:48:18 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:18 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:18 Playlist created: 5TOwJr9fqXrWLDelJgthK7
+2017/09/20 19:48:18 Added 5 tracks to playlist ID: 5TOwJr9fqXrWLDelJgthK7
+2017/09/20 19:48:21 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:21 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:21 asfasga: Checking cache for search query 
+2017/09/20 19:48:21 asfasga: Query not found
+2017/09/20 19:48:21 Searching for artist: asfasga
+2017/09/20 19:48:42 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:42 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:42 tommy: Checking cache for search query 
+2017/09/20 19:48:42 tommy: Query not found
+2017/09/20 19:48:42 Searching for artist: tommy
+2017/09/20 19:48:42 artist:search:tommy: Successfully added key to cache
+2017/09/20 19:48:42 Artists found: 20
+2017/09/20 19:48:44 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:44 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Checking cache for artist ID
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Artist ID not found
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Getting unique albums...
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Unique albums found: 18
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Getting unique tracks...
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Unique tracks found: 18
+2017/09/20 19:48:44 artist:6hrdwgcpiwzgck5xvxwhbz:tracks: Successfully added key to cache
+2017/09/20 19:48:44 6HRDWgcpiWzgck5xVxwhbz: Returning tracks
+2017/09/20 19:48:46 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:46 New request from IP: 127.0.0.1:47596
+2017/09/20 19:48:46 Playlist created: 78NcihS7ECo0c4O0Abwg3p
+2017/09/20 19:48:47 Added 344 tracks to playlist ID: 78NcihS7ECo0c4O0Abwg3p
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:47596
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:47596
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:47598
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:47596
+2017/09/20 19:49:15 New request from IP: 127.0.0.1:47598
+2017/09/20 19:49:19 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:19 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:19 hello: Checking cache for search query 
+2017/09/20 19:49:19 hello: Query not found
+2017/09/20 19:49:19 Searching for artist: hello
+2017/09/20 19:49:19 artist:search:hello: Successfully added key to cache
+2017/09/20 19:49:19 Artists found: 20
+2017/09/20 19:49:20 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:20 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:20 6GH0NzpthMGxu1mcfAkOde: Checking cache for artist ID
+2017/09/20 19:49:20 6GH0NzpthMGxu1mcfAkOde: Artist ID not found
+2017/09/20 19:49:20 6GH0NzpthMGxu1mcfAkOde: Getting unique albums...
+2017/09/20 19:49:21 6GH0NzpthMGxu1mcfAkOde: Unique albums found: 14
+2017/09/20 19:49:21 6GH0NzpthMGxu1mcfAkOde: Getting unique tracks...
+2017/09/20 19:49:21 6GH0NzpthMGxu1mcfAkOde: Unique tracks found: 14
+2017/09/20 19:49:21 artist:6gh0nzpthmgxu1mcfakode:tracks: Successfully added key to cache
+2017/09/20 19:49:21 6GH0NzpthMGxu1mcfAkOde: Returning tracks
+2017/09/20 19:49:23 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:23 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:23 Playlist created: 10j3VewP6Pw9kRsptPrVsH
+2017/09/20 19:49:23 Added 138 tracks to playlist ID: 10j3VewP6Pw9kRsptPrVsH
+2017/09/20 19:49:41 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:41 New request from IP: 127.0.0.1:50638
+2017/09/20 19:49:41 drake: Checking cache for search query 
+2017/09/20 19:49:41 drake: Query results found 
+2017/09/20 19:59:29 Starting application...
+2017/09/20 19:59:29 Successfully connected to Redis host localhost:6379
+2017/09/20 19:59:35 New request from IP: 127.0.0.1:52724
+2017/09/20 19:59:35 New request from IP: 127.0.0.1:52724
+2017/09/20 19:59:35 New request from IP: 127.0.0.1:52726
+2017/09/20 19:59:35 New request from IP: 127.0.0.1:52728
+2017/09/20 19:59:35 New request from IP: 127.0.0.1:52730
+2017/09/20 19:59:36 New request from IP: 127.0.0.1:52730
+2017/09/20 19:59:42 New request from IP: 127.0.0.1:52730
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52730
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52730
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52728
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52726
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52724
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52724
+2017/09/20 19:59:47 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:36 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:36 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:36 drake: Checking cache for search query 
+2017/09/20 20:00:36 drake: Query results found 
+2017/09/20 20:00:37 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:37 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:37 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/20 20:00:37 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/20 20:00:37 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/20 20:00:39 New request from IP: 127.0.0.1:52726
+2017/09/20 20:00:39 New request from IP: 127.0.0.1:52726
+2017/09/20 20:00:39 New request from IP: 127.0.0.1:52728
+2017/09/20 20:00:39 New request from IP: 127.0.0.1:52730
+2017/09/20 20:00:43 3TVXtAsR1Inumwj472S9r4: Unique albums found: 323
+2017/09/20 20:00:43 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/20 20:00:44 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 322
+2017/09/20 20:00:44 artist:3tvxtasr1inumwj472s9r4:tracks: Successfully added key to cache
+2017/09/20 20:00:44 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/20 20:00:49 New request from IP: 127.0.0.1:52724
+2017/09/20 20:00:49 New request from IP: 127.0.0.1:52724
+2017/09/20 20:01:06 Starting application...
+2017/09/20 20:01:06 Successfully connected to Redis host localhost:6379
+2017/09/20 20:01:08 New request from IP: 127.0.0.1:52934
+2017/09/20 20:01:08 New request from IP: 127.0.0.1:52934
+2017/09/20 20:01:21 Starting application...
+2017/09/20 20:01:21 Successfully connected to Redis host localhost:6379
+2017/09/20 20:01:22 New request from IP: 127.0.0.1:53000
+2017/09/20 20:01:22 New request from IP: 127.0.0.1:53000
+2017/09/20 20:01:32 Starting application...
+2017/09/20 20:01:32 Successfully connected to Redis host localhost:6379
+2017/09/20 20:01:34 New request from IP: 127.0.0.1:53054
+2017/09/20 20:01:34 New request from IP: 127.0.0.1:53054
+2017/09/20 20:01:44 Starting application...
+2017/09/20 20:01:44 Successfully connected to Redis host localhost:6379
+2017/09/20 20:01:45 New request from IP: 127.0.0.1:53114
+2017/09/20 20:01:45 New request from IP: 127.0.0.1:53114
+2017/09/20 20:02:04 New request from IP: 127.0.0.1:53114
+2017/09/20 20:02:04 New request from IP: 127.0.0.1:53114
+2017/09/20 20:02:04 New request from IP: 127.0.0.1:53136
+2017/09/20 20:02:17 Starting application...
+2017/09/20 20:02:17 Successfully connected to Redis host localhost:6379
+2017/09/20 20:02:18 New request from IP: 127.0.0.1:53198
+2017/09/20 20:02:18 New request from IP: 127.0.0.1:53198
+2017/09/20 20:03:04 Starting application...
+2017/09/20 20:03:04 Successfully connected to Redis host localhost:6379
+2017/09/20 20:03:06 New request from IP: 127.0.0.1:53408
+2017/09/20 20:03:06 New request from IP: 127.0.0.1:53408
+2017/09/20 20:04:46 Starting application...
+2017/09/20 20:04:46 Successfully connected to Redis host localhost:6379
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53852
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53852
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53852
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53854
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53856
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53856
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53856
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53854
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53852
+2017/09/20 20:04:47 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:49 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:49 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:49 drake: Checking cache for search query 
+2017/09/20 20:04:49 drake: Query results found 
+2017/09/20 20:04:50 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:50 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:50 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/20 20:04:50 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/20 20:04:50 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/20 20:04:53 3TVXtAsR1Inumwj472S9r4: Unique albums found: 323
+2017/09/20 20:04:53 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/20 20:04:54 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 322
+2017/09/20 20:04:54 artist:3tvxtasr1inumwj472s9r4:tracks: Successfully added key to cache
+2017/09/20 20:04:54 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/20 20:04:59 New request from IP: 127.0.0.1:53858
+2017/09/20 20:04:59 New request from IP: 127.0.0.1:53858
+2017/09/20 20:05:10 Starting application...
+2017/09/20 20:05:10 Successfully connected to Redis host localhost:6379
+2017/09/20 20:05:12 New request from IP: 127.0.0.1:54018
+2017/09/20 20:05:12 New request from IP: 127.0.0.1:54018
+2017/09/20 20:05:34 New request from IP: 127.0.0.1:54018
+2017/09/20 20:05:34 New request from IP: 127.0.0.1:54018
+2017/09/20 20:05:50 Starting application...
+2017/09/20 20:05:50 Successfully connected to Redis host localhost:6379
+2017/09/20 20:05:51 New request from IP: 127.0.0.1:54190
+2017/09/20 20:05:51 New request from IP: 127.0.0.1:54190
+2017/09/20 20:06:02 Starting application...
+2017/09/20 20:06:02 Successfully connected to Redis host localhost:6379
+2017/09/20 20:06:03 New request from IP: 127.0.0.1:54248
+2017/09/20 20:06:03 New request from IP: 127.0.0.1:54248
+2017/09/20 20:06:15 Starting application...
+2017/09/20 20:06:15 Successfully connected to Redis host localhost:6379
+2017/09/20 20:06:16 New request from IP: 127.0.0.1:54312
+2017/09/20 20:06:16 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:09 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:10 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:11 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54544
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:17 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:19 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:19 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:19 drake: Checking cache for search query 
+2017/09/20 20:07:19 drake: Query results found 
+2017/09/20 20:07:20 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:20 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:20 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/20 20:07:20 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/20 20:07:20 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/20 20:07:22 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:22 New request from IP: 127.0.0.1:54312
+2017/09/20 20:07:22 daviis: Checking cache for search query 
+2017/09/20 20:07:22 daviis: Query results found 
+2017/09/20 20:07:23 3TVXtAsR1Inumwj472S9r4: Unique albums found: 323
+2017/09/20 20:07:23 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/20 20:07:23 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:23 New request from IP: 127.0.0.1:54542
+2017/09/20 20:07:23 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 20:07:23 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 20:07:23 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 20:07:24 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 20:07:24 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 20:07:25 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 322
+2017/09/20 20:07:25 artist:3tvxtasr1inumwj472s9r4:tracks: Successfully added key to cache
+2017/09/20 20:07:25 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/20 20:07:30 New request from IP: 127.0.0.1:54540
+2017/09/20 20:07:30 New request from IP: 127.0.0.1:54540
+2017/09/20 22:00:03 New request from IP: 127.0.0.1:54732
+2017/09/20 22:00:03 New request from IP: 127.0.0.1:54732
+2017/09/20 22:03:49 New request from IP: 127.0.0.1:54732
+2017/09/20 22:03:49 New request from IP: 127.0.0.1:54732
+2017/09/20 22:03:49 New request from IP: 127.0.0.1:55688
+2017/09/20 22:03:49 New request from IP: 127.0.0.1:54732
+2017/09/20 22:03:49 New request from IP: 127.0.0.1:55690
+2017/09/20 22:03:50 New request from IP: 127.0.0.1:55690
+2017/09/20 22:03:50 New request from IP: 127.0.0.1:54732
+2017/09/20 22:03:50 New request from IP: 127.0.0.1:55688
+2017/09/20 22:03:51 New request from IP: 127.0.0.1:55688
+2017/09/20 22:03:56 New request from IP: 127.0.0.1:55688
+2017/09/20 22:04:02 New request from IP: 127.0.0.1:55688
+2017/09/20 22:04:02 New request from IP: 127.0.0.1:55688
+2017/09/20 22:04:04 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:04 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:04 drake: Checking cache for search query 
+2017/09/20 22:04:04 drake: Query results found 
+2017/09/20 22:04:05 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:05 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:05 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/20 22:04:05 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/20 22:04:05 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/20 22:04:08 3TVXtAsR1Inumwj472S9r4: Unique albums found: 323
+2017/09/20 22:04:08 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/20 22:04:09 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 322
+2017/09/20 22:04:09 artist:3tvxtasr1inumwj472s9r4:tracks: Successfully added key to cache
+2017/09/20 22:04:09 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/20 22:04:11 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:11 New request from IP: 127.0.0.1:54732
+2017/09/20 22:04:19 Starting application...
+2017/09/20 22:04:19 Successfully connected to Redis host localhost:6379
+2017/09/20 22:04:21 New request from IP: 127.0.0.1:55878
+2017/09/20 22:04:21 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:48 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:48 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:48 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:48 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:48 New request from IP: 127.0.0.1:56248
+2017/09/20 22:05:49 New request from IP: 127.0.0.1:56248
+2017/09/20 22:05:49 New request from IP: 127.0.0.1:56248
+2017/09/20 22:05:49 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:49 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:49 New request from IP: 127.0.0.1:55878
+2017/09/20 22:05:50 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:50 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:50 daviis: Checking cache for search query 
+2017/09/20 22:05:50 daviis: Query results found 
+2017/09/20 22:05:51 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:51 New request from IP: 127.0.0.1:56246
+2017/09/20 22:05:51 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:05:51 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:05:51 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:05:54 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:05:54 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:05:54 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:05:54 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:05:54 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:06:56 New request from IP: 127.0.0.1:56246
+2017/09/20 22:06:56 New request from IP: 127.0.0.1:56246
+2017/09/20 22:07:13 Starting application...
+2017/09/20 22:07:13 Successfully connected to Redis host localhost:6379
+2017/09/20 22:07:15 New request from IP: 127.0.0.1:56634
+2017/09/20 22:07:15 New request from IP: 127.0.0.1:56634
+2017/09/20 22:07:45 New request from IP: 127.0.0.1:56634
+2017/09/20 22:07:45 New request from IP: 127.0.0.1:56634
+2017/09/20 22:07:49 New request from IP: 127.0.0.1:56634
+2017/09/20 22:07:49 New request from IP: 127.0.0.1:56634
+2017/09/20 22:08:28 New request from IP: 127.0.0.1:56634
+2017/09/20 22:08:28 New request from IP: 127.0.0.1:56634
+2017/09/20 22:08:35 New request from IP: 127.0.0.1:56634
+2017/09/20 22:08:35 New request from IP: 127.0.0.1:56634
+2017/09/20 22:09:08 Starting application...
+2017/09/20 22:09:08 Successfully connected to Redis host localhost:6379
+2017/09/20 22:09:10 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:10 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:11 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57128
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57132
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57136
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57136
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57136
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57132
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57128
+2017/09/20 22:09:12 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:14 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:14 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:14 daviis: Checking cache for search query 
+2017/09/20 22:09:14 daviis: Query results found 
+2017/09/20 22:09:15 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:15 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:15 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:09:15 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:09:15 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:09:17 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:09:17 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:17 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:09:17 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:09:17 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:09:19 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:19 New request from IP: 127.0.0.1:57122
+2017/09/20 22:09:31 Starting application...
+2017/09/20 22:09:31 Successfully connected to Redis host localhost:6379
+2017/09/20 22:09:32 New request from IP: 127.0.0.1:57248
+2017/09/20 22:09:32 New request from IP: 127.0.0.1:57248
+2017/09/20 22:09:38 Starting application...
+2017/09/20 22:09:38 Successfully connected to Redis host localhost:6379
+2017/09/20 22:09:40 New request from IP: 127.0.0.1:57294
+2017/09/20 22:09:40 New request from IP: 127.0.0.1:57294
+2017/09/20 22:11:31 Starting application...
+2017/09/20 22:11:31 Successfully connected to Redis host localhost:6379
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:31 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:32 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:34 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:36 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:36 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:36 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:36 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:36 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:37 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:38 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:38 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:38 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:38 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:38 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:39 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:39 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:39 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:39 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:39 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57772
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57774
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:40 New request from IP: 127.0.0.1:57776
+2017/09/20 22:11:42 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:42 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:42 daviis: Checking cache for search query 
+2017/09/20 22:11:42 daviis: Query results found 
+2017/09/20 22:11:44 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:44 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:44 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:11:44 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:11:44 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:11:45 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:11:45 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:11:45 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:11:45 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:11:45 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:11:47 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:47 New request from IP: 127.0.0.1:57770
+2017/09/20 22:11:59 Starting application...
+2017/09/20 22:11:59 Successfully connected to Redis host localhost:6379
+2017/09/20 22:12:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:12:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57920
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57920
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57936
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57938
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57938
+2017/09/20 22:12:03 New request from IP: 127.0.0.1:57938
+2017/09/20 22:12:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:12:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:12:04 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:05 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:05 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:05 daviis: Checking cache for search query 
+2017/09/20 22:12:05 daviis: Query results found 
+2017/09/20 22:12:06 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:06 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:06 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:12:06 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:12:06 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:12:09 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:12:09 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:12:09 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:12:09 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:12:09 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:12:10 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:10 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:30 New request from IP: 127.0.0.1:57934
+2017/09/20 22:12:30 New request from IP: 127.0.0.1:57934
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57934
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57934
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57938
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57934
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57938
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57934
+2017/09/20 22:13:02 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:04 daviis: Checking cache for search query 
+2017/09/20 22:13:04 daviis: Query results found 
+2017/09/20 22:13:06 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:06 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:06 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:13:06 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:13:06 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:13:07 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:13:07 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:13:07 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:13:07 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:13:07 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:13:09 New request from IP: 127.0.0.1:57920
+2017/09/20 22:13:09 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57938
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57938
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57938
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:14:04 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:06 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:06 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:06 daviis: Checking cache for search query 
+2017/09/20 22:14:06 daviis: Query results found 
+2017/09/20 22:14:07 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:07 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:07 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:14:07 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:14:07 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:14:10 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:14:10 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:14:10 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:14:10 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:14:10 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:14:11 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:11 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:40 New request from IP: 127.0.0.1:57920
+2017/09/20 22:14:40 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57934
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57936
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57938
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57934
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57934
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57936
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57938
+2017/09/20 22:15:52 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:54 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:54 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:54 daviis: Checking cache for search query 
+2017/09/20 22:15:54 daviis: Query results found 
+2017/09/20 22:15:55 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:55 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:55 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:15:55 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:15:55 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:15:57 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:15:57 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:15:57 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:15:57 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:15:57 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:15:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:15:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:16:30 New request from IP: 127.0.0.1:57920
+2017/09/20 22:16:30 New request from IP: 127.0.0.1:57920
+2017/09/20 22:17:01 New request from IP: 127.0.0.1:57920
+2017/09/20 22:17:01 New request from IP: 127.0.0.1:57920
+2017/09/20 22:17:01 New request from IP: 127.0.0.1:57934
+2017/09/20 22:17:01 New request from IP: 127.0.0.1:57938
+2017/09/20 22:17:01 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:02 New request from IP: 127.0.0.1:57938
+2017/09/20 22:17:02 New request from IP: 127.0.0.1:57938
+2017/09/20 22:17:02 New request from IP: 127.0.0.1:57934
+2017/09/20 22:17:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:02 New request from IP: 127.0.0.1:57920
+2017/09/20 22:17:03 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:03 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:03 daviis: Checking cache for search query 
+2017/09/20 22:17:03 daviis: Query results found 
+2017/09/20 22:17:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:04 New request from IP: 127.0.0.1:57936
+2017/09/20 22:17:04 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:17:04 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:17:04 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:17:07 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:17:07 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:17:07 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:17:07 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:17:07 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57938
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:00 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:02 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:02 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:02 daviis: Checking cache for search query 
+2017/09/20 22:19:02 daviis: Query results found 
+2017/09/20 22:19:03 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:03 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:03 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:19:03 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:19:03 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:19:06 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:19:06 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:19:06 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:19:06 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:19:06 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:19:07 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:07 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57938
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57938
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57938
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57920
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57936
+2017/09/20 22:19:58 New request from IP: 127.0.0.1:57934
+2017/09/20 22:20:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:00 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:00 daviis: Checking cache for search query 
+2017/09/20 22:20:00 daviis: Query results found 
+2017/09/20 22:20:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:02 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:02 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:20:02 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:20:02 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:20:04 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:20:04 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:20:04 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:20:04 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:20:04 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:20:05 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:05 New request from IP: 127.0.0.1:57936
+2017/09/20 22:20:14 Starting application...
+2017/09/20 22:20:14 Successfully connected to Redis host localhost:6379
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60108
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60108
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60108
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60112
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60112
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60112
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60112
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60112
+2017/09/20 22:20:15 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:17 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:17 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:17 daviis: Checking cache for search query 
+2017/09/20 22:20:17 daviis: Query results found 
+2017/09/20 22:20:18 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:18 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:18 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:20:18 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:20:18 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:20:21 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:20:21 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:20:21 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:20:21 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:20:21 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:20:34 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:34 New request from IP: 127.0.0.1:60110
+2017/09/20 22:20:46 Starting application...
+2017/09/20 22:20:46 Successfully connected to Redis host localhost:6379
+2017/09/20 22:20:49 New request from IP: 127.0.0.1:60278
+2017/09/20 22:20:49 New request from IP: 127.0.0.1:60278
+2017/09/20 22:20:49 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:20:49 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:20:49 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:20:55 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:20:55 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:20:55 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:20:55 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:20:55 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:21:14 New request from IP: 127.0.0.1:60278
+2017/09/20 22:21:14 New request from IP: 127.0.0.1:60278
+2017/09/20 22:21:16 New request from IP: 127.0.0.1:60278
+2017/09/20 22:21:16 New request from IP: 127.0.0.1:60278
+2017/09/20 22:21:16 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:22:11 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:22:11 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:22:16 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:22:16 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:22:16 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:22:16 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:22:16 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:22:16 New request from IP: 127.0.0.1:60278
+2017/09/20 22:22:16 New request from IP: 127.0.0.1:60278
+2017/09/20 22:22:16 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:24:30 Starting application...
+2017/09/20 22:24:30 Successfully connected to Redis host localhost:6379
+2017/09/20 22:25:12 New request from IP: 127.0.0.1:33208
+2017/09/20 22:25:12 New request from IP: 127.0.0.1:33208
+2017/09/20 22:25:12 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:25:31 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:25:38 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:25:52 Starting application...
+2017/09/20 22:25:52 Successfully connected to Redis host localhost:6379
+2017/09/20 22:25:54 New request from IP: 127.0.0.1:33402
+2017/09/20 22:25:54 New request from IP: 127.0.0.1:33402
+2017/09/20 22:25:54 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:25:54 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:25:54 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:25:59 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:25:59 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:25:59 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:26:03 artist:3crof4xxzfso59jt5tkx66:tracks: Successfully added key to cache
+2017/09/20 22:26:06 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:32:17 Starting application...
+2017/09/20 22:32:17 Successfully connected to Redis host localhost:6379
+2017/09/20 22:32:18 New request from IP: 127.0.0.1:35030
+2017/09/20 22:32:18 New request from IP: 127.0.0.1:35030
+2017/09/20 22:32:21 New request from IP: 127.0.0.1:35030
+2017/09/20 22:32:21 New request from IP: 127.0.0.1:35030
+2017/09/20 22:32:45 Starting application...
+2017/09/20 22:32:45 Successfully connected to Redis host localhost:6379
+2017/09/20 22:32:47 New request from IP: 127.0.0.1:35158
+2017/09/20 22:32:47 New request from IP: 127.0.0.1:35158
+2017/09/20 22:33:18 Starting application...
+2017/09/20 22:33:18 Successfully connected to Redis host localhost:6379
+2017/09/20 22:33:24 New request from IP: 127.0.0.1:35316
+2017/09/20 22:33:24 New request from IP: 127.0.0.1:35316
+2017/09/20 22:33:56 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:35:11 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:35:11 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35780
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:11 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:15 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:15 New request from IP: 127.0.0.1:35782
+2017/09/20 22:35:15 daviis: Checking cache for search query 
+2017/09/20 22:35:15 daviis: Query results found 
+2017/09/20 22:35:16 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:35:16 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:35:16 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:35:16 Incorrect format
+Key: 3CRof4xxzfsO59jT5tKX66
+Value: [{"name":"You \u0026 Me","album_type":"single","id":"7JjRlaxz22Wdml4MZJC2aX","uri":"spotify:album:7JjRlaxz22Wdml4MZJC2aX","available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"href":"https://api.spotify.com/v1/albums/7JjRlaxz22Wdml4MZJC2aX","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/567536e0f71cd9ee89e247dde8c393aa6cdb5f35"},{"height":300,"width":300,"url":"https://i.scdn.co/image/9d11fdc3edabff6bc7bc0d92fe2bcc72459c4b88"},{"height":64,"width":64,"url":"https://i.scdn.co/image/a156d2ec59a293095a439e55a7f9b4a293bff4ec"}],"external_urls":{"spotify":"https://open.spotify.com/album/7JjRlaxz22Wdml4MZJC2aX"},"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"copyrights":[{"text":"2017 DAVIIS","type":"C"},{"text":"2017 DAVIIS","type":"P"}],"genres":[],"popularity":0,"release_date":"2017-09-19","release_date_precision":"day","tracks":{"href":"","limit":0,"offset":0,"total":0,"next":"","previous":"","items":[{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":229985,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/2iDuAjp9MUPOxGxmVD9jzS"},"href":"https://api.spotify.com/v1/tracks/2iDuAjp9MUPOxGxmVD9jzS","id":"2iDuAjp9MUPOxGxmVD9jzS","name":"You \u0026 Me","preview_url":"https://p.scdn.co/mp3-preview/7dbfa9c2876b473d7051baa5916f81c1bface908?cid=222a28292a524297a25994f27702b83c","track_number":1,"uri":"spotify:track:2iDuAjp9MUPOxGxmVD9jzS"}]},"external_ids":{"upc":"5057302212766"}},{"name":"Simple Words, Complex World","album_type":"album","id":"6lX8ddGrM2iOoaNBJdoD29","uri":"spotify:album:6lX8ddGrM2iOoaNBJdoD29","available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"href":"https://api.spotify.com/v1/albums/6lX8ddGrM2iOoaNBJdoD29","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/f24f16ea74306d0f94b625e35e0bee1bbf1151ba"},{"height":300,"width":300,"url":"https://i.scdn.co/image/bdef4c192ab574ec4673991900a6f575bbc3a699"},{"height":64,"width":64,"url":"https://i.scdn.co/image/c26cf9c30f386c36ca3f2755169f3afb918c44ac"}],"external_urls":{"spotify":"https://open.spotify.com/album/6lX8ddGrM2iOoaNBJdoD29"},"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"copyrights":[{"text":"2016 DAVIIS","type":"C"},{"text":"2016 DAVIIS","type":"P"}],"genres":[],"popularity":5,"release_date":"2017-01-03","release_date_precision":"day","tracks":{"href":"","limit":0,"offset":0,"total":0,"next":"","previous":"","items":[{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":302735,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/11m3lRxRZmXIayL9kMGEUc"},"href":"https://api.spotify.com/v1/tracks/11m3lRxRZmXIayL9kMGEUc","id":"11m3lRxRZmXIayL9kMGEUc","name":"Eager","preview_url":"https://p.scdn.co/mp3-preview/531531236083b831d4cb2e1f831030b6068060a5?cid=222a28292a524297a25994f27702b83c","track_number":1,"uri":"spotify:track:11m3lRxRZmXIayL9kMGEUc"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":217400,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/4QiyUh2OM6aMOmZcOZXAfF"},"href":"https://api.spotify.com/v1/tracks/4QiyUh2OM6aMOmZcOZXAfF","id":"4QiyUh2OM6aMOmZcOZXAfF","name":"Love, Hate and Drugs","preview_url":"https://p.scdn.co/mp3-preview/b123ed18d5d7aa71ca7d36d45b447adf4994f50b?cid=222a28292a524297a25994f27702b83c","track_number":2,"uri":"spotify:track:4QiyUh2OM6aMOmZcOZXAfF"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":321490,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/7hdwopVgwDTuQBIYwdqWlH"},"href":"https://api.spotify.com/v1/tracks/7hdwopVgwDTuQBIYwdqWlH","id":"7hdwopVgwDTuQBIYwdqWlH","name":"For the Night","preview_url":"https://p.scdn.co/mp3-preview/09c58ea91e09684c6494273462983bef53b1116c?cid=222a28292a524297a25994f27702b83c","track_number":3,"uri":"spotify:track:7hdwopVgwDTuQBIYwdqWlH"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":278367,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/79ypCVMrpFJal2cfAHQlNq"},"href":"https://api.spotify.com/v1/tracks/79ypCVMrpFJal2cfAHQlNq","id":"79ypCVMrpFJal2cfAHQlNq","name":"Control the Night","preview_url":"https://p.scdn.co/mp3-preview/8c531ce106c1e2dd16b30a6aa9e345633e637f1d?cid=222a28292a524297a25994f27702b83c","track_number":4,"uri":"spotify:track:79ypCVMrpFJal2cfAHQlNq"}]},"external_ids":{"upc":"5057302857523"}}]
+2017/09/20 22:35:16 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:35:16 
+2017/09/20 22:35:16 write tcp 127.0.0.1:8080->127.0.0.1:35316: write: broken pipe
+2017/09/20 22:35:18 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:18 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:35:18 Incorrect format
+Key: 3CRof4xxzfsO59jT5tKX66
+Value: [{"name":"Simple Words, Complex World","album_type":"album","id":"6lX8ddGrM2iOoaNBJdoD29","uri":"spotify:album:6lX8ddGrM2iOoaNBJdoD29","available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"href":"https://api.spotify.com/v1/albums/6lX8ddGrM2iOoaNBJdoD29","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/f24f16ea74306d0f94b625e35e0bee1bbf1151ba"},{"height":300,"width":300,"url":"https://i.scdn.co/image/bdef4c192ab574ec4673991900a6f575bbc3a699"},{"height":64,"width":64,"url":"https://i.scdn.co/image/c26cf9c30f386c36ca3f2755169f3afb918c44ac"}],"external_urls":{"spotify":"https://open.spotify.com/album/6lX8ddGrM2iOoaNBJdoD29"},"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"copyrights":[{"text":"2016 DAVIIS","type":"C"},{"text":"2016 DAVIIS","type":"P"}],"genres":[],"popularity":5,"release_date":"2017-01-03","release_date_precision":"day","tracks":{"href":"","limit":0,"offset":0,"total":0,"next":"","previous":"","items":[{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":302735,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/11m3lRxRZmXIayL9kMGEUc"},"href":"https://api.spotify.com/v1/tracks/11m3lRxRZmXIayL9kMGEUc","id":"11m3lRxRZmXIayL9kMGEUc","name":"Eager","preview_url":"https://p.scdn.co/mp3-preview/531531236083b831d4cb2e1f831030b6068060a5?cid=222a28292a524297a25994f27702b83c","track_number":1,"uri":"spotify:track:11m3lRxRZmXIayL9kMGEUc"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":217400,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/4QiyUh2OM6aMOmZcOZXAfF"},"href":"https://api.spotify.com/v1/tracks/4QiyUh2OM6aMOmZcOZXAfF","id":"4QiyUh2OM6aMOmZcOZXAfF","name":"Love, Hate and Drugs","preview_url":"https://p.scdn.co/mp3-preview/b123ed18d5d7aa71ca7d36d45b447adf4994f50b?cid=222a28292a524297a25994f27702b83c","track_number":2,"uri":"spotify:track:4QiyUh2OM6aMOmZcOZXAfF"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":321490,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/7hdwopVgwDTuQBIYwdqWlH"},"href":"https://api.spotify.com/v1/tracks/7hdwopVgwDTuQBIYwdqWlH","id":"7hdwopVgwDTuQBIYwdqWlH","name":"For the Night","preview_url":"https://p.scdn.co/mp3-preview/09c58ea91e09684c6494273462983bef53b1116c?cid=222a28292a524297a25994f27702b83c","track_number":3,"uri":"spotify:track:7hdwopVgwDTuQBIYwdqWlH"},{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":278367,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/79ypCVMrpFJal2cfAHQlNq"},"href":"https://api.spotify.com/v1/tracks/79ypCVMrpFJal2cfAHQlNq","id":"79ypCVMrpFJal2cfAHQlNq","name":"Control the Night","preview_url":"https://p.scdn.co/mp3-preview/8c531ce106c1e2dd16b30a6aa9e345633e637f1d?cid=222a28292a524297a25994f27702b83c","track_number":4,"uri":"spotify:track:79ypCVMrpFJal2cfAHQlNq"}]},"external_ids":{"upc":"5057302857523"}},{"name":"You \u0026 Me","album_type":"single","id":"7JjRlaxz22Wdml4MZJC2aX","uri":"spotify:album:7JjRlaxz22Wdml4MZJC2aX","available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"href":"https://api.spotify.com/v1/albums/7JjRlaxz22Wdml4MZJC2aX","images":[{"height":640,"width":640,"url":"https://i.scdn.co/image/567536e0f71cd9ee89e247dde8c393aa6cdb5f35"},{"height":300,"width":300,"url":"https://i.scdn.co/image/9d11fdc3edabff6bc7bc0d92fe2bcc72459c4b88"},{"height":64,"width":64,"url":"https://i.scdn.co/image/a156d2ec59a293095a439e55a7f9b4a293bff4ec"}],"external_urls":{"spotify":"https://open.spotify.com/album/7JjRlaxz22Wdml4MZJC2aX"},"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"copyrights":[{"text":"2017 DAVIIS","type":"C"},{"text":"2017 DAVIIS","type":"P"}],"genres":[],"popularity":0,"release_date":"2017-09-19","release_date_precision":"day","tracks":{"href":"","limit":0,"offset":0,"total":0,"next":"","previous":"","items":[{"artists":[{"name":"DAVIIS","id":"3CRof4xxzfsO59jT5tKX66","uri":"spotify:artist:3CRof4xxzfsO59jT5tKX66","href":"https://api.spotify.com/v1/artists/3CRof4xxzfsO59jT5tKX66","external_urls":{"spotify":"https://open.spotify.com/artist/3CRof4xxzfsO59jT5tKX66"}}],"available_markets":["AD","AR","AT","AU","BE","BG","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IS","IT","JP","LI","LT","LU","LV","MC","MT","MX","MY","NI","NL","NO","NZ","PA","PE","PH","PL","PT","PY","SE","SG","SK","SV","TH","TR","TW","US","UY"],"disc_number":1,"duration_ms":229985,"explicit":false,"external_urls":{"spotify":"https://open.spotify.com/track/2iDuAjp9MUPOxGxmVD9jzS"},"href":"https://api.spotify.com/v1/tracks/2iDuAjp9MUPOxGxmVD9jzS","id":"2iDuAjp9MUPOxGxmVD9jzS","name":"You \u0026 Me","preview_url":"https://p.scdn.co/mp3-preview/7dbfa9c2876b473d7051baa5916f81c1bface908?cid=222a28292a524297a25994f27702b83c","track_number":1,"uri":"spotify:track:2iDuAjp9MUPOxGxmVD9jzS"}]},"external_ids":{"upc":"5057302212766"}}]
+2017/09/20 22:35:18 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/20 22:35:34 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:34 New request from IP: 127.0.0.1:35756
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:35:34 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:36:44 Starting application...
+2017/09/20 22:36:44 Successfully connected to Redis host localhost:6379
+2017/09/20 22:36:47 New request from IP: 127.0.0.1:36228
+2017/09/20 22:36:47 New request from IP: 127.0.0.1:36228
+2017/09/20 22:36:47 3CRof4xxzfsO59jT5tKX66: Checking cache for artist ID
+2017/09/20 22:36:47 3CRof4xxzfsO59jT5tKX66: Artist ID not found
+2017/09/20 22:36:47 3CRof4xxzfsO59jT5tKX66: Getting unique albums...
+2017/09/20 22:36:53 3CRof4xxzfsO59jT5tKX66: Unique albums found: 2
+2017/09/20 22:36:53 3CRof4xxzfsO59jT5tKX66: Getting unique tracks...
+2017/09/20 22:36:53 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
+2017/09/20 22:37:04 artist:3CRof4xxzfsO59jT5tKX66:tracks: Successfully added key to cache
+2017/09/20 22:37:08 3CRof4xxzfsO59jT5tKX66: Returning tracks
