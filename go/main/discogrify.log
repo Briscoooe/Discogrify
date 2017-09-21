@@ -1351,3 +1351,77 @@ Value: [{"name":"Simple Words, Complex World","album_type":"album","id":"6lX8ddG
 2017/09/20 22:36:53 3CRof4xxzfsO59jT5tKX66: Unique tracks found: 2
 2017/09/20 22:37:04 artist:3CRof4xxzfsO59jT5tKX66:tracks: Successfully added key to cache
 2017/09/20 22:37:08 3CRof4xxzfsO59jT5tKX66: Returning tracks
+2017/09/21 18:51:31 Starting application...
+2017/09/21 18:51:31 Successfully connected to Redis host localhost:6379
+2017/09/21 18:51:31 New request from IP: 127.0.0.1:48762
+2017/09/21 18:51:31 New request from IP: 127.0.0.1:48762
+2017/09/21 18:51:31 New request from IP: 127.0.0.1:48764
+2017/09/21 18:51:31 New request from IP: 127.0.0.1:48762
+2017/09/21 18:51:31 New request from IP: 127.0.0.1:48766
+2017/09/21 18:51:32 New request from IP: 127.0.0.1:48766
+2017/09/21 18:51:33 New request from IP: 127.0.0.1:48766
+2017/09/21 18:51:51 New request from IP: 127.0.0.1:48766
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48766
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48766
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48766
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48762
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48764
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48764
+2017/09/21 18:52:35 New request from IP: 127.0.0.1:48764
+2017/09/21 18:57:23 Starting application...
+2017/09/21 18:57:23 Successfully connected to Redis host localhost:6379
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49182
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49184
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49184
+2017/09/21 18:57:28 New request from IP: 127.0.0.1:49184
+2017/09/21 18:57:30 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:30 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:30 drake: Checking cache for search query 
+2017/09/21 18:57:30 drake: Query results found 
+2017/09/21 18:57:31 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:31 New request from IP: 127.0.0.1:49180
+2017/09/21 18:57:31 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/21 18:57:31 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/21 18:57:31 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/21 18:57:52 3TVXtAsR1Inumwj472S9r4: Unique albums found: 323
+2017/09/21 18:57:52 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/21 18:57:54 New request from IP: 127.0.0.1:49184
+2017/09/21 18:57:54 New request from IP: 127.0.0.1:49184
+2017/09/21 18:57:54 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/21 18:57:54 3TVXtAsR1Inumwj472S9r4: Artist ID not found
+2017/09/21 18:57:54 3TVXtAsR1Inumwj472S9r4: Getting unique albums...
+2017/09/21 18:58:06 New request from IP: 127.0.0.1:49182
+2017/09/21 18:58:06 New request from IP: 127.0.0.1:49248
+2017/09/21 18:58:06 New request from IP: 127.0.0.1:49250
+2017/09/21 18:58:08 3TVXtAsR1Inumwj472S9r4: Unique albums found: 50
+2017/09/21 18:58:08 3TVXtAsR1Inumwj472S9r4: Getting unique tracks...
+2017/09/21 18:58:09 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 0
+2017/09/21 18:58:09 artist:3TVXtAsR1Inumwj472S9r4:tracks: Successfully added key to cache
+2017/09/21 18:58:09 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/21 18:58:13 3TVXtAsR1Inumwj472S9r4: Unique tracks found: 322
+2017/09/21 18:58:13 artist:3TVXtAsR1Inumwj472S9r4:tracks: Successfully added key to cache
+2017/09/21 18:58:13 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/21 18:58:13 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:13 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:13 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/21 18:58:13 3TVXtAsR1Inumwj472S9r4: Artist ID found in cache
+2017/09/21 18:58:13 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/21 18:58:14 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:14 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Artist ID found in cache
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/21 18:58:14 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:14 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Checking cache for artist ID
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Artist ID found in cache
+2017/09/21 18:58:14 3TVXtAsR1Inumwj472S9r4: Returning tracks
+2017/09/21 18:58:19 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:19 New request from IP: 127.0.0.1:49180
+2017/09/21 18:58:20 Playlist created: 6lAd02dlWF6Gm7H7G4i2jJ
+2017/09/21 18:59:51 Error adding tracks to playlist
+2017/09/21 18:59:51 Post https://api.spotify.com/v1/users/brianbriscoe1/playlists/6lAd02dlWF6Gm7H7G4i2jJ/tracks?uris=spotify:track:3MTZYvIcZXwmc8tFrAr9bA,spotify:track:67KJIWrUpIG3ONOpZpvVbR,spotify:track:1CEPBDQk2rU9bIBwcsXkOM,spotify:track:6ApJN7sbsgAKwO29JbSLiK,spotify:track:1svrFSGhPdKaFFinZSoltt,spotify:track:2znzyzlAUc8Z1Ikq9aFOcx,spotify:track:55Dj5FzOxFEZkO4JKvtF6e,spotify:track:7ahLaVeNvctWUYQOdOkti0,spotify:track:4yiCBAOXv2KhqZJXj9UjPQ,spotify:track:55spJHwN3KtyIivlFI8p11,spotify:track:6TwYRcjvdzOZ7gzeDrqLmp,spotify:track:4rdPNHlIYUbSfa4iuQ7ccz,spotify:track:5ORf8BZMbq4xN9kiumrPcQ,spotify:track:42N3inPRsl6sjKav90WDA6,spotify:track:6EyI4la8Isprc37lRkg10Z,spotify:track:6Kue5QZMQriRgvhPYUgFmr,spotify:track:2nmYQwGi12IqG1Xs9v9iYl,spotify:track:6QA6THg8PQBnxxreN5d50a,spotify:track:2EaGZ3llnzY6tfYhqFGe5l,spotify:track:1Vb6R8COnB8cnrSROqaueY,spotify:track:4PWY72AubTjoZrohQt0pWn,spotify:track:1NvrYqIWkpA1yA2eSW70ay,spotify:track:7dPhS9rWgl6nbU4PkPIvEs,spotify:track:1XZ5naWXi3l4AecTERswMI,spotify:track:4KI2Cj22TKBXvjVZVHCrsI,spotify:track:5EMKS6mLi4JprJxy8IGdhT,spotify:track:3THgsKFdHXRKiWFWKTFZ4k,spotify:track:2bXEtwgpTimIqm0ofA7USU,spotify:track:5eEj1vkMIqtmvaTk7cS4UC,spotify:track:3bZdz2cw3NMKl8P2BoCApt,spotify:track:7vjtAU3Ns1AT4dRa0voHBJ,spotify:track:0XGLsSU6wtfnKXiMNvQr61,spotify:track:3UOOOIcatvNSpPnvtB2PXo,spotify:track:0PXp9QxBfSKGGpWUNaws2X,spotify:track:7wXZqcS5Yd7dufJgw0bTjb,spotify:track:2zM5Rfoec07V6N0xhurDZF,spotify:track:1yo95w2YXMl1GeQGarlqCW,spotify:track:7E8jojFn5X3OPPuTx6TmPe,spotify:track:0axzfcBuScJH6BSrUsdF0w,spotify:track:5quCXYjs7XzkjXSxeWcLuM,spotify:track:0okuH0oy6v6s3lti9ig4sb,spotify:track:4DVRguqFUfQQFxxwuEk9wI,spotify:track:52qJladopu0vDn2njqIcTI,spotify:track:3c9LSxnx0AXdsXiewstFC1,spotify:track:25UWSqTX3E8jiH95uxMUOH,spotify:track:6zq05JacHDDvVpnS4fSIat,spotify:track:67rmELR3rpp4DX8TtqyFdW,spotify:track:03GdNYxpBWXBzeg2rG1COv,spotify:track:45v6JcK326S1JH5zixhysH,spotify:track:0w7TC8SBiCocaPZX9r7oiz: EOF
+2017/09/21 18:59:51 [3MTZYvIcZXwmc8tFrAr9bA 67KJIWrUpIG3ONOpZpvVbR 1CEPBDQk2rU9bIBwcsXkOM 6ApJN7sbsgAKwO29JbSLiK 1svrFSGhPdKaFFinZSoltt 2znzyzlAUc8Z1Ikq9aFOcx 55Dj5FzOxFEZkO4JKvtF6e 7ahLaVeNvctWUYQOdOkti0 4yiCBAOXv2KhqZJXj9UjPQ 55spJHwN3KtyIivlFI8p11 6TwYRcjvdzOZ7gzeDrqLmp 4rdPNHlIYUbSfa4iuQ7ccz 5ORf8BZMbq4xN9kiumrPcQ 42N3inPRsl6sjKav90WDA6 6EyI4la8Isprc37lRkg10Z 6Kue5QZMQriRgvhPYUgFmr 2nmYQwGi12IqG1Xs9v9iYl 6QA6THg8PQBnxxreN5d50a 2EaGZ3llnzY6tfYhqFGe5l 1Vb6R8COnB8cnrSROqaueY 4PWY72AubTjoZrohQt0pWn 1NvrYqIWkpA1yA2eSW70ay 7dPhS9rWgl6nbU4PkPIvEs 1XZ5naWXi3l4AecTERswMI 4KI2Cj22TKBXvjVZVHCrsI 5EMKS6mLi4JprJxy8IGdhT 3THgsKFdHXRKiWFWKTFZ4k 2bXEtwgpTimIqm0ofA7USU 5eEj1vkMIqtmvaTk7cS4UC 3bZdz2cw3NMKl8P2BoCApt 7vjtAU3Ns1AT4dRa0voHBJ 0XGLsSU6wtfnKXiMNvQr61 3UOOOIcatvNSpPnvtB2PXo 0PXp9QxBfSKGGpWUNaws2X 7wXZqcS5Yd7dufJgw0bTjb 2zM5Rfoec07V6N0xhurDZF 1yo95w2YXMl1GeQGarlqCW 7E8jojFn5X3OPPuTx6TmPe 0axzfcBuScJH6BSrUsdF0w 5quCXYjs7XzkjXSxeWcLuM 0okuH0oy6v6s3lti9ig4sb 4DVRguqFUfQQFxxwuEk9wI 52qJladopu0vDn2njqIcTI 3c9LSxnx0AXdsXiewstFC1 25UWSqTX3E8jiH95uxMUOH 6zq05JacHDDvVpnS4fSIat 67rmELR3rpp4DX8TtqyFdW 03GdNYxpBWXBzeg2rG1COv 45v6JcK326S1JH5zixhysH 0w7TC8SBiCocaPZX9r7oiz]

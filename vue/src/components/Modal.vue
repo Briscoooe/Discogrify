@@ -6,6 +6,8 @@
           <div class="modal-header">
             <slot name="header">
             </slot>
+            <slot name="link">
+            </slot>
           </div>
           <div class="modal-footer">
             <slot name="footer">

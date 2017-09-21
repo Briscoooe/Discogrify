@@ -1,11 +1,13 @@
 <template>
   <div id="content">
+    <div id="info-message">
+      <!--Discogrify is a simple service that allows you to catalog an artist's entire Spotify discography in a few simple
+      clicks. Once logged in, simply search for the artist-->
+    </div>
     <div>
-      <div>
-        <button id="login-button" @click="login">
-          <i aria-hidden="false" class="fa fa-spotify hvr"></i>
-          Please log in to Spotify</button>
-      </div>
+      <button id="login-button" @click="login">
+        <i aria-hidden="false" class="fa fa-spotify hvr"></i>
+        Please log in to Spotify</button>
     </div>
   </div>
 </template>
@@ -29,5 +31,8 @@
 #content {
   padding-top:5%;
   font-size: var(--font-size-control);
+}
+#info-message {
+
 }
 </style>

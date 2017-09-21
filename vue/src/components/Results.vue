@@ -8,7 +8,8 @@
         </div>
         <div class="row">
           <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
-          <button class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+          <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+          <spinner class="col col-6 margin2" v-else ></spinner>
         </div>
       </div>
       <table class="bordered striped" id="table">
@@ -56,10 +57,12 @@
     <modal v-if="showModal" @close="showModal = false">
       <span slot="header">
         {{ createPlaylistMessage }}
-        <div if="published">
-          <a :href="playlistUrl">View on Spotify</a>
-        </div>
       </span>
+      <div if="published">
+        <span slot="link">
+          <a :href="playlistUrl">View on Spotify</a>
+        </span>
+      </div>
     </modal>
   </div>
 </template>
@@ -69,11 +72,13 @@
   import EventBus from '../event-bus'
   import Sort from './Sort'
   import Modal from './Modal'
+  import Spinner from './Spinner'
   export default {
     components: {
       'album': Album,
       'sort': Sort,
-      'modal': Modal
+      'modal': Modal,
+      'spinner': Spinner
     },
     props: {
       results: []
@@ -87,7 +92,8 @@
         createPlaylistMessage: '',
         showModal: false,
         published: false,
-        playlistUrl: ''
+        playlistUrl: '',
+        publishing: false
       }
     },
     mounted () {
@@ -143,17 +149,40 @@
         let playlist = {}
         playlist.tracks = this.checkedTracks
         playlist.name = this.artist.name
-        this.$http.post('/publish', playlist).then(function (response) {
-          if (response.status === 201) {
-            this.published = true
-            this.playlistUrl = response.data
-            this.createPlaylistMessage = 'Playlist created successfully'
-          } else {
-            this.createPlaylistMessage = 'Playlist could not be created'
+        this.$http.post('/publish', playlist, {
+          before: function () {
+            this.publishing = true
           }
-          this.showModal = true
+        }).then(function (response) {
+          console.log(response)
+          this.published = true
+          this.playlistUrl = response.data
+          this.createPlaylistMessage = 'Playlist created successfully'
+          console.log('In THEN1' + this.published)
         }).catch(function (error) {
           console.log(error)
+          switch (error.status) {
+            case 304:
+              this.published = false
+              this.createPlaylistMessage = 'Playlist could not be created. Please try again'
+              break
+            case 400:
+              this.published = true
+              this.playlistUrl = error.data
+              this.createPlaylistMessage = 'Not all tracks could be added to the playlist'
+              break
+            case 401:
+              this.published = false
+              this.createPlaylistMessage = 'Error in authorization. Please log in'
+              break
+            case 404:
+              this.published = false
+              this.createPlaylistMessage = 'No tracks present. Playlist not created'
+              break
+          }
+        }).then(function () {
+          this.publishing = false
+          this.showModal = true
         })
       }
     }
