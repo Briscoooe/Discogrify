@@ -148,7 +148,7 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 		ids = append(ids, spotify.ID(track))
 	}
 
-	tracksPerRequest := 5
+	tracksPerRequest := 50
 	startIndex := 0
 	endIndex := tracksPerRequest -1
 	added := 0
