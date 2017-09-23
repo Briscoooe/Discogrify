@@ -38,7 +38,7 @@ func main() {
 	spotifyAuthStateCookie = config.Cookie.SpotifyAuthState
 	authTokenCookie = config.Cookie.AuthToken
 	router := SetupRouter(c, l, s, config.Cookie.Expiration, config.FilePath)
-	contextedRouter := AddContext(router, l)
+	contextedRouter := AddContext(router)
 
 	handler := cors.Default().Handler(contextedRouter)
 	l.Fatal(http.ListenAndServe(":8080", handler))

@@ -12,9 +12,8 @@ import (
 	"time"
 )
 
-func AddContext(next http.Handler, l logging.Logger) http.Handler {
+func AddContext(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		l.Log("New request from IP: " + r.RemoteAddr)
 		cookie, _ := r.Cookie(authTokenCookie)
 		if cookie != nil {
 			ctx := context.WithValue(r.Context(), "AuthToken", cookie.Value)
@@ -25,28 +24,28 @@ func AddContext(next http.Handler, l logging.Logger) http.Handler {
 	})
 }
 
-func LoginToSpotifyHandlerFunc(s *Spotify, expiration int) http.Handler {
+func LoginToSpotifyHandlerFunc(s *Spotify, exp int) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		state := GenerateStateString()
 		url := GenerateLoginUrl(s, state)
-		cookie := http.Cookie{Name: spotifyAuthStateCookie, Value: state, Expires: time.Now().Add(time.Duration(expiration) * time.Minute)}
+		cookie := http.Cookie{Name: spotifyAuthStateCookie, Value: state, Expires: time.Now().Add(time.Duration(exp) * time.Minute)}
 		http.SetCookie(w, &cookie)
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Write([]byte(url))
 	})
 }
 
-func CallbackHandler(log logging.Logger, s *Spotify, expiration int) http.Handler {
+func CallbackHandler(l logging.Logger, s *Spotify, exp int) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var status int
 		cookie, _ := r.Cookie(spotifyAuthStateCookie)
 		if cookie != nil {
-			tok, err := ValidateCallback(r, log, s, cookie.Value)
+			tok, err := ValidateCallback(r, l, s, cookie.Value)
 			if err != nil {
 				status = http.StatusBadRequest
 				w.Write([]byte(err.Error()))
 			} else {
-				cookie := http.Cookie{Name: authTokenCookie, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
+				cookie := http.Cookie{Name: authTokenCookie, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(exp) * time.Hour)}
 				http.SetCookie(w, &cookie)
 				status = http.StatusFound
 			}

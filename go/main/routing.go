@@ -13,10 +13,10 @@ func SetupRouter(c caching.Client, l logging.Logger, s *Spotify, expiration int,
 	router := mux.NewRouter().StrictSlash(true)
 	router.Handle("/login", LoginToSpotifyHandlerFunc(s, expiration)).Methods("GET")
 	router.Handle("/callback", CallbackHandler(l, s, expiration)).Methods("GET")
-	router.Handle("/tracks/{artistId}", AddContext(GetTracksHandler(c, l, s), l)).Methods("GET")
-	router.Handle("/search/{name}", AddContext(SearchArtistHandler(c, l, s), l)).Methods("GET")
-	router.Handle("/user", AddContext(UserInfoHandler(l,s), l)).Methods("GET")
-	router.Handle("/publish", AddContext(PublishPlaylistHandler(l, s), l)).Methods("POST")
+	router.Handle("/tracks/{artistId}", AddContext(GetTracksHandler(c, l, s))).Methods("GET")
+	router.Handle("/search/{name}", AddContext(SearchArtistHandler(c, l, s))).Methods("GET")
+	router.Handle("/user", AddContext(UserInfoHandler(l,s))).Methods("GET")
+	router.Handle("/publish", AddContext(PublishPlaylistHandler(l, s))).Methods("POST")
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir(path)))
 
 	return router

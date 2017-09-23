@@ -148,14 +148,19 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 		ids = append(ids, spotify.ID(track))
 	}
 
+	tracksPerRequest := 5
 	startIndex := 0
-	endIndex := 49
+	endIndex := tracksPerRequest -1
 	added := 0
 	if endIndex > len(tracks) {
 		endIndex = len(tracks)
 	}
 	status := http.StatusOK
 	for added != len(tracks) {
+		if added == 0 && len(tracks) == endIndex {
+			endIndex -= 1
+			added += 1
+		}
 		_, err := s.AddTracksToPlaylist(user.ID, playlist.ID, ids[startIndex:endIndex+1]...)
 		if err != nil {
 			if err.Error() != "Invalid track uri: spotify:track:" {
@@ -165,14 +170,14 @@ func PublishPlaylist(tracks []string, name string, l logging.Logger, s SpotifyCl
 			}
 		}
 		added += endIndex - startIndex
-		if endIndex >= 49 && endIndex != len(tracks) {
+		if endIndex >= tracksPerRequest - 1 && endIndex != len(tracks) {
 			added += 1
 		}
-		startIndex += 50
-		if len(tracks)-added < 50 {
+		startIndex += tracksPerRequest
+		if len(tracks)-added < tracksPerRequest {
 			endIndex = len(tracks) - 1
 		} else {
-			endIndex += 50
+			endIndex += tracksPerRequest
 		}
 	}
 	l.Logf("Added %d tracks to playlist ID: %s", added, playlist.ID)
