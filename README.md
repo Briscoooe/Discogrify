@@ -4,8 +4,7 @@ On Spotify there's no way to add all of an artist's albums, singles and features
 This is where [Discogrify](https://discogrify.com/) steps in. Using the site, all you have to do is login via Spotify and search for an artist and you'll be presented with an artist's entire Spotify discography. All tracks from all albums, singles, features and compilations. You can optionally edit the selection of tracks to exclude individual tracks or entire albums. Once you're happy with the selection, simply publish the playlist and it will be in your library.
 
 #Usage 
-First things first, UI design is not my forte so I'm hoping for a pass on that one. Any suggestions are more than welcome. 
-Secondly, ***If you notice anything wrong with the site, please leave a comment so I can fix the issue*** :)
+***If you notice anything wrong with the site, please leave a comment so I can fix the issue*** :)
 
 Anyway, there are only a few steps to using the site:
 
