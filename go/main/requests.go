@@ -12,14 +12,10 @@ import (
 	"time"
 )
 
-var (
-	stateString string
-)
-
 func AddContext(next http.Handler, l logging.Logger) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		l.Log("New request from IP: " + r.RemoteAddr)
-		cookie, _ := r.Cookie("auth_token")
+		cookie, _ := r.Cookie(authTokenCookie)
 		if cookie != nil {
 			ctx := context.WithValue(r.Context(), "AuthToken", cookie.Value)
 			next.ServeHTTP(w, r.WithContext(ctx))
@@ -29,11 +25,35 @@ func AddContext(next http.Handler, l logging.Logger) http.Handler {
 	})
 }
 
-func LoginToSpotifyHandlerFunc(s *Spotify) http.Handler {
+func LoginToSpotifyHandlerFunc(s *Spotify, expiration int) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		url := GenerateLoginUrl(s)
+		state := GenerateStateString()
+		url := GenerateLoginUrl(s, state)
+		cookie := http.Cookie{Name: spotifyAuthStateCookie, Value: state, Expires: time.Now().Add(time.Duration(expiration) * time.Minute)}
+		http.SetCookie(w, &cookie)
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Write([]byte(url))
+	})
+}
+
+func CallbackHandler(log logging.Logger, s *Spotify, expiration int) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var status int
+		cookie, _ := r.Cookie(spotifyAuthStateCookie)
+		if cookie != nil {
+			tok, err := ValidateCallback(r, log, s, cookie.Value)
+			if err != nil {
+				status = http.StatusBadRequest
+				w.Write([]byte(err.Error()))
+			} else {
+				cookie := http.Cookie{Name: authTokenCookie, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
+				http.SetCookie(w, &cookie)
+				status = http.StatusFound
+			}
+		} else {
+			status = http.StatusBadRequest
+		}
+		http.Redirect(w, r, "/", status)
 	})
 }
 
@@ -83,20 +103,6 @@ func GetTracksHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handl
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("Not logged in"))
-		}
-	})
-}
-
-func CallbackHandler(log logging.Logger, s *Spotify, cookieName string, expiration int) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		tok, err := ValidateCallback(r, log, s)
-		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte(err.Error()))
-		} else {
-			cookie := http.Cookie{Name: cookieName, Value: tok.AccessToken, Expires: time.Now().Add(time.Duration(expiration) * time.Hour)}
-			http.SetCookie(w, &cookie)
-			http.Redirect(w, r, "/", http.StatusFound)
 		}
 	})
 }

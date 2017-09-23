@@ -17,7 +17,8 @@
     "requestDelay" : 100
   },
   "cookie" : {
-    "cookieName" : "auth_token",
+    "spotifyAuthState": "spotify_auth_state",
+    "authToken" : "auth_token",
     "expiration": 1
   },
   "filePath" : "/home/r00t/go/src/github.com/Briscooe/Discogrify/vue/dist"

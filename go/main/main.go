@@ -11,6 +11,8 @@ import (
 var (
 	done  = make(chan bool)
 	mutex = &sync.Mutex{}
+	spotifyAuthStateCookie string
+	authTokenCookie string
 )
 
 func main() {
@@ -33,7 +35,9 @@ func main() {
 
 	s := InitSpotifyClient(config.Spotify.RedirectURI)
 
-	router := SetupRouter(c, l, s, config.Cookie.CookieName, config.Cookie.Expiration, config.FilePath)
+	spotifyAuthStateCookie = config.Cookie.SpotifyAuthState
+	authTokenCookie = config.Cookie.AuthToken
+	router := SetupRouter(c, l, s, config.Cookie.Expiration, config.FilePath)
 	contextedRouter := AddContext(router, l)
 
 	handler := cors.Default().Handler(contextedRouter)

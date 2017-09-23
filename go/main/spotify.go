@@ -67,22 +67,21 @@ func GenerateStateString() string {
 	return string(b)
 }
 
-func GenerateLoginUrl(s *Spotify) string {
-	stateString = GenerateStateString()
-	url := s.Auth.AuthURL(stateString)
+func GenerateLoginUrl(s *Spotify, state string) string {
+	url := s.Auth.AuthURL(state)
 	return url
 }
 
-func ValidateCallback(r *http.Request, l logging.Logger, s *Spotify) (token *oauth2.Token, err error) {
-	tok, err := s.Auth.Token(stateString, r)
+func ValidateCallback(r *http.Request, l logging.Logger, s *Spotify, state string) (token *oauth2.Token, err error) {
+	tok, err := s.Auth.Token(state, r)
 	if err != nil {
 		l.LogErr(err,"Could not get token")
 		return nil, err
 	}
 
-	if st := r.FormValue("state"); st != stateString {
-		l.Logf("State mismatch: %s != %s\n", st, stateString)
-		return nil, errors.New(fmt.Sprintf("State mismatch: %s != %s\n", st, stateString))
+	if st := r.FormValue("state"); st != state {
+		l.Logf("State mismatch: %s != %s\n", st, state)
+		return nil, errors.New(fmt.Sprintf("State mismatch: %s != %s\n", st, state))
 	}
 
 	return tok, nil

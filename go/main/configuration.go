@@ -25,7 +25,8 @@ type Configuration struct {
 		RequestDelay int    `json:"requestDelay"`
 	}
 	Cookie struct {
-		CookieName string `json:"cookieName"`
+		SpotifyAuthState string `json:"spotifyAuthState"`
+		AuthToken string `json:"authToken"`
 		Expiration int    `json:"expiration"`
 	}
 	FilePath string `json:"filePath"`

@@ -8,11 +8,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func SetupRouter(c caching.Client, l logging.Logger, s *Spotify, cookieName string, expiration int, path string) *mux.Router {
+func SetupRouter(c caching.Client, l logging.Logger, s *Spotify, expiration int, path string) *mux.Router {
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.Handle("/login", LoginToSpotifyHandlerFunc(s)).Methods("GET")
-	router.Handle("/callback", CallbackHandler(l, s, cookieName, expiration)).Methods("GET")
+	router.Handle("/login", LoginToSpotifyHandlerFunc(s, expiration)).Methods("GET")
+	router.Handle("/callback", CallbackHandler(l, s, expiration)).Methods("GET")
 	router.Handle("/tracks/{artistId}", AddContext(GetTracksHandler(c, l, s), l)).Methods("GET")
 	router.Handle("/search/{name}", AddContext(SearchArtistHandler(c, l, s), l)).Methods("GET")
 	router.Handle("/user", AddContext(UserInfoHandler(l,s), l)).Methods("GET")
