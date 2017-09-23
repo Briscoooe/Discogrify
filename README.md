@@ -1,9 +1,9 @@
-#Description
+# Description
 On Spotify there's no way to add all of an artist's albums, singles and features into a single playlist other than doing it manually. Spotify does have an "Add to playlist" option beside albums but this is only really useful for albums by that artist. In hip hop, artists often feature on other artists tracks and in that case, you don't want all tracks from the album, but just the song they feature on. Trying to create a discography for an artist like Drake or Future, who have hundreds of individual features, would be painful. Even worse would be someone like Gucci Mane, who has over *3000* tracks on Spotify.
 
 This is where [Discogrify](https://discogrify.com/) steps in. Using the site, all you have to do is login via Spotify and search for an artist and you'll be presented with an artist's entire Spotify discography. All tracks from all albums, singles, features and compilations. You can optionally edit the selection of tracks to exclude individual tracks or entire albums. Once you're happy with the selection, simply publish the playlist and it will be in your library.
 
-#Usage 
+# Usage
 ***If you notice anything wrong with the site, please leave a comment so I can fix the issue*** :)
 
 Anyway, there are only a few steps to using the site:
