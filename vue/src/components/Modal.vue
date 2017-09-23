@@ -6,7 +6,8 @@
           <div class="modal-header">
             <slot name="header">
             </slot>
-            <slot name="link">
+            <br>
+            <slot name="header2" v-if="show">
             </slot>
           </div>
           <div class="modal-footer">
@@ -26,7 +27,9 @@
 
 <script>
   export default {
-
+    props: {
+      show: false
+    }
   }
 </script>
 
@@ -55,7 +58,7 @@
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: var(--primary-sand);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
@@ -63,7 +66,7 @@
 
 .modal-header h3 {
   margin-top: 0;
-  color: #42b983;
+  color: var(--primary-green);
 }
 
 /*

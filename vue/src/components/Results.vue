@@ -54,15 +54,13 @@
         </tbody>
       </table>
     </div>
-    <modal v-if="showModal" @close="showModal = false">
+    <modal :show="published" v-if="showModal" @close="showModal = false">
       <span slot="header">
         {{ createPlaylistMessage }}
       </span>
-      <div if="published">
-        <span slot="link">
-          <a :href="playlistUrl">View on Spotify</a>
-        </span>
-      </div>
+      <span slot="header2">
+        <a :href="playlistUrl">View on Spotify</a>
+      </span>
     </modal>
   </div>
 </template>

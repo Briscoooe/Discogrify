@@ -10,14 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="757c5726-47ac-4594-a0af-1c0a074919d9" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/go/main/main" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/go/main/discogrify.log" afterPath="$PROJECT_DIR$/go/main/discogrify.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/go/main/requests.go" afterPath="$PROJECT_DIR$/go/main/requests.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vue/src/components/Login.vue" afterPath="$PROJECT_DIR$/vue/src/components/Login.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vue/src/components/Modal.vue" afterPath="$PROJECT_DIR$/vue/src/components/Modal.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vue/src/components/Results.vue" afterPath="$PROJECT_DIR$/vue/src/components/Results.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vue/src/components/Spinner.vue" afterPath="$PROJECT_DIR$/vue/src/components/Spinner.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,10 +48,10 @@
           <file leaf-file-name="Results.vue" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/vue/src/components/Results.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="176" column="19" lean-forward="true" selection-start-line="176" selection-start-column="19" selection-end-line="176" selection-end-column="19" />
+                <state relative-caret-position="-1547">
+                  <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
                   <folding>
-                    <element signature="e#2322#2349#0" expanded="true" />
+                    <element signature="e#2297#2324#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -63,8 +60,8 @@
           <file leaf-file-name="Modal.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/vue/src/components/Modal.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+                <state relative-caret-position="833">
+                  <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
                   <folding />
                 </state>
               </provider>
@@ -74,14 +71,24 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="spotify.go" pinned="false" current-in-tab="true">
+          <file leaf-file-name="spotify.go" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/go/main/spotify.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="141" column="30" lean-forward="true" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+                <state relative-caret-position="229">
+                  <caret line="178" column="0" lean-forward="false" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
                   <folding>
                     <element signature="e#14#223#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="user.go" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../../zmb3/spotify/user.go">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="201">
+                  <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -99,11 +106,21 @@
           <file leaf-file-name="requests.go" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/go/main/requests.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="222">
-                  <caret line="141" column="34" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
+                <state relative-caret-position="402">
+                  <caret line="141" column="12" lean-forward="true" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
                   <folding>
                     <element signature="e#14#211#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="68">
+                  <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -210,7 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/html/js/app.js" />
         <option value="$PROJECT_DIR$/html/vue/src/main.js" />
         <option value="$PROJECT_DIR$/html/vue/src/event-bus.js" />
         <option value="$PROJECT_DIR$/html/index.html" />
@@ -257,10 +273,11 @@
         <option value="$PROJECT_DIR$/vue/src/components/Login.vue" />
         <option value="$PROJECT_DIR$/vue/src/components/Spinner.vue" />
         <option value="$PROJECT_DIR$/go/main/spotify.go" />
-        <option value="$PROJECT_DIR$/vue/src/components/Modal.vue" />
-        <option value="$PROJECT_DIR$/vue/src/components/Results.vue" />
         <option value="$PROJECT_DIR$/go/main/caching.go" />
+        <option value="$PROJECT_DIR$/vue/src/components/Results.vue" />
+        <option value="$PROJECT_DIR$/vue/src/components/Modal.vue" />
         <option value="$PROJECT_DIR$/go/main/requests.go" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -275,10 +292,10 @@
     <handled-path value="$PROJECT_DIR$/vue/test/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="1598" />
     <option name="y" value="1" />
-    <option name="width" value="1604" />
-    <option name="height" value="901" />
+    <option name="width" value="1924" />
+    <option name="height" value="1081" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -305,35 +322,6 @@
             <path>
               <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
               <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-              <item name="go" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-              <item name="go" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Discogrify" type="462c0819:PsiDirectoryNode" />
-              <item name="vue" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Discogrify" type="b2602c69:ProjectViewProjectNode" />
@@ -573,19 +561,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="1" width="1604" height="901" extended-state="0" />
+    <frame x="1598" y="1" width="1924" height="1081" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06636598" sideWeight="0.8694943" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15064102" sideWeight="0.8694943" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32729626" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33764553" sideWeight="0.17396908" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21930745" sideWeight="0.14262821" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3415265" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3415265" sideWeight="0.4974227" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26967472" sideWeight="0.8063694" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24946581" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27037516" sideWeight="0.8801546" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21930745" sideWeight="0.8573718" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18536325" sideWeight="0.13050571" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33764553" sideWeight="0.8260309" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33683106" sideWeight="0.8130342" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -638,25 +626,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="390" />
+      <option name="time" value="392" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../zmb3/spotify/artist.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../zmb3/spotify/page.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="35" column="5" lean-forward="false" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/go/main/caching_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -942,14 +916,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue/src/components/Modal.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/go/caching/redisClient.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -997,16 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/go/main/requests.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="141" column="34" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
-          <folding>
-            <element signature="e#14#211#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/go/src/net/http/status.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1015,23 +971,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../zmb3/spotify/user.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/go/main/spotify.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="141" column="30" lean-forward="true" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+        <state relative-caret-position="229">
+          <caret line="178" column="0" lean-forward="false" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
           <folding>
             <element signature="e#14#223#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue/src/components/Modal.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vue/src/components/Results.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="176" column="19" lean-forward="true" selection-start-line="176" selection-start-column="19" selection-end-line="176" selection-end-column="19" />
+        <state relative-caret-position="-1547">
+          <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
           <folding>
-            <element signature="e#2322#2349#0" expanded="true" />
+            <element signature="e#2297#2324#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/go/main/requests.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="141" column="12" lean-forward="true" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
+          <folding>
+            <element signature="e#14#211#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
