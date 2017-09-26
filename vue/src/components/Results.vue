@@ -176,87 +176,8 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
         this.albums = albums
       },
       filterResults: function (filterKey) {
-        let filtered = false
-        let words = []
-        console.log(filterKey)
-        this.filters.forEach(function (filter) {
-          if (filter.key === filterKey) {
-            filter.filtered = !filter.filtered
-            filtered = filter.filtered
-            words = filter.words
-          }
-        })
-        if (filtered) {
-          let filteredList = this.albums.filter(function (album) {
-            words.forEach(function (word) {
-              console.log(album)
-              console.log(word)
-              if (album.name.indexOf(word) !== -1) {
-                album.tracks.items.forEach(function (track) {
-                  this.checkedTracks.splice(this.checkedTracks.indexOf(track.id), 1)
-                })
-                return false
-              } else {
-                album.tracks.items.forEach(function (track) {
-                  if (track.name.indexOf(word) !== -1) {
-                    let index = this.checkedTracks.indexOf(track.id)
-                    if (index !== -1) {
-                      this.checkedTracks.splice(this.checkedTracks.indexOf(track.id), 1)
-                      return false
-                    }
-                  }
-                })
-              }
-              return true
-            })
-          })
-          console.log(filteredList)
-          this.albums = filteredList
-        }
+       // TODO
       },
-      /* removeInstrumentals: function () {
-        var self = this;
-        if(self.instrumentals) {
-          var updatedList = this.allAlbums.filter(function (album) {
-            if (album.name.indexOf("Instrumentals") !== -1) {
-              album.tracks.items.forEach(function (track) {
-                self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1)
-              });
-              return false
-            }
-            else {
-              album.tracks.items.forEach(function (track) {
-                if(track.name.indexOf("Instrumental") !== -1) {
-                  var index = self.checkedTracks.indexOf(track.id);
-                  if (index !== -1) {
-                    self.checkedTracks.splice(self.checkedTracks.indexOf(track.id), 1);
-                    return false
-                  }
-                }
-              });
-            }
-            return true
-          });
-          this.allAlbums = updatedList
-        } else {
-          this.originalAlbumList.forEach(function (album) {
-            if (self.allAlbums.indexOf(album) === -1) {
-              album.tracks.items.forEach(function (track) {
-                self.checkedTracks.push(track.id)
-              })
-            }
-            else {
-              album.tracks.items.forEach(function (track) {
-                if(self.checkedTracks.indexOf(track.id) === -1) {
-                  self.checkedTracks.push(track.id)
-                }
-              });
-            }
-          });
-          this.allAlbums = this.originalAlbumList
-        }
-
-      }, */
       publishPlaylist: function () {
         this.published = false
         let playlist = {}
@@ -267,7 +188,6 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
             this.publishing = true
           }
         }).then(function (response) {
-          console.log(response)
           this.published = true
           this.playlistUrl = response.data
           this.createPlaylistMessage = 'Playlist created successfully'
