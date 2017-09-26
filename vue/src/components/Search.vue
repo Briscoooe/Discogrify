@@ -81,7 +81,7 @@
               albums.push(album)
             })
             EventBus.$emit('albums', albums)
-            EventBus.$emit('artist', this.artist)
+            EventBus.$emit('artist', this.artist.name)
             this.$emit('scroll')
           }
         }).catch(function (error) {
