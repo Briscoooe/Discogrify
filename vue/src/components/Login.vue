@@ -1,13 +1,32 @@
 <template>
   <div id="content">
-    <div id="info-message">
-      <!--Discogrify is a simple service that allows you to catalog an artist's entire Spotify discography in a few simple
-      clicks. Once logged in, simply search for the artist-->
+    <div class="row align-center" id="info-message">
+      Discogrify is a simple service that allows you to catalog an artist's entire Spotify discography into a single playlist<br>
+      There are only three simple steps:
     </div>
-    <div>
+    <div class="row align-center" id="list">
+      <ul>
+        <li>
+          Login
+        </li>
+        <li>
+          Search for an artist
+        </li>
+        <li>
+          Select an artist
+        </li>
+        <li>
+          Add or remove albums/tracks (optional)
+        </li>
+        <li>
+          Publish!
+        </li>
+      </ul>
+    </div>
+    <div class="row align-center">
       <button id="login-button" @click="login">
         <i aria-hidden="false" class="fa fa-spotify hvr"></i>
-        Please log in to Spotify</button>
+        Log in to Spotify</button>
     </div>
   </div>
 </template>
@@ -34,5 +53,9 @@
 }
 #info-message {
 
+}
+
+#list {
+  float:left;
 }
 </style>
