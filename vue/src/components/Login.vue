@@ -16,10 +16,16 @@
           Select an artist
         </li>
         <li>
-          Add or remove albums/tracks (optional)
+          Publish!
+        </li>
+      </ul>
+      There are also some optional steps you can take before publishing
+      <ul>
+        <li>
+          Add or remove albums/tracks from the playlist
         </li>
         <li>
-          Publish!
+          Add multiple artists to the playlist
         </li>
       </ul>
     </div>

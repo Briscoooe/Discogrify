@@ -1,13 +1,19 @@
 <template>
   <div id="content" class="row align-center">
     <div v-if="resultsPresent" class="col col-6">
+      <div id="options" class="margin2">
+        <input type="checkbox" class="option" v-model="multipleArtists">&nbsp;Multiple artists
+        <input type="checkbox" class="option" v-on:change="filterResults('commentary')"/>&nbsp;Exclude commentary albums
+        <input type="checkbox" class="option" v-on:change="filterResults('instrumental')"/>&nbsp;Exclude instrumentals
+      </div>
       <div id="results-header" class="margin2">
         <div class="row">
-          <p class="large-text col col-6 margin2"> {{ artist.name }}</p>
+          <p class="large-text col col-6 margin2"> {{ artistName }}</p>
           <sort :albums="allAlbums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
         </div>
         <div class="row">
           <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
+          <button class="col col-6 margin2" v-on:click="addMore">Add more tracks</button>
           <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
           <spinner class="col col-6 margin2" v-else ></spinner>
         </div>
@@ -86,12 +92,18 @@
         allAlbums: [],
         checkedTracks: [],
         checkedAlbums: [],
-        artist: {},
+        artistName: '',
+        artists: [],
         createPlaylistMessage: '',
         showModal: false,
         published: false,
         playlistUrl: '',
-        publishing: false
+        publishing: false,
+        multipleArtists: false,
+        filters: [
+          {name: 'commentary', filter: false},
+          {name: 'instrumental', filter: false}
+        ],
       }
     },
     mounted () {
@@ -106,9 +118,12 @@
     methods: {
       initialiseAlbums: function (allAlbums) {
         let self = this
-        self.allAlbums = []
-        self.checkedAlbums = []
-        self.checkedTracks = []
+        if (!self.multipleArtists) {
+          self.allAlbums = []
+          self.checkedAlbums = []
+          self.checkedTracks = []
+          self.originalResults = []
+        }
         allAlbums.forEach(function (album) {
           if (album.tracks.items !== null) {
             self.allAlbums.push(album)
@@ -119,8 +134,13 @@
           }
         })
       },
-      initialiseArtist: function (artist) {
-        this.artist = artist
+      initialiseArtist: function (artistName) {
+        if (this.multipleArtists) {
+          this.artists.push(artistName)
+          this.artistName += ', ' + artistName
+        } else {
+          this.artistName = artistName
+        }
       },
       toggleAlbum: function (albumId) {
         EventBus.$emit('toggle-album', albumId, this.checkedAlbums.indexOf(albumId) > -1)
@@ -142,11 +162,20 @@
       updateSort: function (albums) {
         this.allAlbums = albums
       },
+      filterResults: function () {
+        allAlbums.forEach(function (album) {
+          this.allAlbums.push(album)
+          this.checkedAlbums.push(album.id)
+          album.tracks.items.forEach(function (track) {
+            this.checkedTracks.push(track.id)
+          })
+        })
+      },
       publishPlaylist: function () {
         this.published = false
         let playlist = {}
         playlist.tracks = this.checkedTracks
-        playlist.name = this.artist.name
+        playlist.name = this.artistName
         this.$http.post('/publish', playlist, {
           before: function () {
             this.publishing = true
@@ -156,7 +185,6 @@
           this.published = true
           this.playlistUrl = response.data
           this.createPlaylistMessage = 'Playlist created successfully'
-          console.log('In THEN1' + this.published)
         }).catch(function (error) {
           console.log(error)
           switch (error.status) {
@@ -182,6 +210,9 @@
           this.publishing = false
           this.showModal = true
         })
+      },
+      addMore: function () {
+        this.$emit('scroll')
       }
     }
   }

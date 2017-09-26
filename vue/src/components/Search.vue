@@ -75,13 +75,12 @@
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id).then(function (response) {
           if (response.data) {
-            console.log(response)
             let albums = []
             response.data.forEach(function (album) {
               albums.push(album)
             })
             EventBus.$emit('albums', albums)
-            EventBus.$emit('artist', this.artist)
+            EventBus.$emit('artist', this.artist.name)
             this.$emit('scroll')
           }
         }).catch(function (error) {
