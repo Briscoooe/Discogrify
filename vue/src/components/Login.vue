@@ -26,7 +26,7 @@
           <br>
           Using the Spotify API, I was able to retrieve each track containing any given artist and present them in
           a single list which you can alter and publish as a playlist.
-          If you are interested, check out the source code on
+          If you are interested in specifics, check out the source code on
           <a href="https://github.com/Briscoooe/Discogrify/">GitHub</a>. Any contributions welcome!
         </div>
         <div class="col col-4 margin1">
@@ -63,6 +63,9 @@
 
 <style scoped>
 
+.col-4 {
+  padding: 1%;
+}
 #content {
 }
 

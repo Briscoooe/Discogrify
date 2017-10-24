@@ -142,9 +142,3 @@ input[type="checkbox"]:hover {
   opacity: 0
 }
 </style>
-
-<style scoped>
-  #search{
-    margin-top: 5%;
-  }
-</style>

@@ -1,21 +1,8 @@
-# [Discogrify](https://discogrify.com/)
-**TL;DR**: A website for creating discographies on Spotify. Login via Spotify, search for an artist, and discography is magically created.
-
-#Description
-On Spotify there's no way to add all of an artist's albums, singles and features into a single playlist other than doing it manually. Spotify does have an "Add to playlist" option beside albums but this can take time for artists with many albums and singles.
-
-This is where [Discogrify](https://discogrify.com/) steps in. Using the site, all you have to do is login via Spotify and search for an artist and you'll be presented with an artist's entire Spotify discography. All tracks from all albums, singles, features and compilations. You can optionally edit the selection of tracks to exclude individual tracks or entire albums. Once you're happy with the selection, simply publish the playlist and it will be in your library.
-
-#Usage
-First things first, UI design is not my forte so I'm hoping for a pass on that one. Any suggestions are more than welcome. Also the site is not optimised for mobile but will still function the same.
-Secondly, ***If you notice anything wrong with the site, please leave a comment so I can fix the issue*** :)
 <template>
-  <div id="content" class="row align-center">
+  <div id="content" class="row align-center margin2">
     <div v-if="resultsPresent" class="col col-6">
       <div id="options" class="margin2">
         <input type="checkbox" class="option" v-model="multipleArtists">&nbsp;Multiple artists
-        <input type="checkbox" class="option" v-on:change="filterResults('commentary')"/>&nbsp;Exclude commentary albums
-        <input type="checkbox" class="option" v-on:change="filterResults('instrumental')"/>&nbsp;Exclude instrumentals
       </div>
       <div id="results-header" class="margin2">
         <div class="row">
@@ -24,8 +11,8 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
         </div>
         <div class="row">
           <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
-          <button class="col col-6 margin2" v-on:click="addMore">Add more tracks</button>
           <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+          <button class="col col-6 margin2" v-on:click="addMore">Add more tracks</button>
           <spinner class="col col-6 margin2" v-else ></spinner>
         </div>
       </div>
@@ -138,10 +125,16 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
         }
         allAlbums.forEach(function (album) {
           if (album.tracks.items !== null) {
-            self.albums.push(album)
-            self.checkedAlbums.push(album.id)
+            if (!self.albums.includes(album)) {
+              self.albums.push(album)
+            }
+            if (!self.checkedAlbums.includes(album.id)) {
+              self.checkedAlbums.push(album.id)
+            }
             album.tracks.items.forEach(function (track) {
-              self.checkedTracks.push(track.id)
+              if (!self.checkedTracks.includes(track.id)) {
+                self.checkedTracks.push(track.id)
+              }
             })
           }
         })
@@ -149,8 +142,12 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
       },
       initialiseArtist: function (artistName) {
         if (this.multipleArtists) {
-          this.artists.push(artistName)
-          this.artistName += ', ' + artistName
+          if (!this.artists.includes(artistName)) {
+            this.artists.push(artistName)
+          }
+          if (!this.artistName.includes(artistName)) {
+            this.artistName += ', ' + artistName
+          }
         } else {
           this.artistName = artistName
         }
@@ -175,14 +172,24 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
       updateSort: function (albums) {
         this.albums = albums
       },
-      filterResults: function (filterKey) {
-       // TODO
+      getPlaylistName: function () {
+        let returnStr = this.artists[0]
+        const suffix = ' - By Discogrify'
+        this.artists.slice(1, this.artists.length).forEach(function (artist, i) {
+          let tempStr = returnStr + ', ' + artist + suffix
+          if (tempStr.length <= 100) {
+            returnStr += ', ' + artist
+          } else {
+            return returnStr + ' and more'
+          }
+        })
+        return returnStr
       },
       publishPlaylist: function () {
         this.published = false
         let playlist = {}
         playlist.tracks = this.checkedTracks
-        playlist.name = this.artistName
+        playlist.name = this.getPlaylistName()
         this.$http.post('/publish', playlist, {
           before: function () {
             this.publishing = true
@@ -225,49 +232,53 @@ Secondly, ***If you notice anything wrong with the site, please leave a comment 
 </script>
 
 <style scoped>
-  #content {
-    width:100%;
-  }
-  .large-text{
-    font-size: var(--font-size-heading);
-    text-align: left;
-  }
 
-  #results-header {
-    background-color: var(--primary-sand);
-    padding: 2%;
-    border-radius: 3px;
-  }
-  #table {
-    text-align: left;
-    font-size: var(--font-size-data);
-    width:100%;
-  }
+.p {
+  line-height: 2em;
+}
+#content {
+  width:100%;
+}
+.large-text{
+  font-size: var(--font-size-heading);
+  text-align: left;
+}
 
-  /* Icon Fade */
-  .hvr-icon-fade {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px transparent;
-    position: relative;
-    padding-right: 2.2em;
-  }
-  .hvr-icon-fade:before {
-    content: "\f00c";
-    position: absolute;
-    right: 1em;
-    padding: 0 1px;
-    font-family: FontAwesome;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-transition-duration: 0.5s;
-    transition-duration: 0.5s;
-    -webkit-transition-property: color;
-    transition-property: color;
-  }
-  .hvr-icon-fade:hover:before, .hvr-icon-fade:focus:before, .hvr-icon-fade:active:before {
-    color: #0F9E5E;
-  }
+#results-header {
+  background-color: var(--primary-sand);
+  padding: 2%;
+  border-radius: 3px;
+}
+#table {
+  text-align: left;
+  font-size: var(--font-size-data);
+  width:100%;
+}
+
+/* Icon Fade */
+.hvr-icon-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  padding-right: 2.2em;
+}
+.hvr-icon-fade:before {
+  content: "\f00c";
+  position: absolute;
+  right: 1em;
+  padding: 0 1px;
+  font-family: FontAwesome;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color;
+  transition-property: color;
+}
+.hvr-icon-fade:hover:before, .hvr-icon-fade:focus:before, .hvr-icon-fade:active:before {
+  color: #0F9E5E;
+}
 </style>
