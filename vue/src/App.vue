@@ -3,7 +3,7 @@
     <custom-header></custom-header>
     <div style="flex: 1">
       <login v-if="!loggedIn"></login>
-      <search id="search" v-on:scroll="scroll('results')"></search>
+      <search v-if="loggedIn" id="search" v-on:scroll="scroll('results')"></search>
       <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
     </div>
     <custom-footer></custom-footer>
@@ -67,6 +67,10 @@ export default {
   --font-size-control: 1.25em;
   --font-size-data: 1em;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
@@ -76,6 +80,8 @@ export default {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  padding-left:2%;
+  padding-right:2%;
 }
 
 .margin1 {
@@ -141,10 +147,4 @@ input[type="checkbox"]:hover {
 .fade-enter, .fade-leave-to {
   opacity: 0
 }
-</style>
-
-<style scoped>
-  #search{
-    margin-top: 5%;
-  }
 </style>

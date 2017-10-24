@@ -1,8 +1,8 @@
 <template>
   <div class="row align-center" id="content">
-    <div class="col col-6">
+    <div id="inner" class="col col-6">
       <div id="header-div" class="margin2">
-        <img id="logo-img" src="../assets/discogrify_full_black.png">
+        <img id="logo-img" src="../assets/discogrify_full_green.png">
         <div id="logo-text">Discogrify</div>
       </div>
       <div id="account" class="margin2" v-show="isLoggedIn">
@@ -55,12 +55,14 @@ export default {
 <style scoped>
 
 #content {
-  background-color: var(--primary-green);
   height:15%;
   display: flex;
   align-items: center
 }
 
+#inner {
+  border-bottom: 2px solid var(--primary-sand);
+}
 #header-div {
   font-family: var(--font);
   font-size: var(--font-size-title);
@@ -88,11 +90,11 @@ export default {
 }
 
 .logout {
-  background-color: var(--primary-sand);
-  color: var(--primary-black);
+  background-color: var(--secondary-green);
+  color: #fff;
 }
 .logout:hover, .logout:focus, .logout:active {
-  background-color: var(--primary-grey);
+  background-color: var(--primary-green);
 }
 
 </style>

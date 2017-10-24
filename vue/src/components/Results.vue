@@ -1,16 +1,14 @@
 <template>
-  <div id="content" class="row align-center">
+  <div id="content" class="row align-center margin2">
     <div v-if="resultsPresent" class="col col-6">
-      <div id="results-header" class="margin2">
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ artist.name }}</p>
-          <sort :albums="allAlbums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
-        </div>
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
-          <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
-          <spinner class="col col-6 margin2" v-else ></spinner>
-        </div>
+      <div id="results-header" class="row">
+        <p class="large-text col col-6 margin2"> {{ artistName }}</p>
+        <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
+        <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
+        <button class="col col-6 margin2" v-on:click="addMore">Add more artists</button>
+        <button class="col col-6 margin2" v-on:click="clear">Clear all</button>
+        <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+        <spinner class="col col-6 margin2" v-else ></spinner>
       </div>
       <table class="bordered striped" id="table">
         <thead>
@@ -22,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="album in allAlbums" :key="album.id">
+        <tr v-for="album in albums" :key="album.id">
           <td>
             <input type="checkbox"
                    :checked="checkedAlbums.indexOf(album.id) > -1"
@@ -83,15 +81,21 @@
     },
     data () {
       return {
-        allAlbums: [],
+        unfilteredAlbums: [],
+        albums: [],
         checkedTracks: [],
         checkedAlbums: [],
-        artist: {},
+        artistName: '',
+        artists: [],
         createPlaylistMessage: '',
         showModal: false,
         published: false,
         playlistUrl: '',
-        publishing: false
+        publishing: false,
+        filters: [
+          {key: 'commentary', filtered: false, words: ['commentary']},
+          {key: 'instrumental', filtered: false, words: ['instrumental', 'instrumentals']}
+        ]
       }
     },
     mounted () {
@@ -100,27 +104,42 @@
     },
     computed: {
       resultsPresent: function () {
-        return this.allAlbums.length > 0
+        return this.albums.length > 0
       }
     },
     methods: {
       initialiseAlbums: function (allAlbums) {
         let self = this
-        self.allAlbums = []
-        self.checkedAlbums = []
-        self.checkedTracks = []
         allAlbums.forEach(function (album) {
           if (album.tracks.items !== null) {
-            self.allAlbums.push(album)
-            self.checkedAlbums.push(album.id)
+            if (!self.albums.includes(album)) {
+              self.albums.push(album)
+            }
+            if (!self.checkedAlbums.includes(album.id)) {
+              self.checkedAlbums.push(album.id)
+            }
             album.tracks.items.forEach(function (track) {
-              self.checkedTracks.push(track.id)
+              if (!self.checkedTracks.includes(track.id)) {
+                self.checkedTracks.push(track.id)
+              }
             })
           }
         })
+        self.unfilteredAlbums = self.albums
       },
-      initialiseArtist: function (artist) {
-        this.artist = artist
+      initialiseArtist: function (artistName) {
+        if (!this.artists.includes(artistName)) {
+          this.artists.push(artistName)
+        }
+        if (!this.artistName.includes(artistName)) {
+          this.artistName = this.artistName.length === 0 ? artistName : this.artistName += ', ' + artistName
+        }
+      },
+      clear: function () {
+        this.unfilteredAlbums = []
+        this.albums = []
+        this.checkedAlbums = []
+        this.checkedTracks = []
       },
       toggleAlbum: function (albumId) {
         EventBus.$emit('toggle-album', albumId, this.checkedAlbums.indexOf(albumId) > -1)
@@ -140,23 +159,35 @@
         }
       },
       updateSort: function (albums) {
-        this.allAlbums = albums
+        this.albums = albums
+      },
+      getPlaylistName: function () {
+        console.log(this.artists)
+        let returnStr = this.artists[0]
+        const suffix = ' - By Discogrify'
+        this.artists.slice(1, this.artists.length).forEach(function (artist) {
+          let tempStr = returnStr + ', ' + artist + suffix
+          if (tempStr.length <= 100) {
+            returnStr += ', ' + artist
+          } else {
+            return returnStr + ' and more'
+          }
+        })
+        return returnStr
       },
       publishPlaylist: function () {
         this.published = false
         let playlist = {}
         playlist.tracks = this.checkedTracks
-        playlist.name = this.artist.name
+        playlist.name = this.getPlaylistName()
         this.$http.post('/publish', playlist, {
           before: function () {
             this.publishing = true
           }
         }).then(function (response) {
-          console.log(response)
           this.published = true
           this.playlistUrl = response.data
           this.createPlaylistMessage = 'Playlist created successfully'
-          console.log('In THEN1' + this.published)
         }).catch(function (error) {
           console.log(error)
           switch (error.status) {
@@ -182,12 +213,19 @@
           this.publishing = false
           this.showModal = true
         })
+      },
+      addMore: function () {
+        this.$emit('scroll')
       }
     }
   }
 </script>
 
 <style scoped>
+
+.p {
+  line-height: 2em;
+}
 #content {
   width:100%;
 }
@@ -204,7 +242,7 @@
 #table {
   text-align: left;
   font-size: var(--font-size-data);
-  width:100%;
+  max-width: inherit;
 }
 
 /* Icon Fade */
