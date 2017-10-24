@@ -1,5 +1,5 @@
 <template>
-  <div id="content" class="row align-center font-override">
+  <div id="content" class="row align-center font-override margin2">
     <div class="col col-6">
       <div class="append">
         <input class="search font-override green-control"
@@ -109,6 +109,7 @@
 #list-item {
   margin-top: 10px;
 }
+
 #result-line{
   text-align: left;
   padding: 1% 2%;

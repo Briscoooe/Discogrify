@@ -1,22 +1,14 @@
 <template>
-  <div id="content" class="row align-center">
+  <div id="content" class="row align-center margin2">
     <div v-if="resultsPresent" class="col col-6">
-      <div id="options" class="margin2">
-        <input type="checkbox" class="option" v-model="multipleArtists">&nbsp;Multiple artists
-        <input type="checkbox" class="option" v-on:change="filterResults('commentary')"/>&nbsp;Exclude commentary albums
-        <input type="checkbox" class="option" v-on:change="filterResults('instrumental')"/>&nbsp;Exclude instrumentals
-      </div>
-      <div id="results-header" class="margin2">
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ artistName }}</p>
-          <sort :albums="allAlbums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
-        </div>
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
-          <button class="col col-6 margin2" v-on:click="addMore">Add more tracks</button>
-          <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
-          <spinner class="col col-6 margin2" v-else ></spinner>
-        </div>
+      <div id="results-header" class="row">
+        <p class="large-text col col-6 margin2"> {{ artistName }}</p>
+        <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
+        <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
+        <button class="col col-6 margin2" v-on:click="addMore">Add more artists</button>
+        <button class="col col-6 margin2" v-on:click="clear">Clear all</button>
+        <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+        <spinner class="col col-6 margin2" v-else ></spinner>
       </div>
       <table class="bordered striped" id="table">
         <thead>
@@ -28,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="album in allAlbums" :key="album.id">
+        <tr v-for="album in albums" :key="album.id">
           <td>
             <input type="checkbox"
                    :checked="checkedAlbums.indexOf(album.id) > -1"
@@ -89,7 +81,8 @@
     },
     data () {
       return {
-        allAlbums: [],
+        unfilteredAlbums: [],
+        albums: [],
         checkedTracks: [],
         checkedAlbums: [],
         artistName: '',
@@ -98,12 +91,7 @@
         showModal: false,
         published: false,
         playlistUrl: '',
-        publishing: false,
-        multipleArtists: false,
-        filters: [
-          {name: 'commentary', filter: false},
-          {name: 'instrumental', filter: false}
-        ],
+        publishing: false
       }
     },
     mounted () {
@@ -112,35 +100,42 @@
     },
     computed: {
       resultsPresent: function () {
-        return this.allAlbums.length > 0
+        return this.albums.length > 0
       }
     },
     methods: {
       initialiseAlbums: function (allAlbums) {
         let self = this
-        if (!self.multipleArtists) {
-          self.allAlbums = []
-          self.checkedAlbums = []
-          self.checkedTracks = []
-          self.originalResults = []
-        }
         allAlbums.forEach(function (album) {
           if (album.tracks.items !== null) {
-            self.allAlbums.push(album)
-            self.checkedAlbums.push(album.id)
+            if (!self.albums.includes(album)) {
+              self.albums.push(album)
+            }
+            if (!self.checkedAlbums.includes(album.id)) {
+              self.checkedAlbums.push(album.id)
+            }
             album.tracks.items.forEach(function (track) {
-              self.checkedTracks.push(track.id)
+              if (!self.checkedTracks.includes(track.id)) {
+                self.checkedTracks.push(track.id)
+              }
             })
           }
         })
+        self.unfilteredAlbums = self.albums
       },
       initialiseArtist: function (artistName) {
-        if (this.multipleArtists) {
+        if (!this.artists.includes(artistName)) {
           this.artists.push(artistName)
-          this.artistName += ', ' + artistName
-        } else {
-          this.artistName = artistName
         }
+        if (!this.artistName.includes(artistName)) {
+          this.artistName = this.artistName.length === 0 ? artistName : this.artistName += ', ' + artistName
+        }
+      },
+      clear: function () {
+        this.unfilteredAlbums = []
+        this.albums = []
+        this.checkedAlbums = []
+        this.checkedTracks = []
       },
       toggleAlbum: function (albumId) {
         EventBus.$emit('toggle-album', albumId, this.checkedAlbums.indexOf(albumId) > -1)
@@ -160,28 +155,32 @@
         }
       },
       updateSort: function (albums) {
-        this.allAlbums = albums
+        this.albums = albums
       },
-      filterResults: function () {
-        allAlbums.forEach(function (album) {
-          this.allAlbums.push(album)
-          this.checkedAlbums.push(album.id)
-          album.tracks.items.forEach(function (track) {
-            this.checkedTracks.push(track.id)
-          })
+      getPlaylistName: function () {
+        console.log(this.artists)
+        let returnStr = this.artists[0]
+        const suffix = ' - By Discogrify'
+        this.artists.slice(1, this.artists.length).forEach(function (artist) {
+          let tempStr = returnStr + ', ' + artist + suffix
+          if (tempStr.length <= 100) {
+            returnStr += ', ' + artist
+          } else {
+            return returnStr + ' and more'
+          }
         })
+        return returnStr
       },
       publishPlaylist: function () {
         this.published = false
         let playlist = {}
         playlist.tracks = this.checkedTracks
-        playlist.name = this.artistName
+        playlist.name = this.getPlaylistName()
         this.$http.post('/publish', playlist, {
           before: function () {
             this.publishing = true
           }
         }).then(function (response) {
-          console.log(response)
           this.published = true
           this.playlistUrl = response.data
           this.createPlaylistMessage = 'Playlist created successfully'
@@ -219,6 +218,10 @@
 </script>
 
 <style scoped>
+
+.p {
+  line-height: 2em;
+}
 #content {
   width:100%;
 }
@@ -235,7 +238,7 @@
 #table {
   text-align: left;
   font-size: var(--font-size-data);
-  width:100%;
+  max-width: inherit;
 }
 
 /* Icon Fade */
