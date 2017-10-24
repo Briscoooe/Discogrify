@@ -18,8 +18,8 @@ Anyway, there are only a few steps to using the site:
 At the moment this is just a working prototype and if it's seeing good usage then I have a few improvements I'd like to make:
 
 * **Popular artists**: Display a list of the most searched for artists
-* **How-to/Guide/Landing page**: A brief intro about what the site does and how to use it.
-* **Add multiple artists to one playlist**: The option to include multiple artists in one playlist. This would enable you to catalog, for example, all tracks by each DOOM moniker or all tracks by each individual member of Wu-Tang
+* ~~**How-to/Guide/Landing page**: A brief intro about what the site does and how to use it.~~
+* ~~**Add multiple artists to one playlist**: The option to include multiple artists in one playlist. This would enable you to catalog, for example, all tracks by each DOOM moniker or all tracks by each individual member of Wu-Tang~~
 * **Automatic filtering of duplicates and remixes**: I'm aware that there are duplicates in the results and the reason some albums/tracks are released differently in different regions and all version are returned by default on Spotify. Also the results don't consider a single that also exists on an album and will return them both by default.
 Of course you can fix all of this manually in the results view but it would be nice to have it done automatically.
 * **Alter existing user playlists**: I'd like to be able to add tracks to an existing playlist rather than one just created by the tool
