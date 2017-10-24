@@ -3,7 +3,7 @@
     <custom-header></custom-header>
     <div style="flex: 1">
       <login v-if="!loggedIn"></login>
-      <search id="search" v-on:scroll="scroll('results')"></search>
+      <search v-if="loggedIn" id="search" v-on:scroll="scroll('results')"></search>
       <results v-if="loggedIn" id="results" v-on:scroll="scroll('search')"></results>
     </div>
     <custom-footer></custom-footer>
