@@ -110,6 +110,7 @@
 #list-item {
   margin-top: 10px;
 }
+
 #result-line{
   text-align: left;
   padding: 1% 2%;

@@ -1,20 +1,14 @@
 <template>
   <div id="content" class="row align-center margin2">
     <div v-if="resultsPresent" class="col col-6">
-      <div id="options" class="margin2">
-        <input type="checkbox" class="option" v-model="multipleArtists">&nbsp;Multiple artists
-      </div>
-      <div id="results-header" class="margin2">
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ artistName }}</p>
-          <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
-        </div>
-        <div class="row">
-          <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
-          <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
-          <button class="col col-6 margin2" v-on:click="addMore">Add more tracks</button>
-          <spinner class="col col-6 margin2" v-else ></spinner>
-        </div>
+      <div id="results-header" class="row">
+        <p class="large-text col col-6 margin2"> {{ artistName }}</p>
+        <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
+        <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
+        <button class="col col-6 margin2" v-on:click="addMore">Add more artists</button>
+        <button class="col col-6 margin2" v-on:click="clear">Clear all</button>
+        <button v-if="!publishing" class="col col-6 margin2" v-on:click="publishPlaylist">Publish playlist</button>
+        <spinner class="col col-6 margin2" v-else ></spinner>
       </div>
       <table class="bordered striped" id="table">
         <thead>
@@ -98,7 +92,6 @@
         published: false,
         playlistUrl: '',
         publishing: false,
-        multipleArtists: false,
         filters: [
           {key: 'commentary', filtered: false, words: ['commentary']},
           {key: 'instrumental', filtered: false, words: ['instrumental', 'instrumentals']}
@@ -117,12 +110,6 @@
     methods: {
       initialiseAlbums: function (allAlbums) {
         let self = this
-        if (!self.multipleArtists) {
-          self.unfilteredAlbums = []
-          self.albums = []
-          self.checkedAlbums = []
-          self.checkedTracks = []
-        }
         allAlbums.forEach(function (album) {
           if (album.tracks.items !== null) {
             if (!self.albums.includes(album)) {
@@ -141,16 +128,18 @@
         self.unfilteredAlbums = self.albums
       },
       initialiseArtist: function (artistName) {
-        if (this.multipleArtists) {
-          if (!this.artists.includes(artistName)) {
-            this.artists.push(artistName)
-          }
-          if (!this.artistName.includes(artistName)) {
-            this.artistName += ', ' + artistName
-          }
-        } else {
-          this.artistName = artistName
+        if (!this.artists.includes(artistName)) {
+          this.artists.push(artistName)
         }
+        if (!this.artistName.includes(artistName)) {
+          this.artistName = this.artistName.length === 0 ? artistName : this.artistName += ', ' + artistName
+        }
+      },
+      clear: function () {
+        this.unfilteredAlbums = []
+        this.albums = []
+        this.checkedAlbums = []
+        this.checkedTracks = []
       },
       toggleAlbum: function (albumId) {
         EventBus.$emit('toggle-album', albumId, this.checkedAlbums.indexOf(albumId) > -1)
@@ -173,9 +162,10 @@
         this.albums = albums
       },
       getPlaylistName: function () {
+        console.log(this.artists)
         let returnStr = this.artists[0]
         const suffix = ' - By Discogrify'
-        this.artists.slice(1, this.artists.length).forEach(function (artist, i) {
+        this.artists.slice(1, this.artists.length).forEach(function (artist) {
           let tempStr = returnStr + ', ' + artist + suffix
           if (tempStr.length <= 100) {
             returnStr += ', ' + artist
@@ -252,7 +242,7 @@
 #table {
   text-align: left;
   font-size: var(--font-size-data);
-  width:100%;
+  max-width: inherit;
 }
 
 /* Icon Fade */

@@ -67,6 +67,10 @@ export default {
   --font-size-control: 1.25em;
   --font-size-data: 1em;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
@@ -76,6 +80,8 @@ export default {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  padding-left:2%;
+  padding-right:2%;
 }
 
 .margin1 {

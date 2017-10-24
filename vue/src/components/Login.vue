@@ -19,6 +19,7 @@
             <li>
               Publish the playlist to your own account
             </li>
+            <i><b>Note</b>: For duplicates in playlists, see <a href="https://jmperezperez.com/spotify-dedup/">Spotify dedup</a></i>
           </ul>
         </div>
         <div class="col col-4 margin1">
