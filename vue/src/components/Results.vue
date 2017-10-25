@@ -1,7 +1,7 @@
 <template>
   <div id="content" class="row align-center margin2">
     <div v-if="resultsPresent" class="col col-6">
-      <div id="results-header" class="row">
+      <div id="results-header" class="row gutters">
         <p class="large-text col col-6 margin2"> {{ artistName }}</p>
         <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
         <p class="large-text col col-6 margin2"> {{ checkedTracks.length }} tracks selected</p>
@@ -224,6 +224,11 @@
 }
 #content {
   width:100%;
+}
+
+.margin2 {
+    margin-top:.5em;
+    margin-bottom:.5em;
 }
 .large-text{
   font-size: var(--font-size-heading);
