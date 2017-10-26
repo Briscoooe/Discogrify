@@ -41,7 +41,7 @@
   height: 3em;
 }
 .loader-small {
-  margin: 60px auto;
+  margin: 0px auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;

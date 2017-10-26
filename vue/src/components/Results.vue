@@ -1,6 +1,5 @@
 <template>
   <div id="content" class="row align-center margin2">
-    <loader v-if="searching"></loader>
     <div v-else-if="resultsPresent" class="col col-6">
       <div id="results-header" class="row gutters">
         <p class="large-text col col-6 margin2"> {{ artistName }}</p>
@@ -70,7 +69,6 @@
   import Sort from './Sort'
   import Modal from './Modal'
   import Spinner from './Spinner'
-  import Loader from './Loader'
 
   export default {
     components: {
@@ -78,7 +76,6 @@
       'sort': Sort,
       'modal': Modal,
       'spinner': Spinner,
-      'loader': Loader
     },
     props: {
       results: []
@@ -96,13 +93,11 @@
         published: false,
         playlistUrl: '',
         publishing: false,
-        searching: false
       }
     },
     mounted () {
       EventBus.$on('albums', this.initialiseAlbums)
       EventBus.$on('artist', this.initialiseArtist)
-      EventBus.$on('searching', this.toggleSearching)
     },
     computed: {
       resultsPresent: function () {
@@ -128,7 +123,6 @@
           }
         })
         self.unfilteredAlbums = self.albums
-        self.searching = false
       },
       initialiseArtist: function (artistName) {
         if (!this.artists.includes(artistName)) {
@@ -137,9 +131,6 @@
         if (!this.artistName.includes(artistName)) {
           this.artistName = this.artistName.length === 0 ? artistName : this.artistName += ', ' + artistName
         }
-      },
-      toggleSearching: function () {
-        this.searching = true
       },
       clear: function () {
         this.unfilteredAlbums = []

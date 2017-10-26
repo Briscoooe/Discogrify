@@ -12,17 +12,17 @@
       </div>
       <loader v-if="searchingArtist"></loader>
       <div v-else>
-        <div v-if="loggedIn && artistSearchResults.length === 0" id="no-results" class="col col-6 margin2">
+        <div v-if="artistSearchResults.length === 0" id="no-results" class="col col-6 margin2">
           <div> {{ noResultsMessage }} </div>
         </div>
         <transition name="fade" v-else>
           <ul id="list" v-if="show">
             <li id="list-item" v-for="artist in artistSearchResults">
               <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
-                {{ artist.name }}
-                <div v-if="searchingTracks">
+                <span id="artist-name">{{ artist.name }}</span>
+                <span v-if="searchingTracks" id="result-line-ending">
                   <loader :size="'small'"></loader>
-                </div>
+                </span>
                 <div v-else>
                   <span class="hvr-icon-forward"></span>
                 </div>
@@ -31,22 +31,17 @@
           </ul>
         </transition>
       </div>
-      <modal v-if="showModal" @close="showModal = false">
-        <span slot="header">You must login through Spotify to continue</span>
-      </modal>
     </div>
   </div>
 </template>
 
 <script>
   import EventBus from '../event-bus'
-  import Modal from './Modal'
   import Spinner from './Spinner'
   import Loader from './Loader'
 
   export default {
     components: {
-      'modal': Modal,
       'spinner': Spinner,
       'loader': Loader
     },
@@ -55,16 +50,10 @@
         cookieName: 'auth_token',
         artistSearchResults: [],
         artist: {},
-        showModal: false,
         show: false,
         searchingArtist: false,
         searchingTracks: false,
         noResultsMessage: 'Results will appear here when you search'
-      }
-    },
-    computed: {
-      loggedIn: function () {
-        return document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')
       }
     },
     mounted () {
@@ -77,12 +66,6 @@
         this.artist = {}
       },
       searchArtist: function () {
-        if (!this.loggedIn) {
-          this.showModal = true
-          return
-        } else {
-          this.showModal = false
-        }
         if (!this.artist.name) {
           return
         }
@@ -105,8 +88,6 @@
         })
       },
       getTracks: function (artist) {
-        this.$emit('scroll')
-        EventBus.$emit('searching', true)
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id, {
           before: function () {
@@ -121,6 +102,7 @@
             })
             EventBus.$emit('albums', albums)
             EventBus.$emit('artist', this.artist.name)
+            this.$emit('scroll')
           }
         }).catch(function (error) {
           console.log(error)
@@ -166,6 +148,13 @@
   border-radius: 3px;
 }
 
+#artist-name {
+  float:left;
+}
+
+#result-line-ending {
+  float:right;
+}
 #result-line:hover{
   background-color: var(--primary-sand);
 }
