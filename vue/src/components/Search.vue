@@ -1,25 +1,31 @@
 <template>
   <div id="content" class="row align-center font-override margin2">
     <div class="col col-6">
-      <div class="append">
-        <input class="search font-override green-control"
-               placeholder="Search artist..."
-               v-on:keyup.enter="searchArtist"
-                v-model="artist.name">
-        <button type="button" class="font-override" v-on:click="searchArtist">Search</button>
+      <div id="search-container">
+        <div id="search-inner" class="append w75">
+          <input class="search font-override green-control"
+                 placeholder="Search artist..."
+                 v-on:keyup.enter="searchArtist"
+                 v-model="artist.name">
+          <button type="button" class="font-override" v-on:click="searchArtist">Search</button>
+        </div>
       </div>
-      <div v-if="loggedIn && artistSearchResults.length == 0" id="no-results" class="col col-6 margin2">
-        <div> {{ noResultsMessage }} </div>
+      <loader v-if="searchingArtist"></loader>
+      <div v-else>
+        <div v-if="loggedIn && artistSearchResults.length === 0" id="no-results" class="col col-6 margin2">
+          <div> {{ noResultsMessage }} </div>
+        </div>
+        <transition name="fade" v-else>
+          <ul id="list" v-if="show">
+            <li id="list-item" v-for="artist in artistSearchResults">
+              <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
+                {{ artist.name }}
+                <span class="hvr-icon-forward"></span>
+              </div>
+            </li>
+          </ul>
+        </transition>
       </div>
-      <transition name="fade">
-        <ul id="list" v-if="show">
-          <li id="list-item" v-for="artist in artistSearchResults">
-            <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
-              {{ artist.name }}<span class="hvr-icon-forward"></span>
-            </div>
-          </li>
-        </ul>
-      </transition>
       <modal v-if="showModal" @close="showModal = false">
         <span slot="header">You must login through Spotify to continue</span>
       </modal>
@@ -30,9 +36,14 @@
 <script>
   import EventBus from '../event-bus'
   import Modal from './Modal'
+  import Spinner from './Spinner'
+  import Loader from './Loader'
+
   export default {
     components: {
-      'modal': Modal
+      'modal': Modal,
+      'spinner': Spinner,
+      'loader': Loader
     },
     data () {
       return {
@@ -41,6 +52,8 @@
         artist: {},
         showModal: false,
         show: false,
+        searchingArtist: false,
+        searchingTracks: false,
         noResultsMessage: 'Results will appear here when you search'
       }
     },
@@ -49,7 +62,15 @@
         return document.cookie.match('(^|;)\\s*' + this.cookieName + '\\s*=\\s*([^;]+)')
       }
     },
+    mounted () {
+      EventBus.$on('clear', this.clearResults)
+    },
     methods: {
+      clearResults: function () {
+        this.artistSearchResults = []
+        this.noResultsMessage = 'Results will appear here when you search'
+        this.artist = {}
+      },
       searchArtist: function () {
         if (!this.loggedIn) {
           this.showModal = true
@@ -60,20 +81,33 @@
         if (!this.artist.name) {
           return
         }
-        this.$http.get('/search/' + encodeURIComponent(this.artist.name)).then(function (response) {
+        this.$http.get('/search/' + encodeURIComponent(this.artist.name), {
+          before: function () {
+            this.searchingArtist = true
+          }
+        }).then(function (response) {
           if (response.data) {
             this.artistSearchResults = response.data
             this.show = true
           } else {
+            this.artistSearchResults = []
             this.noResultsMessage = 'No results for "' + this.artist.name + '"'
           }
         }).catch(function (error) {
           console.log(error)
+        }).then(function () {
+          this.searchingArtist = false
         })
       },
       getTracks: function (artist) {
+        this.$emit('scroll')
+        EventBus.$emit('searching', true)
         this.artist.name = artist.name
-        this.$http.get('/tracks/' + artist.id).then(function (response) {
+        this.$http.get('/tracks/' + artist.id, {
+          before: function () {
+            this.searchingTracks = true
+          }
+        }).then(function (response) {
           if (response.data) {
             console.log(response)
             let albums = []
@@ -82,10 +116,11 @@
             })
             EventBus.$emit('albums', albums)
             EventBus.$emit('artist', this.artist.name)
-            this.$emit('scroll')
           }
         }).catch(function (error) {
           console.log(error)
+        }).then(function () {
+          this.searchingTracks = false
         })
       }
     }
@@ -111,6 +146,12 @@
   margin-top: 10px;
 }
 
+#search-container {
+}
+
+#search-inner {
+  width: 100%;
+}
 #result-line{
   text-align: left;
   padding: 1% 2%;

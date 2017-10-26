@@ -41,7 +41,7 @@ export default {
   methods: {
     scroll: function (element) {
       Jump('#' + element, {
-        duration: 1000
+        duration: 750
       })
     }
   }
