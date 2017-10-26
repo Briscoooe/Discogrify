@@ -1,6 +1,6 @@
 <template>
   <div id="content" class="row align-center margin2">
-    <div v-else-if="resultsPresent" class="col col-6">
+    <div v-if="resultsPresent" class="col col-6">
       <div id="results-header" class="row gutters">
         <p class="large-text col col-6 margin2"> {{ artistName }}</p>
         <sort :albums="albums" v-on:sort="updateSort" class="col col-6 margin2"></sort>
@@ -75,7 +75,7 @@
       'album': Album,
       'sort': Sort,
       'modal': Modal,
-      'spinner': Spinner,
+      'spinner': Spinner
     },
     props: {
       results: []
@@ -92,7 +92,7 @@
         showModal: false,
         published: false,
         playlistUrl: '',
-        publishing: false,
+        publishing: false
       }
     },
     mounted () {

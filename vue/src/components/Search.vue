@@ -20,11 +20,11 @@
             <li id="list-item" v-for="artist in artistSearchResults">
               <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
                 <span id="artist-name">{{ artist.name }}</span>
-                <span v-if="searchingTracks" id="result-line-ending">
+                <span v-if="searchingTracks" id="line-ending-spinner">
                   <loader :size="'small'"></loader>
                 </span>
                 <div v-else>
-                  <span class="hvr-icon-forward"></span>
+                  <span id="line-ending-arrow" class="hvr-icon-forward"></span>
                 </div>
               </div>
             </li>
@@ -95,7 +95,6 @@
           }
         }).then(function (response) {
           if (response.data) {
-            console.log(response)
             let albums = []
             response.data.forEach(function (album) {
               albums.push(album)
@@ -152,8 +151,11 @@
   float:left;
 }
 
-#result-line-ending {
+#line-ending-spinner {
+  margin-right: .75em;
   float:right;
+}
+#line-ending-arrow {
 }
 #result-line:hover{
   background-color: var(--primary-sand);

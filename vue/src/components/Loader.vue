@@ -37,18 +37,18 @@
 .loader-small,
 .loader-small:after {
   border-radius: 50%;
-  width: 3em;
-  height: 3em;
+  width: 2.4em;
+  height: 2.4em;
 }
 .loader-small {
-  margin: 0px auto;
+  margin: 0 auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-  border-top: .4em solid var(--primary-sand);
-  border-right: .4em solid var(--primary-sand);
-  border-bottom: .4em solid var(--primary-sand);
-  border-left: .4em solid var(--primary-green);
+  border-top: .35em solid var(--primary-sand);
+  border-right: .35em solid var(--primary-sand);
+  border-bottom: .35em solid var(--primary-sand);
+  border-left: .35em solid var(--primary-green);
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
