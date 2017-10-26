@@ -17,10 +17,10 @@
         </div>
         <transition name="fade" v-else>
           <ul id="list" v-if="show">
-            <li id="list-item" v-for="artist in artistSearchResults">
-              <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
-                <span id="artist-name">{{ artist.name }}</span>
-                <span v-if="searchingTracks" id="line-ending-spinner">
+            <li id="list-item" v-for="artistResult in artistSearchResults">
+              <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artistResult)">
+                <span id="artist-name">{{ artistResult.name }}</span>
+                <span v-if="searchingTracks && artistResult.id === artist.id" id="line-ending-spinner">
                   <loader :size="'small'"></loader>
                 </span>
                 <div v-else>
@@ -88,6 +88,7 @@
         })
       },
       getTracks: function (artist) {
+        this.artist.id = artist.id
         this.artist.name = artist.name
         this.$http.get('/tracks/' + artist.id, {
           before: function () {
