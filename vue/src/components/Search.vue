@@ -20,7 +20,12 @@
             <li id="list-item" v-for="artist in artistSearchResults">
               <div id="result-line" class="hvr-underline-from-left" v-on:click="getTracks(artist)">
                 {{ artist.name }}
-                <span class="hvr-icon-forward"></span>
+                <div v-if="searchingTracks">
+                  <loader :size="'small'"></loader>
+                </div>
+                <div v-else>
+                  <span class="hvr-icon-forward"></span>
+                </div>
               </div>
             </li>
           </ul>

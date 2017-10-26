@@ -242,7 +242,10 @@
   font-size: var(--font-size-heading);
   text-align: left;
 }
-
+.margin2 {
+  margin-top:.5em;
+  margin-bottom:.5em;
+}
 #results-header {
   background-color: var(--primary-sand);
   padding: 2%;
