@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Briscooe/Discogrify/go/caching"
-	"github.com/Briscooe/Discogrify/go/logging"
+	"../caching"
+	"../logging"
 	"github.com/zmb3/spotify"
 	"regexp"
 	"strings"

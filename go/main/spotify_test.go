@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Briscooe/Discogrify/go/logging"
+	"../logging"
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2"
 	"net/http"

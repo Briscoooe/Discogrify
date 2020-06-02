@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/Briscooe/Discogrify/go/logging"
+	"../logging"
 	"github.com/zmb3/spotify"
 	"testing"
 )

@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"github.com/Briscooe/Discogrify/go/caching"
-	"github.com/Briscooe/Discogrify/go/logging"
+	"../caching"
+	"../logging"
 	"github.com/zmb3/spotify"
 	"golang.org/x/oauth2"
 	"math/rand"
