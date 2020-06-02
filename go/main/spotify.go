@@ -19,7 +19,7 @@ var (
 type SpotifyClient interface {
 	CurrentUser() (*spotify.PrivateUser, error)
 	Search(query string, t spotify.SearchType) (*spotify.SearchResult, error)
-	CreatePlaylistForUser(userID, playlistName string, public bool) (*spotify.FullPlaylist, error)
+	CreatePlaylistForUser(, playlistName string, public bool) (*spotify.FullPlaylist, error)
 	AddTracksToPlaylist(userID string, playlistID spotify.ID, trackIDs ...spotify.ID) (snapshotID string, err error)
 	GetArtistAlbumsOpt(artistID spotify.ID, options *spotify.Options, t *spotify.AlbumType) (*spotify.SimpleAlbumPage, error)
 	GetAlbums(ids ...spotify.ID) ([]*spotify.FullAlbum, error)
