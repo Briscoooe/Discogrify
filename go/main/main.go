@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Briscoooe/Discogrify/go/caching"
+	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
 	"net/http"
 	"sync"
@@ -25,6 +25,7 @@ func main() {
 		config.Logger.MaxAge)
 	l.Log("Starting application...")
 
+	/*
 	c := caching.NewRedisClient(
 		*l,
 		config.Redis.Host,
@@ -32,12 +33,12 @@ func main() {
 		config.Redis.Password,
 		config.Redis.Db,
 		config.Redis.HoursExpiration)
-
+		*/
 	s := InitSpotifyClient(config.Spotify.RedirectURI)
 
 	spotifyAuthStateCookie = config.Cookie.SpotifyAuthState
 	authTokenCookie = config.Cookie.AuthToken
-	router := SetupRouter(c, l, s, config.Cookie.Expiration, config.FilePath)
+	router := SetupRouter(/*c,*/ l, s, config.Cookie.Expiration, config.FilePath)
 	contextedRouter := AddContext(router)
 
 	handler := cors.Default().Handler(contextedRouter)

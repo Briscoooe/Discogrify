@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"github.com/Briscoooe/Discogrify/go/caching"
+	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
 	"github.com/gorilla/mux"
 	"io/ioutil"
@@ -76,7 +76,7 @@ func UserInfoHandler(l logging.Logger, s *Spotify) http.Handler {
 	})
 }
 
-func GetTracksHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handler {
+func GetTracksHandler(/*c caching.Client,*/ l logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {
 			id := mux.Vars(r)["artistId"]
@@ -85,14 +85,14 @@ func GetTracksHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handl
 				w.WriteHeader(http.StatusBadRequest)
 				w.Write([]byte("Invalid artist ID"))
 			} else {
-				IncrementKeyInCache(id, c)
+				// IncrementKeyInCache(id, c)
 				l.Logf("%s: Checking cache for artist ID", id)
-				tracks := GetTracksFromCache(id, c, l)
-				if tracks == nil {
-					tracks = GetDiscography(id, l, s.NewClient(tok.(string)))
+				// tracks := GetTracksFromCache(id, c, l)
+				// if tracks == nil {
+					tracks := GetDiscography(id, l, s.NewClient(tok.(string)))
 					tracksJson, _ := json.Marshal(tracks)
-					AddToCache(id, string(tracksJson), c, l, formatArtistTracks)
-				}
+					// AddToCache(id, string(tracksJson), c, l, formatArtistTracks)
+				// }
 				l.Logf("%s: Returning tracks", id)
 				w.Header().Set("Content-Type", "application/json")
 				if err := json.NewEncoder(w).Encode(tracks); err != nil {
@@ -106,16 +106,16 @@ func GetTracksHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handl
 	})
 }
 
-func SearchArtistHandler(c caching.Client, l logging.Logger, s *Spotify) http.Handler {
+func SearchArtistHandler(/*c caching.Client,*/ l logging.Logger, s *Spotify) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if tok := r.Context().Value("AuthToken"); tok != nil {
 			query := mux.Vars(r)["name"]
 			l.Logf("%s: Checking cache for search query ", query)
-			results := GetSearchResultsFromCache(query, c, l)
+			// results := GetSearchResultsFromCache(query, /*c,*/ l)
 
-			if len(results) == 0 {
-				results = SearchForArtist(query, c, s.NewClient(tok.(string)), l)
-			}
+			// if len(results) == 0 {
+				results := SearchForArtist(query, /*c,*/ s.NewClient(tok.(string)), l)
+			// }
 
 			w.Header().Set("Content-Type", "application/json")
 			if err := json.NewEncoder(w).Encode(results); err != nil {

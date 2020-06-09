@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Briscoooe/Discogrify/go/caching"
+	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
 	"github.com/Briscoooe/spotify"
 	"regexp"
@@ -14,7 +14,7 @@ const formatArtistTracks = "artist:%s:tracks"
 const formatArtistSearched = "artist:%s:searched"
 const formatSearchArtist = "artist:search:%s"
 
-func GetSearchResultsFromCache(query string, client caching.Client, logger logging.Logger) []spotify.FullArtist {
+func GetSearchResultsFromCache(query string, /*client caching.Client,*/ logger logging.Logger) []spotify.FullArtist {
 	query = toLowerNoWhiteSpace(query)
 	key := fmt.Sprintf(formatSearchArtist, query)
 	result := client.Get(key)

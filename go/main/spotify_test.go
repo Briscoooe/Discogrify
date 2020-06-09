@@ -172,7 +172,7 @@ func TestSearchForArtist(t *testing.T) {
 	var c FakeCacheClient
 	var log logging.FakeLogger
 	for _, test := range testData {
-		result := SearchForArtist(test.artistName, c, s, log)
+		result := SearchForArtist(test.artistName, /*c,*/ s, log)
 		if len(result) != len(test.results) {
 			t.Errorf("Input: %s\nExpected %+v\nOutput%+v\n", test.artistName, test.results, result)
 		}

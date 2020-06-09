@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"github.com/Briscoooe/Discogrify/go/caching"
+	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
 	"github.com/Briscoooe/spotify"
 	"golang.org/x/oauth2"
@@ -101,7 +101,7 @@ func GetDiscography(id string, l logging.Logger, s SpotifyClient) []*spotify.Ful
 	return allTracks
 }
 
-func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.Logger) []spotify.FullArtist {
+func SearchForArtist(name string, /*c caching.Client,*/ s SpotifyClient, l logging.Logger) []spotify.FullArtist {
 	l.Log("Searching for artist:", name)
 	result, err := s.Search(name, spotify.SearchTypeArtist)
 
@@ -115,7 +115,7 @@ func SearchForArtist(name string, c caching.Client, s SpotifyClient, l logging.L
 			artistsArray = append(artistsArray, item)
 		}
 		artistsJson, _ := json.Marshal(artistsArray)
-		AddToCache(name, string(artistsJson), c, l, formatSearchArtist)
+		// AddToCache(name, string(artistsJson), c, l, formatSearchArtist)
 		l.Logf("Artists found: %v\n", len(artistsArray))
 	}
 
