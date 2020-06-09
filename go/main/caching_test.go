@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"../logging"
-	"github.com/zmb3/spotify"
+	"github.com/Briscoooe/Discogrify/logging"
+	"github.com/Briscoooe/spotify"
 	"testing"
 )
 

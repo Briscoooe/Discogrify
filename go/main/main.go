@@ -1,8 +1,8 @@
 package main
 
 import (
-	"../caching"
-	"../logging"
+	"github.com/Briscoooe/Discogrify/caching"
+	"github.com/Briscoooe/Discogrify/logging"
 	"net/http"
 	"sync"
 	"github.com/rs/cors"

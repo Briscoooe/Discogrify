@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"../caching"
-	"../logging"
-	"github.com/zmb3/spotify"
+	"github.com/Briscoooe/Discogrify/caching"
+	"github.com/Briscoooe/Discogrify/logging"
+	"github.com/Briscoooe/spotify"
 	"regexp"
 	"strings"
 )

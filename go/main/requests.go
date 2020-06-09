@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"../caching"
-	"../logging"
+	"github.com/Briscoooe/Discogrify/caching"
+	"github.com/Briscoooe/Discogrify/logging"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"

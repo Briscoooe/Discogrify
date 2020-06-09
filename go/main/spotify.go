@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"../caching"
-	"../logging"
-	"github.com/zmb3/spotify"
+	"github.com/Briscoooe/Discogrify/caching"
+	"github.com/Briscoooe/Discogrify/logging"
+	"github.com/Briscoooe/spotify"
 	"golang.org/x/oauth2"
 	"math/rand"
 	"net/http"
