@@ -13,7 +13,7 @@
     "expiration" : 168
   },
   "spotify" : {
-    "redirectUri": "https://discogrify.com/callback",
+    "redirectUri": "https://discogrify.herokuapp.com/callback",
     "requestDelay" : 100
   },
   "cookie" : {
