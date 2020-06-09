@@ -21,5 +21,5 @@
     "authToken" : "auth_token",
     "expiration": 1
   },
-  "filePath" : "/Users/brianbriscoe/go/src/github.com/Briscooe/Discogrify/vue/dist"
+  "filePath" : "./dist"
 }
