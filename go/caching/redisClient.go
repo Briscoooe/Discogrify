@@ -2,8 +2,8 @@ package caching
 
 import (
 	"fmt"
-	"github.com/go-redis/redis"
-	"github.com/Briscooe/Discogrify/go/logging"
+	// "github.com/Briscoooe/redis"
+	// "github.com/Briscoooe/Discogrify/go/logging"
 	"time"
 )
 
@@ -14,6 +14,7 @@ type RedisClient struct {
 }
 
 func NewRedisClient(logger logging.Logger, host, port, password string, db int, expiration int) *RedisClient {
+	/*
 	logger = logger
 	redisClient := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", host, port),
@@ -32,21 +33,28 @@ func NewRedisClient(logger logging.Logger, host, port, password string, db int, 
 		Logger: logger,
 		Expiration: time.Hour * time.Duration(expiration),
 	}
+	*/
 }
 
 func (r *RedisClient) Get(key string) []byte {
+	/*
 	result := r.RedisClient.Get(key)
 	bytes, _ := result.Bytes()
 	return bytes
+	*/
 }
 
 func (r *RedisClient) Set(key string,  value string) bool {
+	/*
 	result := r.RedisClient.Set(key, value, r.Expiration)
 	return result.Val() != ""
+	*/
 }
 
 func (r *RedisClient) Increment(key string) bool {
+	/*
 	result := r.RedisClient.Incr(key)
 	return result.Val() != 0
+	*/
 }
 
