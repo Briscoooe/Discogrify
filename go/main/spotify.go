@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"errors"
 	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
@@ -19,7 +19,7 @@ var (
 type SpotifyClient interface {
 	CurrentUser() (*spotify.PrivateUser, error)
 	Search(query string, t spotify.SearchType) (*spotify.SearchResult, error)
-	CreatePlaylistForUser(, playlistName string, public bool) (*spotify.FullPlaylist, error)
+	CreatePlaylistForUser(userID string,playlistName string, public bool) (*spotify.FullPlaylist, error)
 	AddTracksToPlaylist(userID string, playlistID spotify.ID, trackIDs ...spotify.ID) (snapshotID string, err error)
 	GetArtistAlbumsOpt(artistID spotify.ID, options *spotify.Options, t *spotify.AlbumType) (*spotify.SimpleAlbumPage, error)
 	GetAlbums(ids ...spotify.ID) ([]*spotify.FullAlbum, error)
@@ -114,7 +114,7 @@ func SearchForArtist(name string, /*c caching.Client,*/ s SpotifyClient, l loggi
 		for _, item := range result.Artists.Artists {
 			artistsArray = append(artistsArray, item)
 		}
-		artistsJson, _ := json.Marshal(artistsArray)
+		// artistsJson, _ := json.Marshal(artistsArray)
 		// AddToCache(name, string(artistsJson), c, l, formatSearchArtist)
 		l.Logf("Artists found: %v\n", len(artistsArray))
 	}

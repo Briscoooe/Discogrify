@@ -90,7 +90,7 @@ func GetTracksHandler(/*c caching.Client,*/ l logging.Logger, s *Spotify) http.H
 				// tracks := GetTracksFromCache(id, c, l)
 				// if tracks == nil {
 					tracks := GetDiscography(id, l, s.NewClient(tok.(string)))
-					tracksJson, _ := json.Marshal(tracks)
+					// tracksJson, _ := json.Marshal(tracks)
 					// AddToCache(id, string(tracksJson), c, l, formatArtistTracks)
 				// }
 				l.Logf("%s: Returning tracks", id)

@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	// "github.com/Briscoooe/Discogrify/go/caching"
 	"github.com/Briscoooe/Discogrify/go/logging"
-	"github.com/Briscoooe/spotify"
+	// "github.com/Briscoooe/spotify"
 	"regexp"
 	"strings"
 )
@@ -14,7 +14,8 @@ const formatArtistTracks = "artist:%s:tracks"
 const formatArtistSearched = "artist:%s:searched"
 const formatSearchArtist = "artist:search:%s"
 
-func GetSearchResultsFromCache(query string, /*client caching.Client,*/ logger logging.Logger) []spotify.FullArtist {
+func GetSearchResultsFromCache(query string, /*client caching.Client,*/ logger logging.Logger) bool {
+	/*
 	query = toLowerNoWhiteSpace(query)
 	key := fmt.Sprintf(formatSearchArtist, query)
 	result := client.Get(key)
@@ -34,8 +35,11 @@ func GetSearchResultsFromCache(query string, /*client caching.Client,*/ logger l
 	}
 
 	return artists
+	*/
+	return true
 }
-func GetTracksFromCache(id string, client caching.Client, logger logging.Logger) []*spotify.FullAlbum {
+func GetTracksFromCache(id string, /*client caching.Client,*/ logger logging.Logger) bool {
+	/*
 	key := fmt.Sprintf(formatArtistTracks, id)
 	result := client.Get(key)
 
@@ -55,9 +59,12 @@ func GetTracksFromCache(id string, client caching.Client, logger logging.Logger)
 	}
 
 	return tracks
+	*/
+	return true
 }
 
-func IncrementKeyInCache(key string, client caching.Client) bool {
+func IncrementKeyInCache(key string, /*client caching.Client*/) bool {
+	/*
 	result := false
 	key = fmt.Sprintf(formatArtistSearched, key)
 	if validateKey(key) {
@@ -65,9 +72,12 @@ func IncrementKeyInCache(key string, client caching.Client) bool {
 	}
 
 	return result
+	*/
+	return true
 }
 
-func AddToCache(key string, value string, client caching.Client, logger logging.Logger, format string) bool {
+func AddToCache(key string, value string, /*client caching.Client,*/ logger logging.Logger, format string) bool {
+	/*
 	result := false
 	key = fmt.Sprintf(format, key)
 	if format != formatArtistTracks {
@@ -84,6 +94,8 @@ func AddToCache(key string, value string, client caching.Client, logger logging.
 		logger.Logf("Incorrect format\nKey: %s\nValue: %s", key, value)
 	}
 	return result
+	*/
+	return true
 }
 
 func toLowerNoWhiteSpace(query string) string {
