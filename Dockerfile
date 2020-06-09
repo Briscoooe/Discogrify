@@ -11,5 +11,7 @@ RUN go get
 RUN go build
 COPY --from=build_static /usr/src/dist .
 RUN cp config.prod.json /go/bin 
+ENV SPOTIFY_ID $SPOTIFY_ID
+ENV SPOTIFY_SECRET $SPOTIFY_SECRET
 CMD /go/bin/main
 EXPOSE 443
