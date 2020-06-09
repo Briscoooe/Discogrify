@@ -12,4 +12,4 @@ RUN go build
 COPY --from=build_static /usr/src/dist .
 RUN cp config.prod.json /go/bin 
 CMD /go/bin/main
-EXPOSE 8080
+EXPOSE 443

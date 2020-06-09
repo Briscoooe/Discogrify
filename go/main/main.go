@@ -42,5 +42,5 @@ func main() {
 	contextedRouter := AddContext(router)
 
 	handler := cors.Default().Handler(contextedRouter)
-	l.Fatal(http.ListenAndServe(":8080", handler))
+	l.Fatal(http.ListenAndServe(":443", handler))
 }
