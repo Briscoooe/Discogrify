@@ -16,7 +16,7 @@ var (
 )
 
 func main() {
-	config := LoadConfiguration("./config.json")
+	config := LoadConfiguration("./config.prod.json")
 
 	l := logging.NewRollingLogger(
 		config.Logger.Filename,

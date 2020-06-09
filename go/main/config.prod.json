@@ -1,0 +1,25 @@
+{
+  "logger" : {
+    "filename" : "discogrify.log",
+    "maxSize" : 1,
+    "maxBackups": 100,
+    "maxAge": 28
+  },
+  "redis" : {
+    "host" : "localhost",
+    "port" : "6379",
+    "password" : "",
+    "db" : 0,
+    "expiration" : 168
+  },
+  "spotify" : {
+    "redirectUri": "https://discogrify.com/callback",
+    "requestDelay" : 100
+  },
+  "cookie" : {
+    "spotifyAuthState": "spotify_auth_state",
+    "authToken" : "auth_token",
+    "expiration": 1
+  },
+  "filePath" : "/go/src/main/"
+}
