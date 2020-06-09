@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/Briscoooe/Discogrify/caching"
-	"github.com/Briscoooe/Discogrify/logging"
+	"github.com/Briscoooe/Discogrify/go/caching"
+	"github.com/Briscoooe/Discogrify/go/logging"
 	"github.com/gorilla/mux"
 )
 
